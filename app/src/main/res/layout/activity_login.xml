@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/orangish"
+    android:id="@+id/activity_login_relative"
+    tools:context="com.example.lenovo.planner.Login">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:id="@+id/logo_activity_login">
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/wplannerlogo"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_activity_login"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:background="#ffc433">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="2dp"
+            android:background="@drawable/closeenvelope"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="20dp"
+        android:hint="Enter Email"
+        android:gravity="center"
+        android:id="@+id/et_email"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="38dp"
+            android:layout_below="@id/et_email"
+            android:background="@drawable/password"
+            android:layout_marginLeft="2dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_email"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="20dp"
+        android:hint="Enter Password"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:id="@+id/et_password"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="   Forgot Password?   "
+        android:textAllCaps="false"
+        android:background="#dd5959"
+        android:layout_below="@id/et_password"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:id="@+id/btn_forgotpassword"
+        android:onClick="forgotpassword"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="    Register Here     "
+        android:textAllCaps="false"
+        android:background="#dd5959"
+        android:layout_below="@id/et_password"
+        android:layout_marginLeft="40dp"
+        android:id="@+id/btn_registerhere"
+        android:onClick="registerhere"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="Login"
+        android:textStyle="bold"
+        android:background="#07e6ba"
+        android:layout_below="@id/btn_forgotpassword"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/btn_login"
+        android:onClick="login"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="------------------ OR CONNECT WITH ------------------"
+        android:gravity="center"
+        android:textColor="#e33202"
+        android:layout_below="@id/btn_login"
+        android:id="@+id/tv_connectwith"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        />
+    <!--<com.facebook.login.widget.LoginButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_facebooklogin"
+        android:layout_below="@id/tv_connectwith"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"/>
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_connectwith"
+        android:layout_toRightOf="@id/btn_facebooklogin"
+        android:id="@+id/signin"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        /> -->
+
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

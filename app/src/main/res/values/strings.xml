@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Planner</string>
+    <string name="facebook_app_id">432703963751644</string>
+    <string name="facebook_app_id1">fb432703963751644</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_userhome">userhome</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
