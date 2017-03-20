@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,16 +72,28 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.d("DataBase Response", response);
-                        if (response.equals("success")) {
-                            loading.dismiss();
-                            Intent intent2 = new Intent(getApplicationContext(), Locationpicker.class);
-                            startActivity(intent2);
-                            finish();
-                        } else {
-                            loading.dismiss();
+                        try {
+                            if (response.equals("success")) {
+                                loading.dismiss();
+                                JSONObject jsonObject = new JSONObject(response);
+                                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(0);
+                                Toast.makeText(Login.this, "Name - " + jsonObject1.getString("name"), Toast.LENGTH_LONG).show();
+                                Intent intent2 = new Intent(getApplicationContext(), Locationpicker.class);
+                                startActivity(intent2);
+                                finish();
+
+                            }
+                            else{
+                                loading.dismiss();
+
+                            }
+                        } catch (JSONException e)
+                        {
 
                         }
                     }
+
                 },
                 new Response.ErrorListener() {
                     @Override

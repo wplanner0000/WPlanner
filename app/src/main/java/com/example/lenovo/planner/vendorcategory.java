@@ -18,6 +18,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,6 +85,7 @@ public class vendorcategory extends AppCompatActivity {
                             Log.d("DataBase Response", response);
                             if (response.equals("success")) {
                                 loading.dismiss();
+
                                 Intent intent = new Intent(getApplicationContext(), VendorProfile.class);
                                 //intent.putExtra("uid",uid);
                                 //intent.putExtra("category_id",category_id);

@@ -27,31 +27,21 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="40dp"
-        android:background="#ffc433">
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="2dp"
-            android:background="@drawable/closeenvelope"/>
+        android:background="#ffffff">
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
         android:layout_marginRight="20dp"
+        android:drawableLeft="@drawable/account2"
         android:hint="Enter Email"
         android:gravity="center"
         android:id="@+id/et_email"/>
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="38dp"
-            android:layout_below="@id/et_email"
-            android:background="@drawable/password"
-            android:layout_marginLeft="2dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/et_email"
-        android:layout_marginLeft="40dp"
+        android:drawableLeft="@drawable/password1"
         android:layout_marginRight="20dp"
         android:hint="Enter Password"
         android:gravity="center"
@@ -62,6 +52,7 @@
         android:layout_height="wrap_content"
         android:text="   Forgot Password?   "
         android:textAllCaps="false"
+        android:layout_marginTop="10dp"
         android:background="#dd5959"
         android:layout_below="@id/et_password"
         android:layout_alignParentRight="true"
@@ -72,26 +63,27 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="    Register Here     "
+        android:text="       Register Here        "
         android:textAllCaps="false"
         android:background="#dd5959"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/et_password"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="20dp"
         android:id="@+id/btn_registerhere"
         android:onClick="registerhere"
         />
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:text="Login"
-        android:textStyle="bold"
-        android:background="#07e6ba"
+        android:textAllCaps="false"
+        android:background="#d3d3d3"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/btn_forgotpassword"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginRight="110dp"
         android:id="@+id/btn_login"
         android:onClick="login"
         />
@@ -100,7 +92,8 @@
         android:layout_height="wrap_content"
         android:text="------------------ OR CONNECT WITH ------------------"
         android:gravity="center"
-        android:textColor="#e33202"
+        android:textColor="#000000"
+        android:textStyle="bold"
         android:layout_below="@id/btn_login"
         android:id="@+id/tv_connectwith"
         android:layout_marginLeft="20dp"
