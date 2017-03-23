@@ -59,6 +59,7 @@ public class vendorcategory extends AppCompatActivity {
         clothing.setId(item[6] - 48);
         giftshop.setId(item[7] - 48);
         beautician.setId(item[8] - 48);
+
     }
 
     public void next(View view) {
@@ -66,56 +67,57 @@ public class vendorcategory extends AppCompatActivity {
             Toast.makeText(this, "No Selected Radio Button", Toast.LENGTH_SHORT).show();
             // no radio buttons are checked
         } else {
-            final String uid = "5";
+            //final String uid = "5";
 
-            final int selectedid = groupcategory.getCheckedRadioButtonId();
-            final String category_id = "" + selectedid;
+            //final int selectedid = groupcategory.getCheckedRadioButtonId();
+            //final String category_id = "" + selectedid;
             //SharedPreferences pref = getSharedPreferences("MyPref", 0);
             //SharedPreferences.Editor editor = pref.edit();
             //editor.putString("category_id",category_id);
             //editor.putString("uid",uid);
             //editor.commit();
 
-            StringRequest stringRequest;
-            final ProgressDialog loading = ProgressDialog.show(this, "Please Wait.....", "Registering......", false, false);
-            stringRequest = new StringRequest(Request.Method.POST, categoryurl,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.d("DataBase Response", response);
-                            if (response.equals("success")) {
-                                loading.dismiss();
+            //StringRequest stringRequest;
+            //final ProgressDialog loading = ProgressDialog.show(this, "Please Wait.....", "Registering......", false, false);
+            //stringRequest = new StringRequest(Request.Method.POST, categoryurl,
+              //      new Response.Listener<String>() {
+                //        @Override
+                  //      public void onResponse(String response) {
+                    //        Log.d("DataBase Response", response);
+                      //      if (response.equals("success")) {
+                        //        loading.dismiss();
 
                                 Intent intent = new Intent(getApplicationContext(), VendorProfile.class);
                                 //intent.putExtra("uid",uid);
                                 //intent.putExtra("category_id",category_id);
                                 startActivity(intent);
-                            } else {
-                                loading.dismiss();
+                                overridePendingTransition(R.anim.left_in,R.anim.right_in);
+                         //   } else {
+                           //     loading.dismiss();
 
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            loading.dismiss();
-                            Toast.makeText(vendorcategory.this, "error.toString", Toast.LENGTH_SHORT).show();
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("uid", uid);
-                    params.put("category_id", category_id);
+                            //}
+                        //}
+                    //},
+                    //new Response.ErrorListener() {
+                      //  @Override
+                        //public void onErrorResponse(VolleyError error) {
+                          //  loading.dismiss();
+                         //   Toast.makeText(vendorcategory.this, "error.toString", Toast.LENGTH_SHORT).show();
+                        //}
+                    //}) {
+                //@Override
+                //protected Map<String, String> getParams() {
+                  //  Map<String, String> params = new HashMap<String, String>();
+                    //params.put("uid", uid);
+                    //params.put("category_id", category_id);
 
-                    return params;
-                }
+                    //return params;
+                //}
 
-            };
+            //};
 
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            requestQueue.add(stringRequest);
+            //RequestQueue requestQueue = Volley.newRequestQueue(this);
+            //requestQueue.add(stringRequest);
         }
     }
 

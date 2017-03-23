@@ -105,6 +105,7 @@ public class Locationpicker extends AppCompatActivity {
     {
         Intent in34 = new Intent(this, userhome.class);
         startActivity(in34);
+        overridePendingTransition(R.anim.left_in,R.anim.right_in);
         finish();
     }
 

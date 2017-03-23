@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"
-    android:background="@drawable/rounded_border"
+    android:background="#fff"
     android:id="@+id/fragment_signup_fragment"
     tools:context="com.example.lenovo.planner.applicationstart.fragment_signup">
     <RelativeLayout

@@ -65,7 +65,7 @@ public class fragment_signup extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         switch (view.getId())
         {
             case R.id.btn_backtologin: {
@@ -94,10 +94,8 @@ public class fragment_signup extends Fragment implements View.OnClickListener {
                                 Log.d("DataBase Response", response);
                                 if (response.equals("success")) {
                                     loading.dismiss();
-                                    Toast.makeText(getActivity(), "User Registration Success....", Toast.LENGTH_SHORT).show();
-                                    Intent in = new Intent(getActivity(), Locationpicker.class);
-                                    startActivity(in);
-                                    getActivity().finish();
+                                    activity.callsignup(view);
+
                                 } else {
                                     loading.dismiss();
                                     Toast.makeText(getActivity(), "User Registration Failed...", Toast.LENGTH_SHORT).show();

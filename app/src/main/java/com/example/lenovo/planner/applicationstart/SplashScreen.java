@@ -1,5 +1,6 @@
 package com.example.lenovo.planner.applicationstart;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -8,14 +9,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.lenovo.planner.Locationpicker;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.forgotpassword.forgotpassword;
 
@@ -89,7 +94,23 @@ public class SplashScreen extends AppCompatActivity {
 
             }
         },1200);
+
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View view = getCurrentFocus();
+        if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            view.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + view.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + view.getTop() - scrcoords[1];
+            if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
+                ((InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
     public void callregister(View vi)
     {
         transaction = fragmentManager.beginTransaction();
@@ -113,6 +134,20 @@ public class SplashScreen extends AppCompatActivity {
         overridePendingTransition(R.anim.left_in,R.anim.right_in);
 
 
+    }
+    public void callsignup(View vi)
+    {
+        Intent in = new Intent(this, Locationpicker.class);
+        startActivity(in);
+        overridePendingTransition(R.anim.left_in,R.anim.right_in);
+        finish();
+    }
+    public void logincall(View vi)
+    {
+        Intent intent2 = new Intent(this, Locationpicker.class);
+        startActivity(intent2);
+        overridePendingTransition(R.anim.left_in,R.anim.right_in);
+        finish();
     }
 
 

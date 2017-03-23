@@ -85,7 +85,7 @@ public class login_fragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         switch(view.getId())
         {
             case R.id.btn_forgotpassword :
@@ -119,9 +119,7 @@ public class login_fragment extends Fragment implements View.OnClickListener {
                                     //JSONArray jsonArray = jsonObject.getJSONArray("data");
                                     //JSONObject jsonObject1 = jsonArray.getJSONObject(0);
                                     //Toast.makeText(Login.this, "Name - " + jsonObject1.getString("name"), Toast.LENGTH_LONG).show();
-                                    Intent intent2 = new Intent(getActivity(), Locationpicker.class);
-                                    startActivity(intent2);
-                                    getActivity().finish();
+                                    activity.logincall(view);
 
                                 }
                                 else{
