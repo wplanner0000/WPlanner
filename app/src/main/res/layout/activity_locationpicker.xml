@@ -4,47 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/map2"
     tools:context="com.example.lenovo.planner.Locationpicker">
     <Button
-        android:layout_width="180dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="#d3d3d3"
-        android:text="Get Your Location"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/mapnutton"
         android:textStyle="bold"
         android:id="@+id/btGetPlace"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click ! Get Your Location"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:layout_below="@id/btGetPlace"
+        android:layout_centerHorizontal="true"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/btGetPlace"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="Place Name"
-        android:textColor="#000000"
         android:gravity="center"
         android:textSize="16sp"
-        android:background="#ffffff"
+        android:background="@drawable/rounded_border"
         android:id="@+id/tvPlaceName"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvPlaceName"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:textColor="#000000"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="Place Address"
         android:textSize="16sp"
-        android:background="#ffffff"
+        android:background="@drawable/rounded_border"
         android:id="@+id/tvPlaceAddress"
         />
     <Button
@@ -52,9 +54,11 @@
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Next Page"
-        android:layout_marginBottom="30dp"
+        android:text="Save Location"
+        android:textAllCaps="false"
+        android:layout_marginBottom="60dp"
         android:onClick="nextpage"
+        android:background="@drawable/rounded_buttonsd"
         />
 
 </RelativeLayout>

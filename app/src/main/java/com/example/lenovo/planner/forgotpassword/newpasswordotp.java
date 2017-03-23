@@ -1,9 +1,12 @@
-package com.example.lenovo.planner;
+package com.example.lenovo.planner.forgotpassword;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.lenovo.planner.R;
+import com.example.lenovo.planner.forgotpassword.newpassword;
 
 public class newpasswordotp extends AppCompatActivity {
 

@@ -4,150 +4,151 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff5555"
     tools:context="com.example.lenovo.planner.VendorProfile">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/orangish"
+        android:layout_height="wrap_content"
         >
-        
-    <Button
-        android:layout_width="120dp"
-        android:layout_height="100dp"
-        android:id="@+id/profileimage"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="8dp"
-        android:background="@mipmap/ic_launcher_round"
-        />
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imgProfilePicture"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/account_logo"
+                app:border_color="#fff"
+                app:border_width="3dp" />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/layout_vendor"
-            android:layout_below="@id/profileimage"
-            android:background="#ffc433"
-            android:layout_margin="20dp">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/nameicon"/>
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/imgProfilePicture"
+            >
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:hint="Organisation Name"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="36dp"
-        android:id="@+id/oname"/>
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="2dp"
-                android:layout_below="@id/oname"
-                android:background="@drawable/phonebook"/>
+        android:id="@+id/oname"
+        android:background="@drawable/rounded_border"
+        android:drawablePadding="20dp"
+        android:drawableLeft="@drawable/names"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
         android:layout_below="@id/oname"
         android:inputType="phone"
-        android:layout_marginRight="36dp"
         android:hint="Contact Number"
         android:id="@+id/contact"
+        android:background="@drawable/rounded_border"
+        android:drawablePadding="20dp"
         android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/phone"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="36dp"
         android:layout_below="@id/contact"
         android:inputType="number"
         android:layout_marginTop="5dp"
         android:hint="Working Experience"
+        android:drawablePadding="20dp"
+        android:background="@drawable/rounded_border"
         android:id="@+id/experience"
+        android:drawableLeft="@drawable/working"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="36dp"
         android:layout_below="@id/experience"
+        android:background="@drawable/rounded_border"
         android:inputType="number"
         android:layout_marginTop="5dp"
         android:hint="Expected Price"
+        android:drawablePadding="20dp"
+        android:drawableLeft="@drawable/price"
         android:id="@+id/price"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="36dp"
         android:layout_below="@id/price"
         android:inputType="text"
+        android:drawableLeft="@drawable/city"
+        android:background="@drawable/rounded_border"
         android:id="@+id/city"
+        android:drawablePadding="20dp"
         android:layout_marginTop="5dp"
         android:hint="City"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="36dp"
+        android:background="@drawable/rounded_border"
         android:layout_below="@id/city"
         android:inputType="text"
         android:id="@+id/district"
+        android:drawableLeft="@drawable/city"
         android:layout_marginTop="5dp"
+        android:drawablePadding="20dp"
         android:hint="District"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="36dp"
         android:layout_below="@id/district"
         android:inputType="text"
+        android:background="@drawable/rounded_border"
         android:id="@+id/state"
+        android:drawableLeft="@drawable/area"
         android:layout_marginTop="5dp"
+        android:drawablePadding="20dp"
         android:hint="State"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="36dp"
         android:layout_below="@id/state"
+        android:background="@drawable/rounded_border"
         android:inputType="number"
         android:id="@+id/pincode"
+        android:drawableLeft="@drawable/pin"
         android:layout_marginTop="5dp"
         android:hint="Pincode"
+        android:drawablePadding="20dp"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="45dp"
-        android:layout_marginRight="36dp"
         android:layout_below="@id/pincode"
         android:inputType="text"
         android:id="@+id/status"
+        android:drawableLeft="@drawable/status"
         android:layout_marginTop="5dp"
+        android:drawablePadding="20dp"
+        android:background="@drawable/rounded_border"
         android:hint="Status"
+        android:layout_marginBottom="3dp"
         />
         </RelativeLayout>
     <Button
         android:layout_width="100dp"
         android:layout_height="60dp"
+        android:drawablePadding="20dp"
         android:layout_marginTop="20dp"
         android:layout_below="@id/layout_vendor"
         android:layout_alignParentRight="true"
         android:textSize="13dp"
-        android:layout_marginRight="26dp"
+        android:background="@drawable/rounded_bubble"
+        android:layout_marginRight="35dp"
         android:text="Submit"
+        android:layout_marginBottom="30dp"
         android:id="@+id/submit"
         android:onClick="submit"/>
     </RelativeLayout>
-
 
 </ScrollView>
