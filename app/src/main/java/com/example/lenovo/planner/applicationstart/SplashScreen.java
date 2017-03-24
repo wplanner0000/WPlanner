@@ -22,7 +22,9 @@ import android.widget.TextView;
 
 import com.example.lenovo.planner.Locationpicker;
 import com.example.lenovo.planner.R;
+import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.forgotpassword.forgotpassword;
+import com.example.lenovo.planner.userhome;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -35,12 +37,13 @@ public class SplashScreen extends AppCompatActivity {
     RelativeLayout relativeLayout;
     FragmentManager fragmentManager;
     FragmentTransaction transaction;
+    UserDetails userDetails;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+        userDetails= new UserDetails(getApplicationContext());
         animation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.translate);
 
         translateLogin= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.translateforlogin);
@@ -76,21 +79,30 @@ public class SplashScreen extends AppCompatActivity {
 
                 textView.startAnimation(fade);
                 textView.setVisibility(View.VISIBLE);
-                //  Toast.makeText(getApplicationContext(), "chal gya", Toast.LENGTH_SHORT).show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
 
-                        textView.startAnimation(fadeout);
-                        textView.setVisibility(View.GONE);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(userDetails.getIsActive())
+                            {
+                                Intent in = new Intent(getApplicationContext(),Locationpicker.class);
+                                startActivity(in);
+                                overridePendingTransition(R.anim.left_in,R.anim.fadeout);
+                            }
+                            else {
 
-                        view.startAnimation(translateLogo);
-                    layout.startAnimation(translateLogin);
-                        layout.setVisibility(View.VISIBLE);
-                       layout.bringToFront();
+                                textView.startAnimation(fadeout);
+                                textView.setVisibility(View.GONE);
 
-                    }
-                },1900);
+                                view.startAnimation(translateLogo);
+                                layout.startAnimation(translateLogin);
+                                layout.setVisibility(View.VISIBLE);
+                                layout.bringToFront();
+                            }
+
+                        }
+                    }, 1900);
+
 
             }
         },1200);

@@ -23,8 +23,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.lenovo.planner.Locationpicker;
 import com.example.lenovo.planner.R;
+import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.applicationstart.SplashScreen;
 import com.example.lenovo.planner.forgotpassword.forgotpassword;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +44,7 @@ public class login_fragment extends Fragment implements View.OnClickListener {
     Button frgtPassword,login,register;
     String loginurl =  "https://wplanner0000.000webhostapp.com/wplanner/logtry.php";
     SplashScreen activity;
+    UserDetails userDetails;
     public login_fragment() {
         // Required empty public constructor
     }
@@ -49,6 +55,7 @@ public class login_fragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_login_fragment, container, false);
+        userDetails = new UserDetails(getActivity());
 
         et_email = (EditText) view.findViewById(R.id.et_email);
         et_password = (EditText) view.findViewById(R.id.et_password);
@@ -112,24 +119,30 @@ public class login_fragment extends Fragment implements View.OnClickListener {
                             @Override
                             public void onResponse(String response) {
                                 Log.d("DataBase Response", response);
-                                //try {
-                                if (response.equals("success")) {
+                                if (response.equals("fail") == false) {
                                     loading.dismiss();
-                                    //JSONObject jsonObject = new JSONObject(response);
-                                    //JSONArray jsonArray = jsonObject.getJSONArray("data");
-                                    //JSONObject jsonObject1 = jsonArray.getJSONObject(0);
-                                    //Toast.makeText(Login.this, "Name - " + jsonObject1.getString("name"), Toast.LENGTH_LONG).show();
-                                    activity.logincall(view);
+                                    try {
+                                        JSONArray jsonArray = new JSONArray(response);
+                                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                        userDetails.logout();
+                                        userDetails.setUID(jsonObject.getInt("uid"));
+                                        userDetails.setemail(jsonObject.getString("email"));
+                                        userDetails.setIsActive(true);
+                                        userDetails.setfname(jsonObject.getString("first_name"));
+                                        userDetails.setlname(jsonObject.getString("last_name"));
+                                        userDetails.setphoneno(jsonObject.getInt("phoneno"));
+                                        Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
+                                        activity.logincall(view);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+
+                                    }
 
                                 }
-                                else{
+                                else {
                                     loading.dismiss();
-
+                                    et_password.setError("Invalid Username or Password");
                                 }
-                                //} catch (JSONException e)
-//                        {
-
-                                //                      }
                             }
 
                         },
