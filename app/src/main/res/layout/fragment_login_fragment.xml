@@ -33,7 +33,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="   Forgot Password?   "
+        android:text="  Forgot Password?  "
         android:textAllCaps="false"
         android:background="@drawable/rounded_buttonsd"
         android:layout_marginRight="20dp"
@@ -45,10 +45,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="       Register Here        "
+        android:text="   Register Here    "
         android:textAllCaps="false"
         android:background="@drawable/rounded_buttonsd"
         android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:layout_below="@id/et_password"
         android:layout_marginLeft="20dp"
         android:id="@+id/btn_registerhere"

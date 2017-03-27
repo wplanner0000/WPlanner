@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
+import com.example.lenovo.planner.profile.profile;
 import com.squareup.picasso.Picasso;
 
 public class userhome extends AppCompatActivity
@@ -125,7 +126,15 @@ public class userhome extends AppCompatActivity
     {
         Intent int56 = new Intent(this , vendorcategory.class);
         startActivity(int56);
+        overridePendingTransition(R.anim.left_in,R.anim.fadeout);
         finish();
 
+    }
+    public void profiles(View view)
+    {
+        Intent int57 = new Intent(this, profile.class);
+        startActivity(int57);
+        overridePendingTransition(R.anim.left_in,R.anim.fadeout);
+        finish();
     }
 }
