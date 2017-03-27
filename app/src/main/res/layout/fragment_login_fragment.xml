@@ -85,21 +85,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fbButton"
-        android:gravity="center"
-        android:layout_marginLeft="20dp"
         android:layout_below="@id/tv_connectwith"
         android:layout_centerHorizontal="true"
-        android:layout_alignEnd="@+id/btn_login"
         android:layout_marginTop="10dp" />
     <com.google.android.gms.common.SignInButton
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:id="@+id/gpButton"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_below="@id/fbButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp" />
+
 
 
 
