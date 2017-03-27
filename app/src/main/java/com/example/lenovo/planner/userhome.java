@@ -13,6 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
+import com.squareup.picasso.Picasso;
 
 public class userhome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,6 +29,8 @@ public class userhome extends AppCompatActivity
         setContentView(R.layout.activity_userhome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        SharedPrefUserInfo userInfo = SharedPrefUserInfo.getmInstance(this);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -38,9 +46,23 @@ public class userhome extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+        //fb pic on navigation drawer
+        View navHeader;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        navHeader = navigationView.getHeaderView(0);
+        ImageView imageView = (ImageView)navHeader.findViewById(R.id.imageView);
+        TextView usernamedisplay = (TextView)navHeader.findViewById(R.id.usernamedisplay);
+        TextView emaildisplay = (TextView)navHeader.findViewById(R.id.emaildisplay);
+
+
+         Toast.makeText(this, userInfo.getUserName(), Toast.LENGTH_SHORT).show();
+        usernamedisplay.setText(userInfo.getUserName());
+        emaildisplay.setText(userInfo.getemail());
+        Picasso.with(this).load(userInfo.getImageUrl()).into(imageView);
+        navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
