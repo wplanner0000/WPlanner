@@ -32,10 +32,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-<<<<<<< HEAD
-        }
-=======
->>>>>>> 3c57ded75598de208789004bb24879c24a5f3fbd
         <activity
             android:name=".applicationstart.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
@@ -55,13 +51,7 @@
         <activity android:name=".forgotpassword.newpasswordotp" />
         <activity android:name=".vendorcategory"></activity>
         <activity android:name=".VendorProfile" />
-<<<<<<< HEAD
-
         <activity android:name=".forgotpassword.checknumber"></activity>
-
-=======
-        <!-- <activity android:name=".checknumber"></activity> -->
->>>>>>> 3c57ded75598de208789004bb24879c24a5f3fbd
 
         <activity android:name=".profile.profile"
                   android:theme="@style/AppTheme.NoActionBar"
