@@ -3,6 +3,9 @@
     package="com.example.lenovo.planner">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -12,6 +15,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.gms.version"
@@ -48,7 +52,7 @@
         <activity android:name=".forgotpassword.newpasswordotp" />
         <activity android:name=".vendorcategory"></activity>
         <activity android:name=".VendorProfile" />
-        <!-- <activity android:name=".checknumber"></activity> -->
+        <activity android:name=".forgotpassword.checknumber"></activity>
 
         <activity android:name=".profile.profile"
                   android:theme="@style/AppTheme.NoActionBar"

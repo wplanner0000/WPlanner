@@ -19,14 +19,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+ import com.digits.sdk.android.Digits;
 
 import com.example.lenovo.planner.Locationpicker;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.forgotpassword.forgotpassword;
 import com.example.lenovo.planner.userhome;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+import io.fabric.sdk.android.Fabric;
+
 
 public class SplashScreen extends AppCompatActivity {
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "KTrL1XbIuXI1umX7pFKiSyFh1";
+    private static final String TWITTER_SECRET = "kXzxPsjT8JYRMuwCCKJpsk5npszppui6cLQYWThHB3a22o44XC";
+
 
     Animation animation,fade,translateLogin,translateLogo,fadeout;
     ImageView view;
@@ -42,6 +51,8 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new TwitterCore(authConfig), new Digits.Builder().build());
         setContentView(R.layout.activity_splash_screen);
         userDetails= new UserDetails(getApplicationContext());
         animation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.translate);

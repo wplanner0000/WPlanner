@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,18 +21,32 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.lenovo.planner.R;
 
+
+
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class forgotpassword extends AppCompatActivity {
     EditText et_forgotphone,et_forgotemail;
+    Button btn_proceed;
     String forgote = "https://wplanner0000.000webhostapp.com/wplanner/emailauthentication.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpassword);
-        et_forgotemail = (EditText) findViewById(R.id.et_forgotemail);
+       // et_forgotemail = (EditText) findViewById(R.id.et_forgotemail);
         et_forgotphone = (EditText) findViewById(R.id.et_forgotphone);
+        btn_proceed= (Button) findViewById(R.id.btn_proceed);
+        btn_proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                proceed();
+
+
+            }
+        });
+
     }
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View view = getCurrentFocus();
@@ -45,18 +60,18 @@ public class forgotpassword extends AppCompatActivity {
         }
         return super.dispatchTouchEvent(ev);
     }
-    public void proceed(View view)
+    public void proceed()
     {
         if(inValid())
         {
             return;
         }
-        final String email = et_forgotemail.getText().toString();
+       // final String email = et_forgotemail.getText().toString();
         final String phoneno = et_forgotphone.getText().toString();
 
 
         StringRequest stringRequest;
-        final ProgressDialog loading = ProgressDialog.show(this, "Please Wait.....", "Matching Email And Phone Number......", false, false);
+        final ProgressDialog loading = ProgressDialog.show(this, "Please Wait.....", "Matching  Phone Number......", false, false);
         stringRequest = new StringRequest(Request.Method.POST, forgote,
                 new Response.Listener<String>() {
                     @Override
@@ -64,14 +79,14 @@ public class forgotpassword extends AppCompatActivity {
                         Log.d("DataBase Response", response);
                         if (response.equals("success")) {
                             loading.dismiss();
-                            Intent intent20 = new Intent(forgotpassword.this, newpasswordotp.class);
+                            Intent intent20 = new Intent(forgotpassword.this, checknumber.class);
                             startActivity(intent20);
                             finish();
 
                         } else {
                             loading.dismiss();
-                            et_forgotemail.setError("Invalid Email or Mobile Number");
-                            et_forgotphone.setError("Invalid Email or Mobile Number");
+                         //   et_forgotemail.setError("Invalid Email or Mobile Number");
+                            et_forgotphone.setError("Invalid Mobile Number");
 
                         }
                     }
@@ -86,7 +101,7 @@ public class forgotpassword extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("email", email);
+           //     params.put("email", email);
                 params.put("phoneno", phoneno);
 
 
@@ -100,13 +115,13 @@ public class forgotpassword extends AppCompatActivity {
 
     }
     public boolean inValid() {
-        String getforgotemail = et_forgotemail.getText().toString();
+       // String getforgotemail = et_forgotemail.getText().toString();
         String getforgotphone = et_forgotphone.getText().toString();
 
 
-        if (getforgotemail.isEmpty() && getforgotphone.isEmpty())
+        if (getforgotphone.isEmpty())
         {
-        et_forgotemail.setError("Enter Email Or Phone Number");
+        et_forgotphone.setError("Enter Email Or Phone Number");
             return true;
         }
 
