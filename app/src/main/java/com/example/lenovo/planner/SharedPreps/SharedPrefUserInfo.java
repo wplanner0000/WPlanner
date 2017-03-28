@@ -3,6 +3,8 @@ package com.example.lenovo.planner.SharedPreps;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.lenovo.planner.R;
+
 /**
  * Created by Rusty on 3/27/2017.
  */
@@ -39,7 +41,7 @@ public class SharedPrefUserInfo
 
     public String getImageUrl() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(FACEBOOK_PREFS, Context.MODE_PRIVATE);
-        return sharedPreferences.getString("image_url", "");
+        return sharedPreferences.getString("image_url","https://wplanner0000.000webhostapp.com/wplanner/account_logo.jpg");
     }
     public String getUserName() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(FACEBOOK_PREFS, Context.MODE_PRIVATE);

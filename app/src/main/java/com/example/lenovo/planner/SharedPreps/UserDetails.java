@@ -111,6 +111,109 @@ public class UserDetails {
         return sharedPreferences.getString("name","null");
     }
 
+    public void setoname(String oname)
+    {
+        editor.putString("oname",oname);
+        editor.apply();
+    }
+
+    public String getoname()
+    {
+        return sharedPreferences.getString("oname","null");
+    }
+
+    public void setscontactno(int scontactno)
+    {
+        editor.putInt("scontactno",scontactno);
+        editor.apply();
+    }
+
+    public int getscontactno()
+    {
+        return sharedPreferences.getInt("scontactno",0);
+    }
+
+    public void setexperience(int experience)
+    {
+        editor.putInt("experience",experience);
+        editor.apply();
+    }
+
+    public int getexperience()
+    {
+        return sharedPreferences.getInt("experience",0);
+    }
+
+    public void setprice(int price)
+    {
+        editor.putInt("price",price);
+        editor.apply();
+    }
+
+    public int getprice()
+    {
+        return sharedPreferences.getInt("price",0);
+    }
+
+    public void setstate(String state)
+    {
+        editor.putString("state",state);
+        editor.apply();
+    }
+
+    public String getstate()
+    {
+        return sharedPreferences.getString("state","null");
+    }
+
+    public void setcity(String city)
+    {
+        editor.putString("city",city);
+        editor.apply();
+    }
+
+    public String getcity()
+    {
+        return sharedPreferences.getString("city","null");
+    }
+
+    public void setdistrict(String district)
+    {
+        editor.putString("district",district);
+        editor.apply();
+    }
+
+    public String getdistrict()
+    {
+        return sharedPreferences.getString("district","null");
+    }
+
+
+    public void setpincode(int pincode)
+    {
+        editor.putInt("pincode",pincode);
+        editor.apply();
+    }
+
+    public int getpincode()
+    {
+        return sharedPreferences.getInt("pincode",0);
+    }
+
+    public void setstatus(String status)
+    {
+        editor.putString("status",status);
+        editor.apply();
+    }
+
+    public String getstatus()
+    {
+        return sharedPreferences.getString("status","null");
+    }
+
+
+
+
     public void logout()
     {
         editor.clear();
