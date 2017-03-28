@@ -8,20 +8,5 @@
     tools:context="com.example.lenovo.planner.userhome"
     tools:showIn="@layout/app_bar_userhome">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="   Become a Vendor   "
-        android:background="@drawable/rounded_buttonsd"
-        android:layout_centerInParent="true"
-        android:onClick="vendor"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="   Profile   "
-        android:onClick="profiles"
-        android:background="@drawable/rounded_buttonsd"
-        />
 
 </RelativeLayout>

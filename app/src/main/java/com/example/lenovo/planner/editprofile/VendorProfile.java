@@ -1,4 +1,4 @@
-package com.example.lenovo.planner;
+package com.example.lenovo.planner.editprofile;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,18 +18,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.R;
+import com.example.lenovo.planner.userhome;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class VendorProfile extends AppCompatActivity {
     EditText oname,contact,experiences,prices,citys,districts,states,pincodes,statuss;
-    //Bundle extras = getIntent().getExtras();
-    //final String uid = extras.getString("uid");
-    //final String category_id = extras.getString("category_id");
-    //SharedPreferences prefs = getSharedPreferences("MyPref", 0);
-    final String uid = "5";    //prefs.getString("uid","0");
-    final String category_id = "5";   //prefs.getString("category_id","0");
+
+    final String uid = "5";
+    final String category_id = "5";
 
     String url = "https://wplanner0000.000webhostapp.com/wplanner/vendorprofile.php";
 

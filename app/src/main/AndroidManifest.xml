@@ -50,8 +50,8 @@
             android:label="@string/title_activity_userhome"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".forgotpassword.newpasswordotp" />
-        <activity android:name=".vendorcategory"></activity>
-        <activity android:name=".VendorProfile" />
+        <activity android:name=".editprofile.vendorcategory"></activity>
+        <activity android:name=".editprofile.VendorProfile" />
         <activity android:name=".forgotpassword.checknumber"></activity>
 
         <activity android:name=".profile.profile"

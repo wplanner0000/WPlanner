@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ff5555"
-    tools:context="com.example.lenovo.planner.vendorcategory">
+    tools:context="com.example.lenovo.planner.editprofile.vendorcategory">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

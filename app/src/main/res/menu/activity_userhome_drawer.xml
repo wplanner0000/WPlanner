@@ -3,21 +3,31 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_profile"
+            android:icon="@mipmap/ic_account_circle_black_24dp"
+            android:title="Profile" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_editprofile"
+            android:icon="@mipmap/ic_mode_edit_black_24dp"
+            android:title="Edit Profile" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_budgetcalc"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="Budget Calculator" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_todolist"
+            android:icon="@mipmap/ic_list_black_24dp"
+            android:title="To-Do List" />
+        <item
+            android:id="@+id/nav_becomeavendor"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Be a Vendor"
+            />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@mipmap/ic_power_settings_new_black_24dp"
+            android:title="Logout"
+            />
     </group>
 
     <item android:title="Communicate">
