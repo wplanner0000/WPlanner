@@ -15,6 +15,7 @@ public class SharedPrefUserInfo
 
     private static SharedPrefUserInfo mInstance;
     private static Context mCtx;
+    private static SharedPreferences.Editor editor;
 
     private SharedPrefUserInfo(Context context) {
         mCtx = context;
@@ -29,7 +30,7 @@ public class SharedPrefUserInfo
 
     public boolean saveUserInfo(String firstName, String lastName, String email,String imageurl){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(FACEBOOK_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor  = sharedPreferences.edit();
         editor.putString("firstName", firstName);
         editor.putString("lastName", lastName);
         editor.putString("image_url",imageurl);
@@ -51,5 +52,11 @@ public class SharedPrefUserInfo
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(FACEBOOK_PREFS, Context.MODE_PRIVATE);
         return sharedPreferences.getString("email", "email");
     }
+    public void logoutfbgb()
+    {
+        editor.clear();
+        editor.apply();
+    }
+
 
 }

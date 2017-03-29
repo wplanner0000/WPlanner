@@ -2,6 +2,7 @@ package com.example.lenovo.planner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -22,19 +23,32 @@ import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.applicationstart.SplashScreen;
 import com.example.lenovo.planner.editprofile.VendorProfile;
 import com.example.lenovo.planner.profile.profile;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.plus.Plus;
 import com.squareup.picasso.Picasso;
 
 public class userhome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     UserDetails user;
+    SharedPrefUserInfo userInfo;
+    private GoogleApiClient mGoogleApiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_userhome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        SharedPrefUserInfo userInfo = SharedPrefUserInfo.getmInstance(this);
+        userInfo = SharedPrefUserInfo.getmInstance(this);
         user = new UserDetails(getApplicationContext());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -53,13 +67,24 @@ public class userhome extends AppCompatActivity
         TextView emaildisplay = (TextView)navHeader.findViewById(R.id.emaildisplay);
 
 
-         Toast.makeText(this, userInfo.getUserName(), Toast.LENGTH_SHORT).show();
+      //   Toast.makeText(this, userInfo.getUserName(), Toast.LENGTH_SHORT).show();
         usernamedisplay.setText(userInfo.getUserName());
         emaildisplay.setText(userInfo.getemail());
 
             Picasso.with(this).load(userInfo.getImageUrl()).into(imageView);
         navigationView.setNavigationItemSelectedListener(this);
 
+    }
+    @Override
+    protected void onStart() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+        mGoogleApiClient.connect();
+        super.onStart();
     }
 
     @Override
@@ -119,15 +144,34 @@ public class userhome extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
             user.logout();
+            LoginManager.getInstance().logOut();
+
+
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        Toast.makeText(userhome.this, "logout", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+
+
+
+
+
+
             Intent logouts= new Intent(this, SplashScreen.class);
             startActivity(logouts);
             overridePendingTransition(R.anim.fade,R.anim.fadeout);
             finish();
+                            // userInfo.logoutfbgb();
 
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
 
         }
 
