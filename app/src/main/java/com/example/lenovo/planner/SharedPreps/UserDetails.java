@@ -39,34 +39,44 @@ public class UserDetails {
 
     public void setIsActive(boolean isActive)
     {
-        editor.putBoolean("status",isActive);
+        editor.putBoolean("isactive",isActive);
         editor.apply();
     }
 
     public boolean getIsActive()
     {
-        return sharedPreferences.getBoolean("status",false);
+        return sharedPreferences.getBoolean("isactive",false);
     }
 
-    public void setisVendor(boolean isvendor)
+    public void setisVendor(int isvendor)
     {
-        editor.putBoolean("isVendor",isvendor);
+        editor.putInt("isVendor",isvendor);
     }
 
-    public boolean getisVendor()
+    public int getisVendor()
     {
-        return sharedPreferences.getBoolean("isVendor",false);
+        return sharedPreferences.getInt("isVendor",0);
     }
 
-    public void setUID(int UID)
+  /*  public void setrandom(int random)
     {
-        editor.putInt("UID",UID);
+        editor.putInt("random",random);
+    }
+
+    public int getrandom()
+    {
+        return sharedPreferences.getInt("random",0);
+    }
+*/
+    public void setUID(String UID)
+    {
+        editor.putString("UID",UID);
         editor.apply();
     }
 
-    public int getUID()
+    public String getUID()
     {
-        return sharedPreferences.getInt("UID",0);
+        return sharedPreferences.getString("UID","Null");
     }
 
     public void setemail(String email)
@@ -80,35 +90,35 @@ public class UserDetails {
         return sharedPreferences.getString("email","null");
     }
 
-    public void setphoneno(int phoneno)
+    public void setphoneno(String phoneno)
     {
-        editor.putInt("phoneno",phoneno);
+        editor.putString("phoneno",phoneno);
         editor.apply();
     }
 
-    public int getphoneNo()
+    public String getphoneNo()
     {
-        return sharedPreferences.getInt("phoneno",0);
+        return sharedPreferences.getString("phoneno","Not Available");
     }
-    public void setfname(String fname)
+    public void setfirstname(String firstname)
     {
-        editor.putString("fname",fname);
+        editor.putString("firstname",firstname);
         editor.apply();
     }
 
-    public String getfname()
+    public String getfirstname()
     {
-        return sharedPreferences.getString("fname","null");
+        return sharedPreferences.getString("firstname","null");
     }
-    public void setlname(String lname)
+    public void setlastname(String lastname)
     {
-        editor.putString("lname",lname);
+        editor.putString("lastname",lastname);
         editor.apply();
     }
 
-    public String getname()
+    public String getlastname()
     {
-        return sharedPreferences.getString("name","null");
+        return sharedPreferences.getString("lastname","null");
     }
 
     public void setoname(String oname)
@@ -122,37 +132,52 @@ public class UserDetails {
         return sharedPreferences.getString("oname","null");
     }
 
-    public void setscontactno(int scontactno)
+    public void setimage_url(String image_url)
     {
-        editor.putInt("scontactno",scontactno);
+        editor.putString("image_url",image_url);
         editor.apply();
     }
 
-    public int getscontactno()
+    public String getImageUrl()
     {
-        return sharedPreferences.getInt("scontactno",0);
+        return sharedPreferences.getString("image_url","https://wplanner0000.000webhostapp.com/wplanner/account_logo.jpg");
     }
 
-    public void setexperience(int experience)
+    public String getUserName() {
+        return sharedPreferences.getString("firstname", "firstname") +" "+sharedPreferences.getString("lastname", "lastname");
+    }
+
+    public void setscontactno(String scontactno)
     {
-        editor.putInt("experience",experience);
+        editor.putString("scontactno",scontactno);
         editor.apply();
     }
 
-    public int getexperience()
+    public String getscontactno()
     {
-        return sharedPreferences.getInt("experience",0);
+        return sharedPreferences.getString("scontactno","Not Available");
     }
 
-    public void setprice(int price)
+    public void setexperience(String experience)
     {
-        editor.putInt("price",price);
+        editor.putString("experience",experience);
         editor.apply();
     }
 
-    public int getprice()
+    public String getexperience()
     {
-        return sharedPreferences.getInt("price",0);
+        return sharedPreferences.getString("experience","Null");
+    }
+
+    public void setprice(String price)
+    {
+        editor.putString("price",price);
+        editor.apply();
+    }
+
+    public String getprice()
+    {
+        return sharedPreferences.getString("price","Null");
     }
 
     public void setstate(String state)
@@ -189,15 +214,15 @@ public class UserDetails {
     }
 
 
-    public void setpincode(int pincode)
+    public void setpincode(String pincode)
     {
-        editor.putInt("pincode",pincode);
+        editor.putString("pincode",pincode);
         editor.apply();
     }
 
-    public int getpincode()
+    public String getpincode()
     {
-        return sharedPreferences.getInt("pincode",0);
+        return sharedPreferences.getString("pincode","Null");
     }
 
     public void setstatus(String status)
@@ -212,6 +237,16 @@ public class UserDetails {
     }
 
 
+    public void setcategory(String category)
+    {
+        editor.putString("category",category);
+        editor.apply();
+    }
+
+    public String getcategory()
+    {
+        return sharedPreferences.getString("category","null");
+    }
 
 
     public void logout()

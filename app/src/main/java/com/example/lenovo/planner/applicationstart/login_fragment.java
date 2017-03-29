@@ -2,6 +2,7 @@ package com.example.lenovo.planner.applicationstart;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.example.lenovo.planner.Locationpicker;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
+import com.example.lenovo.planner.userhome;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -133,7 +135,11 @@ public class login_fragment extends Fragment implements View.OnClickListener
                                     String lname = object.getString("last_name");
                                     String gender = object.getString("gender");
                                     String imageUrl = "https://graph.facebook.com/" + id + "/picture?type=large";
-
+                                    userDetails.setIsActive(true);
+                                    userDetails.setfirstname(fname);
+                                    userDetails.setlastname(lname);
+                                    userDetails.setemail(email);
+                                    userDetails.setimage_url(imageUrl);
                                     SharedPrefUserInfo.getmInstance(getActivity()).saveUserInfo(fname,lname,email,imageUrl);
                                     activity.logincall(view);
 
@@ -197,11 +203,11 @@ public class login_fragment extends Fragment implements View.OnClickListener
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions)
                 .build();
-//        //end of google+ login
+        //end of google+ login
        return view;
-//
+
 }
-//
+
    private void GoogleSignIn() {
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(signInApi);
         startActivityForResult(intent,RC_SIGN_IN);
@@ -219,10 +225,16 @@ public class login_fragment extends Fragment implements View.OnClickListener
             String email = account.getEmail();
             String gid = account.getId();
             String token = account.getIdToken();
+            userDetails.setIsActive(true);
+            userDetails.setfirstname(first_name);
+            userDetails.setlastname(last_name);
+            userDetails.setemail(email);
+            userDetails.setimage_url(profileImage);
             Toast.makeText(getActivity(), "successfully login", Toast.LENGTH_SHORT).show();
-            //redirect user to nect page
+            //redirect user to next page
             SharedPrefUserInfo.getmInstance(getActivity()).saveUserInfo(first_name,last_name,email,profileImage);
-            startActivity(new Intent(getApplicationContext(), Locationpicker.class));
+            activity.logincall(getView());
+            //startActivity(new Intent(getApplicationContext(), userhome.class));
 
 
 
@@ -263,18 +275,6 @@ public class login_fragment extends Fragment implements View.OnClickListener
             });
       }
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public boolean inValid()
@@ -333,12 +333,13 @@ public class login_fragment extends Fragment implements View.OnClickListener
                                         JSONArray jsonArray = new JSONArray(response);
                                         JSONObject jsonObject = jsonArray.getJSONObject(0);
                                         userDetails.logout();
-                                        userDetails.setUID(jsonObject.getInt("uid"));
+                                        userDetails.setUID(jsonObject.getInt("uid")+"");
                                         userDetails.setemail(jsonObject.getString("email"));
                                         userDetails.setIsActive(true);
-                                        userDetails.setfname(jsonObject.getString("first_name"));
-                                        userDetails.setlname(jsonObject.getString("last_name"));
-                                        userDetails.setphoneno(jsonObject.getInt("phoneno"));
+                                        userDetails.setisVendor(jsonObject.getInt("usertype"));
+                                        userDetails.setfirstname(jsonObject.getString("first_name"));
+                                        userDetails.setlastname(jsonObject.getString("last_name"));
+                                        userDetails.setphoneno(jsonObject.getString("phoneno"));
                                         Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
                                         activity.logincall(view);
                                     } catch (JSONException e) {
@@ -384,4 +385,5 @@ public class login_fragment extends Fragment implements View.OnClickListener
             }break;
         }
     }
+
 }

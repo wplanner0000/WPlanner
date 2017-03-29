@@ -1,10 +1,13 @@
 package com.example.lenovo.planner;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,9 +21,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.applicationstart.SplashScreen;
+import com.example.lenovo.planner.editprofile.Editprofile;
 import com.example.lenovo.planner.editprofile.VendorProfile;
 import com.example.lenovo.planner.profile.profile;
 import com.facebook.FacebookSdk;
@@ -32,6 +42,13 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class userhome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,7 +67,6 @@ public class userhome extends AppCompatActivity
         setSupportActionBar(toolbar);
         userInfo = SharedPrefUserInfo.getmInstance(this);
         user = new UserDetails(getApplicationContext());
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,7 +76,10 @@ public class userhome extends AppCompatActivity
         View navHeader;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        if (user.getisVendor()==1)
+        {
+            sync(this,user.getUID());
+        }
         navHeader = navigationView.getHeaderView(0);
         ImageView imageView = (ImageView)navHeader.findViewById(R.id.imageView);
         TextView usernamedisplay = (TextView)navHeader.findViewById(R.id.usernamedisplay);
@@ -68,10 +87,14 @@ public class userhome extends AppCompatActivity
 
 
       //   Toast.makeText(this, userInfo.getUserName(), Toast.LENGTH_SHORT).show();
-        usernamedisplay.setText(userInfo.getUserName());
-        emaildisplay.setText(userInfo.getemail());
+        usernamedisplay.setText(user.getUserName());
+        emaildisplay.setText(user.getemail());
+        if (user.getisVendor()==1)
+        {
+            navigationView.getMenu().findItem(R.id.nav_becomeavendor).setVisible(false);
+        }
 
-            Picasso.with(this).load(userInfo.getImageUrl()).into(imageView);
+            Picasso.with(this).load(user.getImageUrl()).into(imageView);
         navigationView.setNavigationItemSelectedListener(this);
 
     }
@@ -129,8 +152,12 @@ public class userhome extends AppCompatActivity
             Intent int57 = new Intent(this, profile.class);
             startActivity(int57);
             overridePendingTransition(R.anim.left_in,R.anim.fadeout);
-            finish();
         } else if (id == R.id.nav_editprofile) {
+            Intent int56 = new Intent(this , Editprofile.class);
+            startActivity(int56);
+            overridePendingTransition(R.anim.left_in,R.anim.fadeout);
+            finish();
+
 
         } else if (id == R.id.nav_budgetcalc) {
 
@@ -150,15 +177,9 @@ public class userhome extends AppCompatActivity
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
-                        Toast.makeText(userhome.this, "logout", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(userhome.this, "Please Login to Continue", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-
-
-
-
 
 
             Intent logouts= new Intent(this, SplashScreen.class);
@@ -181,4 +202,70 @@ public class userhome extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    public void sync(final Context context, final String uid)
+    {
+        String syncurl ="https://wplanner0000.000webhostapp.com/wplanner/vendorsync.php";
+        final UserDetails userDetails= new UserDetails(context);
+        StringRequest stringRequest;
+        //final ProgressDialog loading = ProgressDialog.show(this, "Please Wait.....", "Verifying......", false, false);
+        stringRequest = new StringRequest(Request.Method.POST, syncurl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("DataBase Response", response);
+                        if (response.equals("fail") == false) {
+          //                  loading.dismiss();
+                            try {
+                                JSONArray jsonArray = new JSONArray(response);
+                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                userDetails.setoname(jsonObject.getString("name"));
+                                userDetails.setexperience(jsonObject.getInt("experience")+"");
+                                userDetails.setscontactno(jsonObject.getString("contactno"));
+                                userDetails.setprice(jsonObject.getInt("price")+"");
+                                userDetails.setcategory(jsonObject.getInt("category_id")+"");
+                                userDetails.setcity(jsonObject.getString("city"));
+                                userDetails.setdistrict(jsonObject.getString("district"));
+                                userDetails.setstate(jsonObject.getString("state"));
+                                userDetails.setpincode(jsonObject.getInt("pincode")+"");
+                                userDetails.setstatus(jsonObject.getString("status"));
+                //                Toast.makeText(context, "Sync", Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+
+                            }
+
+
+
+
+                        }
+                        else {
+            //                loading.dismiss();
+
+                        }
+                    }
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+              //          loading.dismiss();
+                        Toast.makeText(context, "error.toString", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("uid",uid);
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+
+
+    }
+
+
 }

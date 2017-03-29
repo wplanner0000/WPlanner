@@ -125,7 +125,19 @@ public class VendorProfile extends AppCompatActivity {
                         Log.d("DataBase Response", response);
                         if (response.equals("success")) {
                             loading.dismiss();
+                            user.setoname(name);
+                            user.setscontactno(contactno);
+                            user.setexperience(experience);
+                            user.setprice(price);
+                            user.setcity(city);
+                            user.setdistrict(district);
+                            user.setstate(state);
+                            user.setpincode(pincode);
+                            user.setstatus(status);
+                            user.setcategory(category_id);
+                            user.setisVendor(1);
                             Intent intent2 = new Intent(getApplicationContext(), userhome.class);
+                            overridePendingTransition(R.anim.fade,R.anim.fadeout);
                             startActivity(intent2);
                         } else {
                             loading.dismiss();
