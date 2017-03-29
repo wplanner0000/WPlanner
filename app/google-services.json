@@ -1,64 +1,33 @@
 {
   "project_info": {
-    "project_number": "811729207266",
-    "project_id": "hazel-chiller-160114"
+    "project_number": "25363604336",
+    "project_id": "modern-renderer-163005"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:811729207266:android:616393edd11266a2",
+        "mobilesdk_app_id": "1:25363604336:android:76359ad9e248f595",
         "android_client_info": {
-          "package_name": "com.example.rusty.facebook"
+          "package_name": "com.example.lenovo.planner"
         }
       },
       "oauth_client": [
         {
-          "client_id": "811729207266-8an5mpoegen28948hrb3n6tqgd9g3982.apps.googleusercontent.com",
+          "client_id": "25363604336-hf7001ck84rtr8em1uf2nu7334resrqo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.rusty.facebook",
-            "certificate_hash": "3f53ad9ab2ee40f809d7a7f3546ea64891fd77c5"
+            "package_name": "com.example.lenovo.planner",
+            "certificate_hash": "f30b38d40161c7622a65e7d52976a10ac15b8981"
           }
         },
         {
-          "client_id": "811729207266-pgshg1l6npij1hb0blij1dea1kbrgijv.apps.googleusercontent.com",
+          "client_id": "25363604336-g3o9238lcmshndjqfnbtd09feebef7ed.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB3jTTT_4lcPkNINna3nqdGk5Q9-X7n38w"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 1
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:811729207266:android:96bc7978085a9b3a",
-        "android_client_info": {
-          "package_name": "com.example.rusty.googlesignindemo"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "811729207266-pgshg1l6npij1hb0blij1dea1kbrgijv.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB3jTTT_4lcPkNINna3nqdGk5Q9-X7n38w"
+          "current_key": "AIzaSyA3b3nqGqRSScUFKdMgqzjy5Qi0hJgXbX8"
         }
       ],
       "services": {
