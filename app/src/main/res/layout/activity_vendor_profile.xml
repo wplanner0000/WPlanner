@@ -7,7 +7,7 @@
     android:clickable="true"
     android:focusableInTouchMode="true"
     android:background="#ff5555"
-    tools:context="com.example.lenovo.planner.VendorProfile">
+    tools:context="com.example.lenovo.planner.editprofile.VendorProfile">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,11 +29,41 @@
             android:id="@+id/layout_vendor"
             android:layout_marginTop="10dp"
             android:clickable="true"
-            android:background="#fff"
             android:focusableInTouchMode="true"
             android:layout_below="@id/imgProfilePicture"
             >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category Info"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:paddingLeft="3dp"
+                android:background="#fff"
+                android:id="@+id/categoryinfo"
+                android:layout_marginBottom="5dp"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spn_category"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/categoryinfo">
+            </Spinner>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Shop Info"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="3dp"
+        android:background="#fff"
+        android:layout_below="@id/spn_category"
+        android:id="@+id/shopdetails"
+        android:layout_marginBottom="5dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +73,7 @@
         android:maxLines="1"
         android:maxLength="20"
         android:inputType="text"
-         
+         android:layout_below="@id/shopdetails"
         android:drawablePadding="20dp"
         android:drawableLeft="@drawable/names"/>
 
@@ -56,7 +86,6 @@
         android:maxLength="10"
         android:maxLines="1"
         android:id="@+id/contact"
-         
         android:drawablePadding="20dp"
         android:layout_marginTop="5dp"
         android:drawableLeft="@drawable/phone"
@@ -79,7 +108,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/experience"
-         
         android:inputType="number"
         android:layout_marginTop="5dp"
         android:maxLength="10"
@@ -89,10 +117,23 @@
         android:drawableLeft="@drawable/price"
         android:id="@+id/price"
         />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address Details"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="3dp"
+                android:layout_below="@id/price"
+                android:background="#fff"
+                android:id="@+id/Address"
+                android:layout_marginBottom="5dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/price"
+        android:layout_below="@id/Address"
         android:inputType="text"
         android:maxLength="20"
         android:maxLines="1"
@@ -145,10 +186,23 @@
         android:hint="Pincode"
         android:drawablePadding="20dp"
         />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Shop Profile"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:paddingLeft="3dp"
+                android:layout_marginTop="8dp"
+                android:background="#fff"
+                android:layout_below="@id/pincode"
+                android:id="@+id/Shopprofile"
+                android:layout_marginBottom="5dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/pincode"
+        android:layout_below="@id/Shopprofile"
         android:inputType="text"
         android:id="@+id/status"
         android:maxLines="5"
@@ -159,11 +213,12 @@
         android:hint="Status"
         />
         </RelativeLayout>
+
     <Button
-        android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:drawablePadding="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_below="@id/layout_vendor"
         android:layout_alignParentRight="true"
         android:textSize="13dp"

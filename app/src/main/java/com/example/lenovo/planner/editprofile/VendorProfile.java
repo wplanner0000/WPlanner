@@ -1,4 +1,4 @@
-package com.example.lenovo.planner;
+package com.example.lenovo.planner.editprofile;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -18,18 +21,22 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.R;
+import com.example.lenovo.planner.SharedPreps.UserDetails;
+import com.example.lenovo.planner.userhome;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class VendorProfile extends AppCompatActivity {
     EditText oname,contact,experiences,prices,citys,districts,states,pincodes,statuss;
-    //Bundle extras = getIntent().getExtras();
-    //final String uid = extras.getString("uid");
-    //final String category_id = extras.getString("category_id");
-    //SharedPreferences prefs = getSharedPreferences("MyPref", 0);
-    final String uid = "5";    //prefs.getString("uid","0");
-    final String category_id = "5";   //prefs.getString("category_id","0");
+    Spinner spn_category;
+    UserDetails user;
+    String uid;
+    ArrayAdapter<String> categoryadapter;
+    String category_id;
+    ArrayList<String> categories;
 
     String url = "https://wplanner0000.000webhostapp.com/wplanner/vendorprofile.php";
 
@@ -46,6 +53,37 @@ public class VendorProfile extends AppCompatActivity {
         states = (EditText) findViewById(R.id.state);
         pincodes = (EditText) findViewById(R.id.pincode);
         statuss = (EditText) findViewById(R.id.status);
+        spn_category =(Spinner) findViewById(R.id.spn_category);
+        user = new UserDetails(getApplicationContext());
+        uid = user.getUID()+"";
+        categories = new ArrayList<>();
+        categories.add(0,"Select Category");
+        categories.add(1,"Photographer");
+        categories.add(2,"Music");
+        categories.add(3,"Catering");
+        categories.add(4,"Decoration");
+        categories.add(5,"Venue");
+        categories.add(6,"Bakery");
+        categories.add(7,"Clothing");
+        categories.add(8,"Gift Shop");
+        categories.add(9,"Saloon");
+
+        categoryadapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,categories);
+        spn_category.setAdapter(categoryadapter);
+        spn_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                category_id = spn_category.getSelectedItemId()+"";
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
     }
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View view = getCurrentFocus();
@@ -170,6 +208,11 @@ public class VendorProfile extends AppCompatActivity {
         }
         if (fullpincode.isEmpty()) {
             pincodes.setError("Enter Pincode");
+            return true;
+        }
+        if (category_id.equals(""))
+        {
+            Toast.makeText(this, "Select Category", Toast.LENGTH_SHORT).show();
             return true;
         }
 

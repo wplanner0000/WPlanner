@@ -18,11 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
+import com.example.lenovo.planner.SharedPreps.UserDetails;
+import com.example.lenovo.planner.applicationstart.SplashScreen;
+import com.example.lenovo.planner.editprofile.VendorProfile;
 import com.example.lenovo.planner.profile.profile;
 import com.squareup.picasso.Picasso;
 
 public class userhome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    UserDetails user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class userhome extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         SharedPrefUserInfo userInfo = SharedPrefUserInfo.getmInstance(this);
-
+        user = new UserDetails(getApplicationContext());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +65,8 @@ public class userhome extends AppCompatActivity
          Toast.makeText(this, userInfo.getUserName(), Toast.LENGTH_SHORT).show();
         usernamedisplay.setText(userInfo.getUserName());
         emaildisplay.setText(userInfo.getemail());
-        Picasso.with(this).load(userInfo.getImageUrl()).into(imageView);
+
+            Picasso.with(this).load(userInfo.getImageUrl()).into(imageView);
         navigationView.setNavigationItemSelectedListener(this);
 
     }
@@ -104,13 +109,30 @@ public class userhome extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_profile) {
+            Intent int57 = new Intent(this, profile.class);
+            startActivity(int57);
+            overridePendingTransition(R.anim.left_in,R.anim.fadeout);
+            finish();
+        } else if (id == R.id.nav_editprofile) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_budgetcalc) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_todolist) {
+
+        } else if (id == R.id.nav_becomeavendor) {
+            Intent int56 = new Intent(this , VendorProfile.class);
+            startActivity(int56);
+            overridePendingTransition(R.anim.left_in,R.anim.fadeout);
+            finish();
+
+        } else if (id == R.id.nav_logout) {
+            user.logout();
+            Intent logouts= new Intent(this, SplashScreen.class);
+            startActivity(logouts);
+            overridePendingTransition(R.anim.fade,R.anim.fadeout);
+            finish();
+
 
         } else if (id == R.id.nav_share) {
 
@@ -118,23 +140,10 @@ public class userhome extends AppCompatActivity
 
         }
 
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-    public void vendor(View view)
-    {
-        Intent int56 = new Intent(this , vendorcategory.class);
-        startActivity(int56);
-        overridePendingTransition(R.anim.left_in,R.anim.fadeout);
-        finish();
-
-    }
-    public void profiles(View view)
-    {
-        Intent int57 = new Intent(this, profile.class);
-        startActivity(int57);
-        overridePendingTransition(R.anim.left_in,R.anim.fadeout);
-        finish();
     }
 }
