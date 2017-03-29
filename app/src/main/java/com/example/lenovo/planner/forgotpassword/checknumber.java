@@ -21,6 +21,8 @@ public class checknumber extends AppCompatActivity {
         setContentView(R.layout.activity_checknumber);
         DigitsAuthButton digitsButton = (DigitsAuthButton) findViewById(R.id.auth_button);
         digitsButton.setText("Verify");
+
+
         digitsButton.setCallback(new AuthCallback() {
             @Override
             public void success(DigitsSession session, String phoneNumber) {
