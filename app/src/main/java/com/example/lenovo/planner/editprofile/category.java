@@ -9,16 +9,11 @@ import android.view.ViewGroup;
 
 import com.example.lenovo.planner.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class category extends Fragment {
 
 
     public category() {
-        // Required empty public constructor
 
-//j
     }
 
 

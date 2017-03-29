@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class VendorProfile extends AppCompatActivity {
     ArrayAdapter<String> categoryadapter;
     String category_id;
     ArrayList<String> categories;
+    ImageButton addprofileimage;
 
     String url = "https://wplanner0000.000webhostapp.com/wplanner/vendorprofile.php";
 
