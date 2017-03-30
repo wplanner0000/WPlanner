@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import com.squareup.picasso.Picasso;
 public class userhome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     UserDetails user;
+  //  Button btnnext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class userhome extends AppCompatActivity
         setSupportActionBar(toolbar);
         SharedPrefUserInfo userInfo = SharedPrefUserInfo.getmInstance(this);
         user = new UserDetails(getApplicationContext());
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +58,14 @@ public class userhome extends AppCompatActivity
         View navHeader;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+      /*  btnnext=(Button)findViewById(R.id.btnintent);
+        btnnext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getApplicationContext(),vendorListViewDisplay.class);
+                startActivity(i);
+            }
+        }); */
 
         navHeader = navigationView.getHeaderView(0);
         ImageView imageView = (ImageView)navHeader.findViewById(R.id.imageView);

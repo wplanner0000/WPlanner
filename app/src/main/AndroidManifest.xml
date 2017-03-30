@@ -4,8 +4,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -15,7 +13,6 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.gms.version"
@@ -50,13 +47,14 @@
             android:label="@string/title_activity_userhome"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".forgotpassword.newpasswordotp" />
-        <activity android:name=".editprofile.VendorProfile">
-        </activity>
-        <activity android:name=".forgotpassword.checknumber"></activity>
-
-        <activity android:name=".profile.profile"
-                  android:theme="@style/AppTheme.NoActionBar"
-            ></activity>
+        <activity android:name=".editprofile.VendorProfile"></activity>
+        <activity android:name=".forgotpassword.checknumber" />
+        <activity
+            android:name=".profile.profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".vendorListViewDisplay"
+            android:label="@string/title_activity_vendor_list_view_display"></activity>
     </application>
 
 </manifest>
