@@ -41,7 +41,7 @@ public class Editprofile extends AppCompatActivity {
     ArrayList<String> categories;
     ImageButton addprofileimage;
 
-    String url = "https://wplanner0000.000webhostapp.com/wplanner/vendorprofile.php";
+    String url = "https://wplanner0000.000webhostapp.com/wplanner/vendorupdate.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,8 +177,6 @@ public class Editprofile extends AppCompatActivity {
                 params.put("district", district);
                 params.put("state", state);
                 params.put("pincode", pincode);
-
-
                 return params;
             }
 
