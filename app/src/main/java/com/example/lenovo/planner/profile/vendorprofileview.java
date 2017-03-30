@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lenovo.planner.R;
@@ -16,7 +17,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class vendorprofileview extends Fragment {
-    CircleImageView profileimage;
+    ImageView profileimage;
     TextView oname,contact,category,experience,price,city,state,district,pincode,status;
     UserDetails userDetails;
 
@@ -27,7 +28,7 @@ public class vendorprofileview extends Fragment {
         // Inflate the layout for this fragment
         userDetails = new UserDetails(getActivity());
         final View view = inflater.inflate(R.layout.fragment_vendorprofileview, container, false);
-        profileimage =(CircleImageView) view.findViewById(R.id.imgProfilePicture);
+        profileimage =(ImageView) view.findViewById(R.id.imgProfilePicture);
         oname = (TextView) view.findViewById(R.id.oname);
         category = (TextView) view.findViewById(R.id.spn_category);
         contact = (TextView) view.findViewById(R.id.contact);

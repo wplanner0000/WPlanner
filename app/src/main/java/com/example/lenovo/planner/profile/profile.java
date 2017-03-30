@@ -11,20 +11,25 @@ import android.widget.Toast;
 
 import com.example.lenovo.planner.Adapters.profileadapter;
 import com.example.lenovo.planner.R;
+import com.example.lenovo.planner.SharedPreps.UserDetails;
 
 public class profile extends AppCompatActivity {
+    UserDetails userDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        userDetails = new UserDetails(this);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("User"));
+        if(userDetails.getisVendor()==1)
+        {
         tabLayout.addTab(tabLayout.newTab().setText("Vendor"));
+        }
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

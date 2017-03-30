@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +70,7 @@ public class userhome extends AppCompatActivity
         setSupportActionBar(toolbar);
         userInfo = SharedPrefUserInfo.getmInstance(this);
         user = new UserDetails(getApplicationContext());
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -76,10 +80,6 @@ public class userhome extends AppCompatActivity
         View navHeader;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        if (user.getisVendor()==1)
-        {
-            sync(this,user.getUID());
-        }
         navHeader = navigationView.getHeaderView(0);
         ImageView imageView = (ImageView)navHeader.findViewById(R.id.imageView);
         TextView usernamedisplay = (TextView)navHeader.findViewById(R.id.usernamedisplay);
@@ -92,10 +92,15 @@ public class userhome extends AppCompatActivity
         if (user.getisVendor()==1)
         {
             navigationView.getMenu().findItem(R.id.nav_becomeavendor).setVisible(false);
+
+        }
+        else
+        {
+            navigationView.getMenu().findItem(R.id.nav_editprofile).setVisible(false);
         }
 
             Picasso.with(this).load(user.getImageUrl()).into(imageView);
-        navigationView.setNavigationItemSelectedListener(this);
+            navigationView.setNavigationItemSelectedListener(this);
 
     }
     @Override
@@ -149,6 +154,7 @@ public class userhome extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
+
             Intent int57 = new Intent(this, profile.class);
             startActivity(int57);
             overridePendingTransition(R.anim.left_in,R.anim.fadeout);
@@ -163,11 +169,19 @@ public class userhome extends AppCompatActivity
 
         } else if (id == R.id.nav_todolist) {
 
+        } else if (id == R.id.nav_changepassword) {
+            changepassword();
+
         } else if (id == R.id.nav_becomeavendor) {
             Intent int56 = new Intent(this , VendorProfile.class);
             startActivity(int56);
             overridePendingTransition(R.anim.left_in,R.anim.fadeout);
             finish();
+
+        } else if (id == R.id.nav_locate) {
+            Intent int56 = new Intent(this , Locationpicker.class);
+            startActivity(int56);
+            overridePendingTransition(R.anim.left_in,R.anim.fadeout);
 
         } else if (id == R.id.nav_logout) {
             user.logout();
@@ -265,6 +279,24 @@ public class userhome extends AppCompatActivity
         requestQueue.add(stringRequest);
 
 
+    }
+    private void changepassword()
+    {
+        Button cancel ;
+        final AlertDialog.Builder updatepassword = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.updatepassword,null);
+        updatepassword.setView(dialogView);
+        cancel =(Button) dialogView.findViewById(R.id.cancel);
+        final AlertDialog b = updatepassword.create();
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+            }
+        });
+        b.setCanceledOnTouchOutside(false);
+        b.show();
     }
 
 
