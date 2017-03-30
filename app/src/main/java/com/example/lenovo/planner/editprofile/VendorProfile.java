@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class VendorProfile extends AppCompatActivity {
     ArrayAdapter<String> categoryadapter;
     String category_id;
     ArrayList<String> categories;
+    ImageButton addprofileimage;
 
     String url = "https://wplanner0000.000webhostapp.com/wplanner/vendorprofile.php";
 
@@ -123,7 +125,19 @@ public class VendorProfile extends AppCompatActivity {
                         Log.d("DataBase Response", response);
                         if (response.equals("success")) {
                             loading.dismiss();
+                            user.setoname(name);
+                            user.setscontactno(contactno);
+                            user.setexperience(experience);
+                            user.setprice(price);
+                            user.setcity(city);
+                            user.setdistrict(district);
+                            user.setstate(state);
+                            user.setpincode(pincode);
+                            user.setstatus(status);
+                            user.setcategory(category_id);
+                            user.setisVendor(1);
                             Intent intent2 = new Intent(getApplicationContext(), userhome.class);
+                            overridePendingTransition(R.anim.fade,R.anim.fadeout);
                             startActivity(intent2);
                         } else {
                             loading.dismiss();

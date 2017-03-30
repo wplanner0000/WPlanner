@@ -13,9 +13,11 @@
         android:id="@+id/btnintent"
         android:text="next"
         />!-->
-
-
-        <include layout="@layout/activity_vendor_list_view_display"/>
-
+<android.support.design.widget.FloatingActionButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+ android:src="@mipmap/ic_account_circle_black_24dp"
+    android:id="@+id/fab"/>
 
 </RelativeLayout>

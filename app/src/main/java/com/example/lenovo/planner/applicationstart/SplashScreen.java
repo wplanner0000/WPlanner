@@ -1,5 +1,6 @@
 package com.example.lenovo.planner.applicationstart;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -19,7 +21,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
- import com.digits.sdk.android.Digits;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.digits.sdk.android.Digits;
 
 import com.example.lenovo.planner.Locationpicker;
 import com.example.lenovo.planner.R;
@@ -28,6 +38,14 @@ import com.example.lenovo.planner.forgotpassword.forgotpassword;
 import com.example.lenovo.planner.userhome;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterCore;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import io.fabric.sdk.android.Fabric;
 
 
@@ -96,7 +114,7 @@ public class SplashScreen extends AppCompatActivity {
                         public void run() {
                             if(userDetails.getIsActive())
                             {
-                                Intent in = new Intent(getApplicationContext(),Locationpicker.class);
+                                Intent in = new Intent(getApplicationContext(),userhome.class);
                                 startActivity(in);
                                 overridePendingTransition(R.anim.left_in,R.anim.fadeout);
                             }
@@ -160,18 +178,19 @@ public class SplashScreen extends AppCompatActivity {
     }
     public void callsignup(View vi)
     {
-        Intent in = new Intent(this, Locationpicker.class);
+        Intent in = new Intent(this, userhome.class);
         startActivity(in);
         overridePendingTransition(R.anim.left_in,R.anim.right_in);
         finish();
     }
     public void logincall(View vi)
     {
-        Intent intent2 = new Intent(this, Locationpicker.class);
+        Intent intent2 = new Intent(this, userhome.class);
         startActivity(intent2);
         overridePendingTransition(R.anim.left_in,R.anim.right_in);
         finish();
     }
+
 
 
 }

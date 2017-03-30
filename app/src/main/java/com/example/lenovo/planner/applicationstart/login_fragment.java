@@ -2,8 +2,10 @@ package com.example.lenovo.planner.applicationstart;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import com.example.lenovo.planner.Locationpicker;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
+import com.example.lenovo.planner.userhome;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -33,8 +36,16 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +61,8 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class login_fragment extends Fragment implements View.OnClickListener {
+public class login_fragment extends Fragment implements View.OnClickListener
+{
 
     EditText et_email,et_password;
     Button frgtPassword,login,register;
@@ -123,7 +135,11 @@ public class login_fragment extends Fragment implements View.OnClickListener {
                                     String lname = object.getString("last_name");
                                     String gender = object.getString("gender");
                                     String imageUrl = "https://graph.facebook.com/" + id + "/picture?type=large";
-
+                                    userDetails.setIsActive(true);
+                                    userDetails.setfirstname(fname);
+                                    userDetails.setlastname(lname);
+                                    userDetails.setemail(email);
+                                    userDetails.setimage_url(imageUrl);
                                     SharedPrefUserInfo.getmInstance(getActivity()).saveUserInfo(fname,lname,email,imageUrl);
                                     activity.logincall(view);
 
@@ -172,90 +188,93 @@ public class login_fragment extends Fragment implements View.OnClickListener {
         //start of google
 
         //start of google+ login
-//        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .build();
-//        gpButton.setSize(SignInButton.SIZE_STANDARD);
-//        gpButton.setScopes(signInOptions.getScopeArray());
-//
-//        signInApi = new GoogleApiClient.Builder(getActivity())
-//                .enableAutoManage(getActivity(), (GoogleApiClient.OnConnectionFailedListener) getActivity())
-//                .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions)
-//                .build();
-//        //end of google+ login
+        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        gpButton.setSize(SignInButton.SIZE_STANDARD);
+        gpButton.setScopes(signInOptions.getScopeArray());
+
+        signInApi = new GoogleApiClient.Builder(getActivity())
+                .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                       // Toast.makeText(activity, "Connection "+connectionResult, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions)
+                .build();
+        //end of google+ login
        return view;
-//
+
 }
-//
-//    private void GoogleSignIn() {
-//        Intent intent = Auth.GoogleSignInApi.getSignInIntent(signInApi);
-//        startActivityForResult(intent,RC_SIGN_IN);
-//    }
-//
-//    private void handleSignInResult(GoogleSignInResult result) {
-//        Toast.makeText(getActivity(), result.isSuccess()+"", Toast.LENGTH_SHORT).show();
-//        if(result.isSuccess()) {
-//
-//            GoogleSignInAccount account = result.getSignInAccount();
-//            String first_name = account.getGivenName();
-//            String last_name = account.getFamilyName();
-//            String profileImage = account.getPhotoUrl().toString();
-//            String email = account.getEmail();
-//            String gid = account.getId();
-//            String token = account.getIdToken();
-//            Toast.makeText(getActivity(), result.isSuccess()+"", Toast.LENGTH_SHORT).show();
-//            //redirect user to nect page
-//            startActivity(new Intent(getApplicationContext(), Locationpicker.class));
-//
-//
-//        }
-//    }
+
+   private void GoogleSignIn() {
+        Intent intent = Auth.GoogleSignInApi.getSignInIntent(signInApi);
+        startActivityForResult(intent,RC_SIGN_IN);
+    }
+
+
+    private void handleSignInResult(GoogleSignInResult result) {
+      //  Toast.makeText(getActivity(), result.isSuccess()+"", Toast.LENGTH_SHORT).show();
+        if(result.isSuccess()) {
+
+            GoogleSignInAccount account = result.getSignInAccount();
+            String first_name = account.getGivenName();
+            String last_name = account.getFamilyName();
+            String profileImage = account.getPhotoUrl().toString();
+            String email = account.getEmail();
+            String gid = account.getId();
+            String token = account.getIdToken();
+            userDetails.setIsActive(true);
+            userDetails.setfirstname(first_name);
+            userDetails.setlastname(last_name);
+            userDetails.setemail(email);
+            userDetails.setimage_url(profileImage);
+            Toast.makeText(getActivity(), "successfully login", Toast.LENGTH_SHORT).show();
+            //redirect user to next page
+            SharedPrefUserInfo.getmInstance(getActivity()).saveUserInfo(first_name,last_name,email,profileImage);
+            activity.logincall(getView());
+            //startActivity(new Intent(getApplicationContext(), userhome.class));
+
+
+
+
+        }
+    }
         public void onActivityResult(int requestCode,int resultCode,Intent data)
         {
-       // super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == RC_SIGN_IN) {
-//            Toast.makeText(getActivity(), "onActivity", Toast.LENGTH_SHORT).show();
-//            GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
- //           handleSignInResult(googleSignInResult);
-//        }
-//        else
+        super.onActivityResult(requestCode, resultCode, data);
+       if(requestCode == RC_SIGN_IN) {
+          //  Toast.makeText(getActivity(), "onActivity", Toast.LENGTH_SHORT).show();
+            GoogleSignInResult googleSignInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(googleSignInResult);
+        }
+        else
             callbackManager.onActivityResult(requestCode, resultCode, data);
          }
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(signInApi);
-//        if (opr.isDone()) {
-//            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-//            // and the GoogleSignInResult will be available instantly.
-//            GoogleSignInResult result = opr.get();
-//            handleSignInResult(result);
-//        } else {
-//            // If the user has not previously signed in on this device or the sign-in has expired,
-//            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-//            // single sign-on will occur in this branch.
-//            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-//                @Override
-//                public void onResult(GoogleSignInResult googleSignInResult) {
-//                    handleSignInResult(googleSignInResult);
-//                }
-//            });
-//        }
-    //}
 
+    @Override
+   public void onStart() {
+        super.onStart();
 
-
-
-
-
-
-
-
-
-
-
+       OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(signInApi);
+        if (opr.isDone()) {
+            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+            // and the GoogleSignInResult will be available instantly.
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        } else {
+            // If the user has not previously signed in on this device or the sign-in has expired,
+            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+            // single sign-on will occur in this branch.
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(GoogleSignInResult googleSignInResult) {
+                    handleSignInResult(googleSignInResult);
+                }
+            });
+      }
+    }
 
 
     public boolean inValid()
@@ -285,7 +304,11 @@ public class login_fragment extends Fragment implements View.OnClickListener {
 
                activity.forgottransition(view);
 
-            }break;
+            }
+            break;
+            case R.id.gpButton :
+                GoogleSignIn();
+                break;
             case R.id.btn_login :
             {
 
@@ -310,12 +333,13 @@ public class login_fragment extends Fragment implements View.OnClickListener {
                                         JSONArray jsonArray = new JSONArray(response);
                                         JSONObject jsonObject = jsonArray.getJSONObject(0);
                                         userDetails.logout();
-                                        userDetails.setUID(jsonObject.getInt("uid"));
+                                        userDetails.setUID(jsonObject.getInt("uid")+"");
                                         userDetails.setemail(jsonObject.getString("email"));
                                         userDetails.setIsActive(true);
-                                        userDetails.setfname(jsonObject.getString("first_name"));
-                                        userDetails.setlname(jsonObject.getString("last_name"));
-                                        userDetails.setphoneno(jsonObject.getInt("phoneno"));
+                                        userDetails.setisVendor(jsonObject.getInt("usertype"));
+                                        userDetails.setfirstname(jsonObject.getString("first_name"));
+                                        userDetails.setlastname(jsonObject.getString("last_name"));
+                                        userDetails.setphoneno(jsonObject.getString("phoneno"));
                                         Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
                                         activity.logincall(view);
                                     } catch (JSONException e) {
@@ -361,4 +385,5 @@ public class login_fragment extends Fragment implements View.OnClickListener {
             }break;
         }
     }
+
 }

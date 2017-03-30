@@ -52,9 +52,13 @@
         <activity
             android:name=".profile.profile"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".vendorListViewDisplay"
             android:label="@string/title_activity_vendor_list_view_display"></activity>
+
+        <activity android:name=".editprofile.Editprofile"></activity>
+
     </application>
 
 </manifest>

@@ -1,9 +1,13 @@
 package com.example.lenovo.planner;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,36 +22,69 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.applicationstart.SplashScreen;
+import com.example.lenovo.planner.editprofile.Editprofile;
 import com.example.lenovo.planner.editprofile.VendorProfile;
 import com.example.lenovo.planner.profile.profile;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.plus.Plus;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class userhome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     UserDetails user;
-  //  Button btnnext;
+
+   Button btnnext;
+
+    SharedPrefUserInfo userInfo;
+    private GoogleApiClient mGoogleApiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_userhome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        SharedPrefUserInfo userInfo = SharedPrefUserInfo.getmInstance(this);
+        userInfo = SharedPrefUserInfo.getmInstance(this);
         user = new UserDetails(getApplicationContext());
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+              //  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                   //     .setAction("Action", null).show();
+                Intent i=new Intent(getApplicationContext(),vendorListViewDisplay.class);
+                startActivity(i);
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,14 +95,21 @@ public class userhome extends AppCompatActivity
         View navHeader;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-      /*  btnnext=(Button)findViewById(R.id.btnintent);
+
+   /*     btnnext=(Button)findViewById(R.id.btnintent);
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(getApplicationContext(),vendorListViewDisplay.class);
                 startActivity(i);
             }
-        }); */
+        });
+*/
+
+        if (user.getisVendor()==1)
+        {
+            sync(this,user.getUID());
+        }
 
         navHeader = navigationView.getHeaderView(0);
         ImageView imageView = (ImageView)navHeader.findViewById(R.id.imageView);
@@ -73,13 +117,28 @@ public class userhome extends AppCompatActivity
         TextView emaildisplay = (TextView)navHeader.findViewById(R.id.emaildisplay);
 
 
-         Toast.makeText(this, userInfo.getUserName(), Toast.LENGTH_SHORT).show();
-        usernamedisplay.setText(userInfo.getUserName());
-        emaildisplay.setText(userInfo.getemail());
+      //   Toast.makeText(this, userInfo.getUserName(), Toast.LENGTH_SHORT).show();
+        usernamedisplay.setText(user.getUserName());
+        emaildisplay.setText(user.getemail());
+        if (user.getisVendor()==1)
+        {
+            navigationView.getMenu().findItem(R.id.nav_becomeavendor).setVisible(false);
+        }
 
-            Picasso.with(this).load(userInfo.getImageUrl()).into(imageView);
+            Picasso.with(this).load(user.getImageUrl()).into(imageView);
         navigationView.setNavigationItemSelectedListener(this);
 
+    }
+    @Override
+    protected void onStart() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+        mGoogleApiClient.connect();
+        super.onStart();
     }
 
     @Override
@@ -124,8 +183,12 @@ public class userhome extends AppCompatActivity
             Intent int57 = new Intent(this, profile.class);
             startActivity(int57);
             overridePendingTransition(R.anim.left_in,R.anim.fadeout);
-            finish();
         } else if (id == R.id.nav_editprofile) {
+            Intent int56 = new Intent(this , Editprofile.class);
+            startActivity(int56);
+            overridePendingTransition(R.anim.left_in,R.anim.fadeout);
+            finish();
+
 
         } else if (id == R.id.nav_budgetcalc) {
 
@@ -139,15 +202,28 @@ public class userhome extends AppCompatActivity
 
         } else if (id == R.id.nav_logout) {
             user.logout();
+            LoginManager.getInstance().logOut();
+
+
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        Toast.makeText(userhome.this, "Please Login to Continue", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
             Intent logouts= new Intent(this, SplashScreen.class);
             startActivity(logouts);
             overridePendingTransition(R.anim.fade,R.anim.fadeout);
             finish();
+                            // userInfo.logoutfbgb();
 
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
 
         }
 
@@ -157,4 +233,70 @@ public class userhome extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    public void sync(final Context context, final String uid)
+    {
+        String syncurl ="https://wplanner0000.000webhostapp.com/wplanner/vendorsync.php";
+        final UserDetails userDetails= new UserDetails(context);
+        StringRequest stringRequest;
+        //final ProgressDialog loading = ProgressDialog.show(this, "Please Wait.....", "Verifying......", false, false);
+        stringRequest = new StringRequest(Request.Method.POST, syncurl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("DataBase Response", response);
+                        if (response.equals("fail") == false) {
+          //                  loading.dismiss();
+                            try {
+                                JSONArray jsonArray = new JSONArray(response);
+                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                userDetails.setoname(jsonObject.getString("name"));
+                                userDetails.setexperience(jsonObject.getInt("experience")+"");
+                                userDetails.setscontactno(jsonObject.getString("contactno"));
+                                userDetails.setprice(jsonObject.getInt("price")+"");
+                                userDetails.setcategory(jsonObject.getInt("category_id")+"");
+                                userDetails.setcity(jsonObject.getString("city"));
+                                userDetails.setdistrict(jsonObject.getString("district"));
+                                userDetails.setstate(jsonObject.getString("state"));
+                                userDetails.setpincode(jsonObject.getInt("pincode")+"");
+                                userDetails.setstatus(jsonObject.getString("status"));
+                //                Toast.makeText(context, "Sync", Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+
+                            }
+
+
+
+
+                        }
+                        else {
+            //                loading.dismiss();
+
+                        }
+                    }
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+              //          loading.dismiss();
+                        Toast.makeText(context, "error.toString", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("uid",uid);
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+
+
+    }
+
+
 }
