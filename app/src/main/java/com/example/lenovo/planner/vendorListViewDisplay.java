@@ -1,5 +1,6 @@
 package com.example.lenovo.planner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,7 +14,7 @@ public class vendorListViewDisplay extends AppCompatActivity {
     private TextView mTextMessage;
     String txt[]=new String[]{"PHOTOGRAPHER", "MUSIC", "CATERING", "DECORATION", "VENUE", "BAKERY", "DRESSES", "GIFTSHOP", "BEAUTICIAN"};
     ListView lv;
-    Integer[] imageId={R.drawable.downloadd,R.drawable.downloadd,R.drawable.downloadd,R.drawable.downloadd,R.drawable.downloadd,R.drawable.downloadd,R.drawable.downloadd,R.drawable.downloadd,R.drawable.downloadd};
+    Integer[] imageId={R.drawable.downloadd,R.drawable.downloadd,R.drawable.catfood,R.drawable.downloadd,R.drawable.venuee,R.drawable.downloadd,R.drawable.downloadd,R.drawable.downloadd,R.drawable.downloadd};
 
 
 
@@ -33,7 +34,8 @@ public class vendorListViewDisplay extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_notifications);
                     return true;
                 case R.id.navigation_getnearby:
-                    mTextMessage.setText(R.string.title_getnearby);
+                    Intent i=new Intent(getApplicationContext(),MapsActivity.class);
+                    startActivity(i);
                     return true;
                 case R.id.navigation_favourites:
                     mTextMessage.setText(R.string.title_favourites);
