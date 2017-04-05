@@ -1,4 +1,4 @@
-package com.example.lenovo.planner;
+package com.example.lenovo.planner.Nearby;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.lenovo.planner.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;

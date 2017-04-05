@@ -1,12 +1,12 @@
-package com.example.lenovo.planner;
+package com.example.lenovo.planner.UserHome;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,8 +22,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +33,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.lenovo.planner.Adapters.CustomListAdapter;
 import com.example.lenovo.planner.Location.Locationpicker;
+import com.example.lenovo.planner.Nearby.MapsActivity;
+import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.applicationstart.SplashScreen;
@@ -61,13 +61,8 @@ import java.util.Map;
 public class userhome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     UserDetails user;
-    private TextView mTextMessage;
-    String txt[]=new String[]{"Photographer", "Music", "Catering", "Decoration", "Venue", "Bakery", "Clothing", "GiftShop", "Saloon"};
-    ListView lv;
-    Integer[] imageId={R.drawable.photo,R.drawable.mus,R.drawable.cate,R.drawable.ven,R.drawable.deco,R.drawable.mus,R.drawable.cate,R.drawable.ven,R.drawable.deco};
-
-    Button btnnext;
-    ListView categoryies;
+    FragmentManager fragmentManager;
+    FragmentTransaction transaction;
     SharedPrefUserInfo userInfo;
     private GoogleApiClient mGoogleApiClient;
 
@@ -82,29 +77,12 @@ public class userhome extends AppCompatActivity
         setSupportActionBar(toolbar);
         userInfo = SharedPrefUserInfo.getmInstance(this);
         user = new UserDetails(getApplicationContext());
-        categoryies = (ListView) findViewById(R.id.listview);
+        RelativeLayout relativeLayout =(RelativeLayout) findViewById(R.id.vendorlistdisplay);
 
-        lv=(ListView)findViewById(R.id.listview);
-
-
-/*
-        mTextMessage = (TextView) findViewById(R.id.message);
-*/
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         View view = navigation.findViewById(R.id.navigation_home);
         view.performClick();
-     /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              //  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                   //     .setAction("Action", null).show();
-                Intent i=new Intent(getApplicationContext(),vendorListViewDisplay.class);
-                startActivity(i);
-            }
-        });*/
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -118,16 +96,6 @@ public class userhome extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-   /*     btnnext=(Button)findViewById(R.id.btnintent);
-        btnnext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(getApplicationContext(),vendorListViewDisplay.class);
-                startActivity(i);
-            }
-        });
-*/
-
         if (user.getisVendor()==1)
         {
             sync(this,user.getUID());
@@ -139,8 +107,6 @@ public class userhome extends AppCompatActivity
         TextView usernamedisplay = (TextView)navHeader.findViewById(R.id.usernamedisplay);
         TextView emaildisplay = (TextView)navHeader.findViewById(R.id.emaildisplay);
 
-
-      //   Toast.makeText(this, userInfo.getUserName(), Toast.LENGTH_SHORT).show();
         usernamedisplay.setText(user.getUserName());
         emaildisplay.setText(user.getemail());
         if (user.getisVendor()==1)
@@ -245,7 +211,6 @@ public class userhome extends AppCompatActivity
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
                             @Override
                             public void onResult(@NonNull Status status) {
-                                Toast.makeText(userhome.this, "Please Login to Continue", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -275,14 +240,12 @@ public class userhome extends AppCompatActivity
         String syncurl ="https://wplanner0000.000webhostapp.com/wplanner/vendorsync.php";
         final UserDetails userDetails= new UserDetails(context);
         StringRequest stringRequest;
-        //final ProgressDialog loading = ProgressDialog.show(this, "Please Wait.....", "Verifying......", false, false);
         stringRequest = new StringRequest(Request.Method.POST, syncurl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d("DataBase Response", response);
                         if (response.equals("fail") == false) {
-          //                  loading.dismiss();
                             try {
                                 JSONArray jsonArray = new JSONArray(response);
                                 JSONObject jsonObject = jsonArray.getJSONObject(0);
@@ -298,7 +261,6 @@ public class userhome extends AppCompatActivity
                                 userDetails.setstate(jsonObject.getString("state"));
                                 userDetails.setpincode(jsonObject.getInt("pincode")+"");
                                 userDetails.setstatus(jsonObject.getString("status"));
-                //                Toast.makeText(context, "Sync", Toast.LENGTH_SHORT).show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
 
@@ -309,7 +271,7 @@ public class userhome extends AppCompatActivity
 
                         }
                         else {
-            //                loading.dismiss();
+
 
                         }
                     }
@@ -318,7 +280,7 @@ public class userhome extends AppCompatActivity
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-              //          loading.dismiss();
+
                         Toast.makeText(context, "error.toString", Toast.LENGTH_SHORT).show();
                     }
                 }) {
@@ -421,32 +383,19 @@ public class userhome extends AppCompatActivity
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-/*
-                    mTextMessage.setText(R.string.title_home);
-*/                  CustomListAdapter adapter=new CustomListAdapter(userhome.this, txt, imageId);
-                    //layoutcustom adaptor=new layoutcustom(userhome.this, txt,imageId);
-                    lv.setAdapter(adapter);
-                    //return true;
+                    Home home =new Home();
+                    fragmentManager = getSupportFragmentManager();
+                    transaction=fragmentManager.beginTransaction();
+                    transaction.add(R.id.vendorlistdisplay,home);
+                    transaction.commit();
                 case R.id.navigation_dashboard:
-/*
-                    mTextMessage.setText(R.string.title_dashboard);
-*/
                     return true;
                 case R.id.navigation_notifications:
-/*
-                    mTextMessage.setText(R.string.title_notifications);
-*/
                     return true;
                 case R.id.navigation_getnearby:
                     Intent i=new Intent(getApplicationContext(),MapsActivity.class);
                     startActivity(i);
-/*
-                    mTextMessage.setText(R.string.title_getnearby);
-*/
                 case R.id.navigation_favourites:
-/*
-                    mTextMessage.setText(R.string.title_favourites);
-*/
                     return true;
             }
             return false;

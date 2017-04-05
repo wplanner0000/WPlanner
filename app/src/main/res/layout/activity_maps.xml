@@ -9,32 +9,49 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.lenovo.planner.MapsActivity" />
+    tools:context="com.example.lenovo.planner.Nearby.MapsActivity" />
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical">
 <Button
-android:id="@+id/btnRestaurant"
-android:layout_marginTop="50dp"
-android:layout_width="match_parent"
-android:layout_height="50dp"
-android:text="Nearby Restaurants" />
+    android:id="@+id/btnRestaurant"
+    android:background="#00000000"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAllCaps="false"
+    android:textStyle="bold"
+    android:textColor="#fff"
+    android:layout_marginLeft="10dp"
+    android:text="Restaurants" />
 
 <Button
-android:id="@+id/btnHospital"
-android:layout_width="match_parent"
-android:layout_height="50dp"
-android:text="Nearby Hospitals" />
+    android:id="@+id/btnHospital"
+    android:background="#00000000"
+    android:layout_width="wrap_content"
+    android:textAllCaps="false"
+    android:textColor="#fff"
+    android:textStyle="bold"
+    android:layout_toRightOf="@id/btnRestaurant"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:text="Hospitals" />
+
 
 <Button
-android:id="@+id/btnSchool"
-android:layout_width="match_parent"
-android:layout_height="50dp"
-android:text="Nearby Schools" />
+    android:id="@+id/btnSchool"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_toRightOf="@id/btnHospital"
+    android:textAllCaps="false"
+    android:textColor="#fff"
+    android:textStyle="bold"
+    android:layout_marginLeft="10dp"
+    android:background="#00000000"
+    android:text="Schools" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     </FrameLayout>

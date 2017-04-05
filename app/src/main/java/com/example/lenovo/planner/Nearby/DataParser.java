@@ -1,4 +1,4 @@
-package com.example.lenovo.planner;
+package com.example.lenovo.planner.Nearby;
 
 import android.util.Log;
 

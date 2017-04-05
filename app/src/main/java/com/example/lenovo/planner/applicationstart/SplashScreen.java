@@ -25,7 +25,7 @@ import com.digits.sdk.android.Digits;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.forgotpassword.forgotpassword;
-import com.example.lenovo.planner.userhome;
+import com.example.lenovo.planner.UserHome.userhome;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 

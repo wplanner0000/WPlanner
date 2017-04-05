@@ -42,7 +42,7 @@
         <activity android:name=".Location.Locationpicker" />
         <activity android:name=".forgotpassword.newpassword" />
         <activity
-            android:name=".userhome"
+            android:name=".UserHome.userhome"
             android:label="Home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".forgotpassword.newpasswordotp" />
@@ -51,13 +51,10 @@
         <activity
             android:name=".profile.profile"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".vendorListViewDisplay"
-            android:label="@string/title_activity_vendor_list_view_display" />
         <activity android:name=".editprofile.Editprofile" />
         <activity android:name=".editprofile.Edituser" />
         <activity
-            android:name=".MapsActivity"
+            android:name=".Nearby.MapsActivity"
             android:label="@string/title_activity_maps">
 
         </activity>
