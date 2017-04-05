@@ -438,10 +438,11 @@ public class userhome extends AppCompatActivity
 */
                     return true;
                 case R.id.navigation_getnearby:
+                    Intent i=new Intent(getApplicationContext(),MapsActivity.class);
+                    startActivity(i);
 /*
                     mTextMessage.setText(R.string.title_getnearby);
 */
-                    return true;
                 case R.id.navigation_favourites:
 /*
                     mTextMessage.setText(R.string.title_favourites);

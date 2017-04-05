@@ -52,10 +52,6 @@ dependencies {
     })
 
 
-
-
-
-
     compile('com.digits.sdk.android:digits:2.0.6@aar')
             {
                 transitive = true;
@@ -76,6 +72,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.android.gms:play-services-auth:10.0.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
     testCompile 'junit:junit:4.12'
 }
 

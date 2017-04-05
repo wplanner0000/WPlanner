@@ -57,6 +57,12 @@
             android:label="@string/title_activity_vendor_list_view_display" />
         <activity android:name=".editprofile.Editprofile" />
         <activity android:name=".editprofile.Edituser" />
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps">
+
+        </activity>
     </application>
 
 </manifest>
+
