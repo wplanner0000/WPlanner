@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,16 +20,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.Adapters.CustomListAdapter;
+import com.example.lenovo.planner.Location.Locationpicker;
 import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.applicationstart.SplashScreen;
@@ -43,7 +49,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.plus.Plus;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -56,9 +61,13 @@ import java.util.Map;
 public class userhome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     UserDetails user;
+    private TextView mTextMessage;
+    String txt[]=new String[]{"Photographer", "Music", "Catering", "Decoration", "Venue", "Bakery", "Clothing", "GiftShop", "Saloon"};
+    ListView lv;
+    Integer[] imageId={R.drawable.photo,R.drawable.mus,R.drawable.cate,R.drawable.ven,R.drawable.deco,R.drawable.mus,R.drawable.cate,R.drawable.ven,R.drawable.deco};
 
-   Button btnnext;
-
+    Button btnnext;
+    ListView categoryies;
     SharedPrefUserInfo userInfo;
     private GoogleApiClient mGoogleApiClient;
 
@@ -73,11 +82,19 @@ public class userhome extends AppCompatActivity
         setSupportActionBar(toolbar);
         userInfo = SharedPrefUserInfo.getmInstance(this);
         user = new UserDetails(getApplicationContext());
+        categoryies = (ListView) findViewById(R.id.listview);
+
+        lv=(ListView)findViewById(R.id.listview);
 
 
-
-
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+/*
+        mTextMessage = (TextView) findViewById(R.id.message);
+*/
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        View view = navigation.findViewById(R.id.navigation_home);
+        view.performClick();
+     /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +103,7 @@ public class userhome extends AppCompatActivity
                 Intent i=new Intent(getApplicationContext(),vendorListViewDisplay.class);
                 startActivity(i);
             }
-        });
+        });*/
 
 
 
@@ -274,6 +291,8 @@ public class userhome extends AppCompatActivity
                                 userDetails.setscontactno(jsonObject.getString("contactno"));
                                 userDetails.setprice(jsonObject.getInt("price")+"");
                                 userDetails.setcategory(jsonObject.getInt("category_id")+"");
+                                userDetails.setcategoryint(jsonObject.getInt("category_id"));
+                                userDetails.setcategoryname(jsonObject.getInt("category_id")+"");
                                 userDetails.setcity(jsonObject.getString("city"));
                                 userDetails.setdistrict(jsonObject.getString("district"));
                                 userDetails.setstate(jsonObject.getString("state"));
@@ -319,12 +338,17 @@ public class userhome extends AppCompatActivity
     }
     private void changepassword()
     {
-        Button cancel ;
+        final EditText oldpass,newpass,confirmnewpass;
+        Button cancel,savechanges;
         final AlertDialog.Builder updatepassword = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.updatepassword,null);
         updatepassword.setView(dialogView);
         cancel =(Button) dialogView.findViewById(R.id.cancel);
+        savechanges =(Button) dialogView.findViewById(R.id.updatepass);
+        oldpass = (EditText) dialogView.findViewById(R.id.oldpassword);
+        newpass = (EditText) dialogView.findViewById(R.id.newpassword);
+        confirmnewpass = (EditText) dialogView.findViewById(R.id.confirmnewpassword);
         final AlertDialog b = updatepassword.create();
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -332,9 +356,101 @@ public class userhome extends AppCompatActivity
                 b.dismiss();
             }
         });
+        savechanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String OldPassword = oldpass.getText().toString();
+                final String NewPassword = newpass.getText().toString();
+                final String ReTypePassord = confirmnewpass.getText().toString();
+
+                if (!NewPassword.equals(ReTypePassord))
+                {
+                    confirmnewpass.setError("Password Didn't Match");
+                    return;
+                }
+                StringRequest stringRequest;
+             //   final ProgressDialog progress = ProgressDialog.show(getApplicationContext(),"Please Wait...","Updating Password...",false,false);
+                stringRequest = new StringRequest(Request.Method.POST, "https://wplanner0000.000webhostapp.com/wplanner/passwordchange.php", new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                            if(response.equals("success"))
+                            {
+                    //            progress.dismiss();
+                                Toast.makeText(userhome.this, "Password Changed Succesfully", Toast.LENGTH_SHORT).show();
+                                user.logout();
+                                Intent logouts= new Intent(getApplicationContext(), SplashScreen.class);
+                                startActivity(logouts);
+                                overridePendingTransition(R.anim.fade,R.anim.fadeout);
+                                finish();
+
+                            }
+                            else{
+                  //              progress.dismiss();
+                                Toast.makeText(userhome.this, ""+response, Toast.LENGTH_SHORT).show();
+                            }
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("uid",user.getUID());
+                        params.put("OldPassword",OldPassword);
+                        params.put("NewPassword",NewPassword);
+                        return params;
+                    }
+                };
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                queue.add(stringRequest);
+
+
+            }
+        });
         b.setCanceledOnTouchOutside(false);
         b.show();
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+/*
+                    mTextMessage.setText(R.string.title_home);
+*/                  CustomListAdapter adapter=new CustomListAdapter(userhome.this, txt, imageId);
+                    //layoutcustom adaptor=new layoutcustom(userhome.this, txt,imageId);
+                    lv.setAdapter(adapter);
+                    //return true;
+                case R.id.navigation_dashboard:
+/*
+                    mTextMessage.setText(R.string.title_dashboard);
+*/
+                    return true;
+                case R.id.navigation_notifications:
+/*
+                    mTextMessage.setText(R.string.title_notifications);
+*/
+                    return true;
+                case R.id.navigation_getnearby:
+/*
+                    mTextMessage.setText(R.string.title_getnearby);
+*/
+                    return true;
+                case R.id.navigation_favourites:
+/*
+                    mTextMessage.setText(R.string.title_favourites);
+*/
+                    return true;
+            }
+            return false;
+        }
+
+    };
 
 }

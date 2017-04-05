@@ -1,5 +1,6 @@
 package com.example.lenovo.planner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.lenovo.planner.Location.Locationpicker;
 
 public class vendorListViewDisplay extends AppCompatActivity {
 
@@ -25,7 +28,9 @@ public class vendorListViewDisplay extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
-                    return true;
+                    Intent i = new Intent(getApplicationContext(), Locationpicker.class);
+                    startActivity(i);
+                    //return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
@@ -52,7 +57,9 @@ public class vendorListViewDisplay extends AppCompatActivity {
         layoutcustom adaptor=new layoutcustom(vendorListViewDisplay.this, txt,imageId);
         lv.setAdapter(adaptor);
 
+/*
         mTextMessage = (TextView) findViewById(R.id.message);
+*/
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }

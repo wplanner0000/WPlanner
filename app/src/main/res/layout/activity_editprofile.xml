@@ -27,17 +27,20 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/addimage"
+            android:src="@drawable/ic_menu_camera"
             android:id="@+id/addprofileimage"
+            android:padding="10dp"
+            android:background="@drawable/rounded_border"
             android:layout_margin="10dp"
             android:layout_alignBottom="@id/imgProfilePicture"
             android:layout_toLeftOf="@id/imgProfilePicture"
             />
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload"
+            android:src="@mipmap/ic_file_upload_black_24dp"
             android:textStyle="bold"
+            android:padding="10dp"
             android:layout_alignBottom="@id/addprofileimage"
             android:background="@drawable/rounded_border"
             android:layout_toRightOf="@id/imgProfilePicture"
@@ -159,11 +162,12 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Change Address "
+                android:text="   Change Address   "
                 android:background="@drawable/rooundimage"
                 android:textAllCaps="false"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="10dp"
+                android:id="@+id/setaddress"
+                android:layout_alignTop="@id/Address"
+                android:layout_alignBottom="@id/Address"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/price"
                 />
@@ -255,14 +259,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawablePadding="20dp"
             android:layout_marginTop="15dp"
             android:layout_below="@id/layout_vendor"
             android:layout_alignParentRight="true"
             android:textSize="13dp"
             android:background="@drawable/rounded_border"
             android:layout_marginRight="35dp"
-            android:text="Save Changes"
+            android:text="    Save Changes    "
             android:layout_marginBottom="30dp"
             android:id="@+id/submit"
             android:onClick="submit"/>

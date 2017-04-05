@@ -1,12 +1,14 @@
 package com.example.lenovo.planner.applicationstart;
 
 
+import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.test.mock.MockPackageManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +23,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.lenovo.planner.Locationpicker;
+import com.example.lenovo.planner.Location.GPSTracker;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
-import com.example.lenovo.planner.userhome;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -45,7 +46,6 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,12 +63,19 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  */
 public class login_fragment extends Fragment implements View.OnClickListener
 {
+    private static final int REQUEST_CODE_PERMISSION = 2;
+    String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
+
+    // GPSTracker class
+    GPSTracker gps;
 
     EditText et_email,et_password;
     Button frgtPassword,login,register;
     String loginurl =  "https://wplanner0000.000webhostapp.com/wplanner/logtry.php";
     SplashScreen activity;
     UserDetails userDetails;
+    String latitude;
+    String longitude;
     //facebook
     SignInButton gpButton;
     LoginButton fbButton;
@@ -83,7 +90,6 @@ public class login_fragment extends Fragment implements View.OnClickListener
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -91,8 +97,21 @@ public class login_fragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
 
         final View view= inflater.inflate(R.layout.fragment_login_fragment, container, false);
-        userDetails = new UserDetails(getActivity());
+        try {
+            if (ActivityCompat.checkSelfPermission(getActivity(), mPermission)
+                    != MockPackageManager.PERMISSION_GRANTED) {
 
+                ActivityCompat.requestPermissions(getActivity(), new String[]{mPermission},
+                        REQUEST_CODE_PERMISSION);
+
+                // If any permission above not allowed by user, this condition will
+                //execute every time, else your else part will work
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        userDetails = new UserDetails(getActivity());
+        gps = new GPSTracker(getActivity());
         et_email = (EditText) view.findViewById(R.id.et_email);
         et_password = (EditText) view.findViewById(R.id.et_password);
 
@@ -101,9 +120,11 @@ public class login_fragment extends Fragment implements View.OnClickListener
 
         register=(Button) view.findViewById(R.id.btn_registerhere);
         register.setOnClickListener(this);
+        Ggps();
 
         login=(Button) view.findViewById(R.id.btn_login);
         login.setOnClickListener(this);
+
 
         activity = (SplashScreen) getActivity();
         fbButton = (LoginButton) view.findViewById(R.id.fbButton);
@@ -127,7 +148,6 @@ public class login_fragment extends Fragment implements View.OnClickListener
                             public void onCompleted(JSONObject object, GraphResponse response) {
 
                                 try{
-
                                     String email = object.getString("email");
                                     String id = object.getString("id");
                                     String name = object.getString("name");
@@ -140,7 +160,7 @@ public class login_fragment extends Fragment implements View.OnClickListener
                                     userDetails.setlastname(lname);
                                     userDetails.setemail(email);
                                     userDetails.setimage_url(imageUrl);
-                                    SharedPrefUserInfo.getmInstance(getActivity()).saveUserInfo(fname,lname,email,imageUrl);
+                                    //SharedPrefUserInfo.getmInstance(getActivity()).saveUserInfo(fname,lname,email,imageUrl);
                                     activity.logincall(view);
 
 
@@ -194,6 +214,7 @@ public class login_fragment extends Fragment implements View.OnClickListener
         gpButton.setSize(SignInButton.SIZE_STANDARD);
         gpButton.setScopes(signInOptions.getScopeArray());
 
+
         signInApi = new GoogleApiClient.Builder(getActivity())
                 .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
@@ -204,11 +225,20 @@ public class login_fragment extends Fragment implements View.OnClickListener
                 .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions)
                 .build();
         //end of google+ login
+
        return view;
 
 }
 
-   private void GoogleSignIn() {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        signInApi.stopAutoManage(getActivity());
+        signInApi.disconnect();
+
+    }
+
+    private void GoogleSignIn() {
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(signInApi);
         startActivityForResult(intent,RC_SIGN_IN);
     }
@@ -217,7 +247,6 @@ public class login_fragment extends Fragment implements View.OnClickListener
     private void handleSignInResult(GoogleSignInResult result) {
       //  Toast.makeText(getActivity(), result.isSuccess()+"", Toast.LENGTH_SHORT).show();
         if(result.isSuccess()) {
-
             GoogleSignInAccount account = result.getSignInAccount();
             String first_name = account.getGivenName();
             String last_name = account.getFamilyName();
@@ -316,10 +345,10 @@ public class login_fragment extends Fragment implements View.OnClickListener
                 {
                     return;
                 }
+
+
                 final String email = et_email.getText().toString();
                 final String password = et_password.getText().toString();
-
-
                 StringRequest stringRequest;
                 final ProgressDialog loading = ProgressDialog.show(getActivity(), "Please Wait.....", "Verifying......", false, false);
                 stringRequest = new StringRequest(Request.Method.POST, loginurl,
@@ -370,6 +399,8 @@ public class login_fragment extends Fragment implements View.OnClickListener
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("email",email);
                         params.put("password", password);
+                        params.put("longitude",longitude);
+                        params.put("latitude",latitude);
                         return params;
                     }
 
@@ -381,8 +412,26 @@ public class login_fragment extends Fragment implements View.OnClickListener
             }break;
             case R.id.btn_registerhere :
             {
+
                 activity.callregister(view);
             }break;
+        }
+    }
+    public void Ggps()
+    {
+        // check if GPS enabled
+        if(gps.canGetLocation()){
+
+            double latitudes = gps.getLatitude();
+            double longitudes = gps.getLongitude();
+            latitude = latitudes+"";
+            longitude = longitudes+"";
+
+        }else{
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            gps.showSettingsAlert();
         }
     }
 

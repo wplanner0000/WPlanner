@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.lenovo.planner.editprofile.Edituser">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgProfilePicture"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/account_logo"
+            app:border_color="#fff"
+            app:border_width="3dp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_camera"
+            android:id="@+id/addprofileimage"
+            android:padding="10dp"
+            android:background="@drawable/rounded_border"
+            android:layout_margin="10dp"
+            android:layout_alignBottom="@id/imgProfilePicture"
+            android:layout_toLeftOf="@id/imgProfilePicture"
+            />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_file_upload_black_24dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:layout_alignBottom="@id/addprofileimage"
+            android:background="@drawable/rounded_border"
+            android:layout_toRightOf="@id/imgProfilePicture"
+            android:layout_alignTop="@id/addprofileimage"
+            />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_vendor"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:layout_below="@id/imgProfilePicture"
+            >
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Personal Info"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="3dp"
+                android:background="#fff"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:layout_below="@id/spn_category"
+                android:id="@+id/personaldetails"
+                android:layout_marginBottom="5dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="Name"
+                android:id="@+id/name"
+                android:textColorHint="#000"
+                android:textColor="#000"
+                android:gravity="center_vertical"
+                android:layout_below="@id/personaldetails"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/names"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name"
+                android:hint="Contact Number"
+                android:id="@+id/contact"
+                android:textColorHint="#000"
+                android:textColor="#000"
+                android:gravity="center_vertical"
+                android:drawablePadding="20dp"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/phone"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/contact"
+                android:textColorHint="#000"
+                android:textColor="#000"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:hint="Email"
+                android:drawablePadding="20dp"
+                android:id="@+id/email"
+                android:drawableLeft="@drawable/mail"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="    Save Changes    "
+                android:background="@drawable/rounded_border"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/email"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

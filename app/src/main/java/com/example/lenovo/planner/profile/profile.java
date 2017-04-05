@@ -1,5 +1,6 @@
 package com.example.lenovo.planner.profile;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.v4.view.PagerAdapter;
@@ -7,11 +8,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.lenovo.planner.Adapters.profileadapter;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
+import com.example.lenovo.planner.applicationstart.SplashScreen;
+import com.example.lenovo.planner.editprofile.Editprofile;
+import com.example.lenovo.planner.editprofile.Edituser;
 
 public class profile extends AppCompatActivity {
     UserDetails userDetails;
@@ -53,6 +58,20 @@ public class profile extends AppCompatActivity {
             }
 
         });
+    }
+    public void edituserprofile(View view)
+    {
+        Intent editusersss= new Intent(this, Edituser.class);
+        startActivity(editusersss);
+        overridePendingTransition(R.anim.fade,R.anim.fadeout);
+        finish();
+    }
+    public void editvendorprofile(View view)
+    {
+        Intent editusersss= new Intent(this, Editprofile.class);
+        startActivity(editusersss);
+        overridePendingTransition(R.anim.fade,R.anim.fadeout);
+        finish();
     }
 
 }

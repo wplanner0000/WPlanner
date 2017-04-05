@@ -35,6 +35,7 @@ public class VendorProfile extends AppCompatActivity {
     Spinner spn_category;
     UserDetails user;
     String uid;
+    int categoryin;
     ArrayAdapter<String> categoryadapter;
     String category_id;
     ArrayList<String> categories;
@@ -76,6 +77,7 @@ public class VendorProfile extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 category_id = spn_category.getSelectedItemId()+"";
+                categoryin = spn_category.getSelectedItemPosition();
 
             }
 
@@ -132,6 +134,7 @@ public class VendorProfile extends AppCompatActivity {
                             user.setcity(city);
                             user.setdistrict(district);
                             user.setstate(state);
+                            user.setcategoryname(category_id);
                             user.setpincode(pincode);
                             user.setstatus(status);
                             user.setcategory(category_id);
@@ -166,8 +169,6 @@ public class VendorProfile extends AppCompatActivity {
                 params.put("district", district);
                 params.put("state", state);
                 params.put("pincode", pincode);
-
-
                 return params;
             }
 

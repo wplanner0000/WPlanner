@@ -20,6 +20,16 @@
         android:src="@drawable/account_logo"
         app:border_color="#fff"
         app:border_width="3dp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:id="@+id/brn_edituser"
+            android:background="@drawable/rounded_border"
+            android:src="@mipmap/ic_mode_edit_black_24dp"
+            />
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,6 +21,8 @@ public class vendorprofileview extends Fragment {
     ImageView profileimage;
     TextView oname,contact,category,experience,price,city,state,district,pincode,status;
     UserDetails userDetails;
+    ImageButton editvendor;
+    profile profiledd;
 
 
     @Override
@@ -39,9 +42,10 @@ public class vendorprofileview extends Fragment {
         district = (TextView) view.findViewById(R.id.district);
         pincode = (TextView) view.findViewById(R.id.pincode);
         status = (TextView) view.findViewById(R.id.status);
-
+        editvendor = (ImageButton) view.findViewById(R.id.brn_editvendor);
+        profiledd = (profile) getActivity();
         //Picasso.with(getActivity()).load(userDetails.getImageUrl()).into(profileimage);
-        category.setText(userDetails.getcategory());
+        category.setText(userDetails.getcategoryname());
         oname.setText(userDetails.getoname());
         contact.setText(userDetails.getscontactno());
         experience.setText(userDetails.getexperience());
@@ -51,6 +55,12 @@ public class vendorprofileview extends Fragment {
         state.setText(userDetails.getstate());
         pincode.setText(userDetails.getpincode());
         status.setText(userDetails.getstatus());
+        editvendor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                profiledd.editvendorprofile(view);
+            }
+        });
         return view;
     }
 

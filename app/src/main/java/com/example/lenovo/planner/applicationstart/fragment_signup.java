@@ -2,7 +2,6 @@ package com.example.lenovo.planner.applicationstart;
 
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,9 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.lenovo.planner.Locationpicker;
 import com.example.lenovo.planner.R;
-import com.example.lenovo.planner.applicationstart.SplashScreen;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,6 +91,7 @@ public class fragment_signup extends Fragment implements View.OnClickListener {
                                 Log.d("DataBase Response", response);
                                 if (response.equals("success")) {
                                     loading.dismiss();
+
                                     activity.callsignup(view);
 
                                 } else {

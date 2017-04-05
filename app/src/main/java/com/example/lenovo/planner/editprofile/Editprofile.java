@@ -1,8 +1,13 @@
 package com.example.lenovo.planner.editprofile;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +16,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -22,9 +28,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.Location.Locationpicker;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.userhome;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,10 +43,16 @@ import java.util.Map;
 
 public class Editprofile extends AppCompatActivity {
 
+    private final static int MY_PERMISSION_FINE_LOCATION = 101;
+    private final static int PLACE_PICKER_REQUEST=1;
+
     EditText oname,contact,experiences,prices,citys,districts,states,pincodes,statuss;
     Spinner spn_category;
     UserDetails user;
     String uid;
+    Button setaddress;
+   // Long categoryint;
+    Integer categoryin;
     ArrayAdapter<String> categoryadapter;
     String category_id;
     ArrayList<String> categories;
@@ -46,7 +63,30 @@ public class Editprofile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestPermission();
         setContentView(R.layout.activity_editprofile);
+        setaddress =(Button) findViewById(R.id.setaddress);
+        setaddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                //builder.setLatLngBounds(bounds);
+                try {
+                    Intent intent=builder.build(Editprofile.this);
+                    startActivityForResult(intent,PLACE_PICKER_REQUEST);
+                }
+                catch (GooglePlayServicesRepairableException e){
+                    e.printStackTrace();
+                }catch (GooglePlayServicesNotAvailableException e){
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        });
+
 
         oname = (EditText) findViewById(R.id.oname);
         contact = (EditText) findViewById(R.id.contact);
@@ -78,6 +118,8 @@ public class Editprofile extends AppCompatActivity {
         spn_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                categoryin = spn_category.getSelectedItemPosition();
                 category_id = spn_category.getSelectedItemId()+"";
 
             }
@@ -96,6 +138,7 @@ public class Editprofile extends AppCompatActivity {
         states.setText(user.getstate());
         pincodes.setText(user.getpincode());
         statuss.setText(user.getstatus());
+        spn_category.setSelection(user.getcategoryint());
 
     }
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -146,7 +189,10 @@ public class Editprofile extends AppCompatActivity {
                             user.setpincode(pincode);
                             user.setstatus(status);
                             user.setcategory(category_id);
+                            user.setcategoryname(category_id);
+                            user.setcategoryint(categoryin);
                             user.setisVendor(1);
+
                             Intent intent2 = new Intent(getApplicationContext(), userhome.class);
                             overridePendingTransition(R.anim.fade,R.anim.fadeout);
                             startActivity(intent2);
@@ -240,5 +286,39 @@ public class Editprofile extends AppCompatActivity {
         }
 
         return false;
+    }
+    private void requestPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_FINE_LOCATION);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case MY_PERMISSION_FINE_LOCATION:
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(getApplicationContext(),"This app requires location permissin to be granted",Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                break;
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==PLACE_PICKER_REQUEST){
+            if (resultCode==RESULT_OK){
+                Place place=PlacePicker.getPlace(data, Editprofile.this);
+                citys.setText(place.getLatLng().latitude+"");
+                states.setText(place.getLatLng().longitude+"");
+
+            }
+        }
     }
 }

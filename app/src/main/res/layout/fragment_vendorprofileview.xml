@@ -20,6 +20,16 @@
         android:src="@drawable/account_logo"
         app:border_color="#f2f3f4"
         app:border_width="3dp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:id="@+id/brn_editvendor"
+            android:background="@drawable/rounded_border"
+            android:src="@mipmap/ic_mode_edit_black_24dp"
+            />
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,7 +60,7 @@
             android:textSize="16dp"
             android:padding="5dp"
             android:hint="Category Name"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:textColorHint="#000"
             android:textColor="#000"
             android:background="#f2f3f4"

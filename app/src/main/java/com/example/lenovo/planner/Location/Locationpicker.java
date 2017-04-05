@@ -1,29 +1,24 @@
-package com.example.lenovo.planner;
+package com.example.lenovo.planner.Location;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.planner.R;
+import com.example.lenovo.planner.userhome;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class Locationpicker extends AppCompatActivity {
@@ -31,6 +26,7 @@ public class Locationpicker extends AppCompatActivity {
     TextView placeNameText;
     TextView placeAddressText;
     Button getPlaceButton;
+    Place place;
     private final static int MY_PERMISSION_FINE_LOCATION = 101;
     private final static int PLACE_PICKER_REQUEST=1;
     //private final static LatLngBounds bounds=new LatLngBounds(new LatLng(51.5152192,-0.1321900),new LatLng(51.5166013,-0.1299262));
@@ -65,6 +61,7 @@ public class Locationpicker extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void requestPermission() {
@@ -94,7 +91,7 @@ public class Locationpicker extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==PLACE_PICKER_REQUEST){
             if (resultCode==RESULT_OK){
-                Place place=PlacePicker.getPlace(data, Locationpicker.this);
+                place=PlacePicker.getPlace(data, Locationpicker.this);
                 placeNameText.setText((place.getName()));
                 placeAddressText.setText(place.getAddress()+"  "+place.getLatLng());
 

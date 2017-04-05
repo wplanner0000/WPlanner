@@ -237,6 +237,44 @@ public class UserDetails {
     }
 
 
+    public void setcategoryname(String category)
+    {
+        if(category.equals("1")) {
+            editor.putString("categoryname", "Photographer");
+        }
+        if(category.equals("2")) {
+            editor.putString("categoryname", "Music");
+        }
+        if(category.equals("3")) {
+            editor.putString("categoryname", "Catering");
+        }
+        if(category.equals("4")) {
+            editor.putString("categoryname", "Decoration");
+        }
+        if(category.equals("5")) {
+            editor.putString("categoryname", "Venue");
+        }
+        if(category.equals("6")) {
+            editor.putString("categoryname", "Bakery");
+        }
+        if(category.equals("7")) {
+            editor.putString("categoryname", "Clothing");
+        }
+        if(category.equals("8")) {
+            editor.putString("categoryname", "Gift Shop");
+        }
+        if(category.equals("9")) {
+            editor.putString("categoryname", "Saloon");
+        }
+
+        editor.apply();
+    }
+
+    public String getcategoryname()
+    {
+        return sharedPreferences.getString("categoryname","null");
+    }
+
     public void setcategory(String category)
     {
         editor.putString("category",category);
@@ -246,6 +284,17 @@ public class UserDetails {
     public String getcategory()
     {
         return sharedPreferences.getString("category","null");
+    }
+
+    public void setcategoryint(int categoryint)
+    {
+        editor.putInt("categoryint",categoryint);
+        editor.apply();
+    }
+
+    public int getcategoryint()
+    {
+        return sharedPreferences.getInt("categoryint",0);
     }
 
 

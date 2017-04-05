@@ -33,18 +33,6 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="  Forgot Password?  "
-        android:textAllCaps="false"
-        android:background="@drawable/rounded_buttonsd"
-        android:layout_marginRight="20dp"
-        android:id="@+id/btn_forgotpassword"
-        android:layout_marginEnd="8dp"
-        android:layout_alignBaseline="@+id/btn_registerhere"
-        android:layout_alignBottom="@+id/btn_registerhere"
-        android:layout_alignEnd="@+id/tv_connectwith" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="   Register Here    "
         android:textAllCaps="false"
         android:background="@drawable/rounded_buttonsd"
@@ -54,7 +42,6 @@
         android:layout_marginLeft="20dp"
         android:id="@+id/btn_registerhere"
         />
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,38 +49,46 @@
         android:textAllCaps="false"
         android:background="@drawable/rounded_buttonsd"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/btn_forgotpassword"
+        android:layout_below="@id/btn_registerhere"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="110dp"
-        android:layout_marginRight="110dp"
-        android:id="@+id/btn_login"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="------Or Connect With------"
-        android:gravity="center"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        android:layout_below="@id/btn_login"
-        android:id="@+id/tv_connectwith"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+        android:id="@+id/btn_login"
         />
 
-    <com.facebook.login.widget.LoginButton
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="   Forgot Password?   "
+        android:textAllCaps="false"
+        android:background="@drawable/rounded_buttonsd"
+        android:id="@+id/btn_forgotpassword"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/et_password"
+        android:layout_alignRight="@id/btn_login"
+        />
+
+
+    <com.facebook.login.widget.LoginButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/fbButton"
-        android:layout_below="@id/tv_connectwith"
+        android:layout_below="@id/btn_login"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        />
     <com.google.android.gms.common.SignInButton
-        android:layout_width="190dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/gpButton"
         android:layout_below="@id/fbButton"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp" />
 
