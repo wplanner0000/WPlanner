@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#f2f3f4">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Exit Options"
+            android:background="#fff"
+            android:gravity="center_horizontal"
+            android:textSize="20dp"
+
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:id="@+id/pass"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="#fff"
+            android:gravity="center_horizontal"
+            android:text="Please Chosse a Option to Continue "
+            android:layout_below="@id/pass"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cancel"
+                android:layout_marginBottom="8dp"
+                android:text="Cancel"
+                android:background="@drawable/rounded_border"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="100dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/updatepass"
+                android:background="@drawable/rounded_border"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentRight="true"
+                android:text="  Home  "
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="100dp"/>
+        </RelativeLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

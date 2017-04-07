@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.lenovo.planner.UserHome.todo">
+
+
+<android.support.design.widget.FloatingActionButton
+
+    android:id="@+id/fab_user_defined"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_marginBottom="180dp"
+    android:layout_marginRight="16dp"
+    android:src="@drawable/ic_action_userdefined"
+    android:elevation="6dp"
+    app:pressedTranslationZ="12dp"
+    app:backgroundTint="@color/fa2_color"
+    android:visibility="invisible"
+
+    />
+
+<android.support.design.widget.FloatingActionButton
+
+    android:id="@+id/fab_predefined"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_marginBottom="100dp"
+    android:layout_marginRight="16dp"
+    android:src="@drawable/ic_action_predefined"
+    android:elevation="6dp"
+    app:pressedTranslationZ="12dp"
+    app:backgroundTint="@color/fa1_color"
+    android:visibility="invisible"
+
+    />
+
+<android.support.design.widget.FloatingActionButton
+
+    android:id="@+id/fab_plus"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_marginBottom="16dp"
+    android:layout_marginRight="16dp"
+    android:src="@drawable/ic_action_plus"
+    android:elevation="6dp"
+    app:pressedTranslationZ="12dp"
+    />
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+    <ListView
+        android:background="#f0f8ff"
+        android:id="@+id/listview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        >
+
+    </ListView>
+
+
+
+</RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+

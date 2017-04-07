@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.lenovo.planner.Adapters.CustomListAdapter;
@@ -20,7 +21,7 @@ public class Home extends Fragment {
     String txt[]=new String[]{"Photographer", "Music", "Catering", "Decoration", "Venue", "Bakery", "Clothing", "GiftShop", "Saloon"};
     ListView lv;
     Integer[] imageId={R.drawable.photo,R.drawable.mus,R.drawable.cate,R.drawable.ven,R.drawable.deco,R.drawable.mus,R.drawable.cate,R.drawable.ven,R.drawable.deco};
-
+    userhome userho;
 
     public Home() {
         // Required empty public constructor
@@ -34,10 +35,18 @@ public class Home extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         lv=(ListView) view.findViewById(R.id.listview);
-
+        userho =(userhome) getActivity();
 
         CustomListAdapter adapter=new CustomListAdapter(getActivity(), txt, imageId);
         lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int item = lv.getSelectedItemPosition();
+                userho.result(view);
+
+            }
+        });
         return view;
     }
 

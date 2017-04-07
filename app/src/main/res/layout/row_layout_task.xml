@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ToggleButton
+        android:id="@+id/toggle_button"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:background="@drawable/btn_selecter"
+        android:layout_margin="10dp"
+        android:textOn=""
+        android:textOff=""
+        android:focusable="false"
+        android:layout_alignParentLeft="true"
+
+        />
+
+
+    <TextView
+        android:paddingLeft="10dp"
+        android:id="@+id/tvItemSelected"
+        android:text="abcdefgh"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:background="@drawable/my_selecter"
+        android:layout_toRightOf="@+id/toggle_button"
+        >
+
+    </TextView>
+
+
+
+
+
+
+
+</RelativeLayout>

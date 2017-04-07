@@ -8,9 +8,11 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -98,7 +100,7 @@ public class Editprofile extends AppCompatActivity {
         statuss = (EditText) findViewById(R.id.status);
         spn_category =(Spinner) findViewById(R.id.spn_category);
         user = new UserDetails(getApplicationContext());
-        uid = user.getUID()+"";
+        uid = user.getUID();
         categories = new ArrayList<>();
         categories.add(0,"Select Category");
         categories.add(1,"Photographer");
@@ -319,5 +321,33 @@ public class Editprofile extends AppCompatActivity {
 
             }
         }
+    }
+    @Override
+    public void onBackPressed() {
+        Button cancel,savechanges;
+        final AlertDialog.Builder updatepassword = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.exit,null);
+        updatepassword.setView(dialogView);
+        cancel =(Button) dialogView.findViewById(R.id.cancel);
+        savechanges =(Button) dialogView.findViewById(R.id.updatepass);
+        final AlertDialog b = updatepassword.create();
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+            }
+        });
+        savechanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(getApplicationContext(), userhome.class);
+                startActivity(intent2);
+                overridePendingTransition(R.anim.fade,R.anim.fadeout);
+                finish();
+            }
+        });
+        b.setCanceledOnTouchOutside(false);
+        b.show();
     }
 }

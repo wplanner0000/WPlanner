@@ -23,8 +23,9 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="645aa505ae3dbef9edf9e2243a0c968926e3b685" />
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD8ZZ5-rODEWp3KA85z0e_jHO6n2Yo-tcM" />
-
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD8ZZ5-rODEWp3KA85z0e_jHO6n2Yo-tcM" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -55,10 +56,8 @@
         <activity android:name=".editprofile.Edituser" />
         <activity
             android:name=".Nearby.MapsActivity"
-            android:label="@string/title_activity_maps">
-
-        </activity>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".editprofile.profilechoose"></activity>
     </application>
 
 </manifest>
-

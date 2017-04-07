@@ -208,22 +208,26 @@ public class login_fragment extends Fragment implements View.OnClickListener
         //start of google
 
         //start of google+ login
-        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        gpButton.setSize(SignInButton.SIZE_STANDARD);
-        gpButton.setScopes(signInOptions.getScopeArray());
+        try {
+            GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+            gpButton.setSize(SignInButton.SIZE_STANDARD);
+            gpButton.setScopes(signInOptions.getScopeArray());
 
+            signInApi = new GoogleApiClient.Builder(getActivity())
+                    .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+                        @Override
+                        public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                            // Toast.makeText(activity, "Connection "+connectionResult, Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions)
+                    .build();
+        }
+        finally {
 
-        signInApi = new GoogleApiClient.Builder(getActivity())
-                .enableAutoManage(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                       // Toast.makeText(activity, "Connection "+connectionResult, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions)
-                .build();
+        }
         //end of google+ login
 
        return view;
@@ -236,6 +240,34 @@ public class login_fragment extends Fragment implements View.OnClickListener
         signInApi.stopAutoManage(getActivity());
         signInApi.disconnect();
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        signInApi.stopAutoManage(getActivity());
+        signInApi.disconnect();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        signInApi.stopAutoManage(getActivity());
+        signInApi.disconnect();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        signInApi.stopAutoManage(getActivity());
+        signInApi.disconnect();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        signInApi.stopAutoManage(getActivity());
+        signInApi.disconnect();
     }
 
     private void GoogleSignIn() {

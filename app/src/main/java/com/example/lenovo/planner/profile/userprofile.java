@@ -20,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class userprofile extends Fragment {
-    ImageView userprofile;
+    CircleImageView userprofile;
     TextView name,email,phone;
     UserDetails userDetails;
     profile profiled;
@@ -31,7 +31,7 @@ public class userprofile extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_userprofile, container, false);
         name =(TextView) view.findViewById(R.id.name);
-        userprofile = (ImageView) view.findViewById(R.id.imgProfilePicture);
+        userprofile = (CircleImageView) view.findViewById(R.id.imgProfilePicture);
         email = (TextView) view.findViewById(R.id.email);
         phone = (TextView) view.findViewById(R.id.contact);
         edituser = (ImageButton) view.findViewById(R.id.brn_edituser);

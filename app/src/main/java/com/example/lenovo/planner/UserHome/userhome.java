@@ -41,6 +41,7 @@ import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.applicationstart.SplashScreen;
 import com.example.lenovo.planner.editprofile.Editprofile;
 import com.example.lenovo.planner.editprofile.VendorProfile;
+import com.example.lenovo.planner.editprofile.profilechoose;
 import com.example.lenovo.planner.profile.profile;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -61,6 +62,7 @@ import java.util.Map;
 public class userhome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     UserDetails user;
+    private long backPressedTime = 0;
     FragmentManager fragmentManager;
     FragmentTransaction transaction;
     SharedPrefUserInfo userInfo;
@@ -140,9 +142,22 @@ public class userhome extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        }
+        long t = System.currentTimeMillis();
+        if (t - backPressedTime > 2000) {    // 2 secs
+            backPressedTime = t;
+            Toast.makeText(this, "Press Back Again to Exit",
+                    Toast.LENGTH_SHORT).show();
         } else {
             super.onBackPressed();
         }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        android.os.Process.killProcess(android.os.Process.myPid());
+        super.onDestroy();
     }
 
     @Override
@@ -152,20 +167,6 @@ public class userhome extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -179,11 +180,9 @@ public class userhome extends AppCompatActivity
             startActivity(int57);
             overridePendingTransition(R.anim.left_in,R.anim.fadeout);
         } else if (id == R.id.nav_editprofile) {
-            Intent int56 = new Intent(this , Editprofile.class);
-            startActivity(int56);
-            overridePendingTransition(R.anim.left_in,R.anim.fadeout);
-            finish();
-
+            Intent editusersss= new Intent(this, profilechoose.class);
+            startActivity(editusersss);
+            overridePendingTransition(R.anim.fade,R.anim.fadeout);
 
         } else if (id == R.id.nav_budgetcalc) {
 
@@ -196,7 +195,6 @@ public class userhome extends AppCompatActivity
             Intent int56 = new Intent(this , VendorProfile.class);
             startActivity(int56);
             overridePendingTransition(R.anim.left_in,R.anim.fadeout);
-            finish();
 
         } else if (id == R.id.nav_locate) {
             Intent int56 = new Intent(this , Locationpicker.class);
@@ -222,13 +220,7 @@ public class userhome extends AppCompatActivity
                             // userInfo.logoutfbgb();
 
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-
         }
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -388,7 +380,13 @@ public class userhome extends AppCompatActivity
                     transaction=fragmentManager.beginTransaction();
                     transaction.add(R.id.vendorlistdisplay,home);
                     transaction.commit();
+                    return true;
                 case R.id.navigation_dashboard:
+                    transaction = fragmentManager.beginTransaction();
+                    todo todos = new todo();
+                    transaction.setCustomAnimations(R.anim.fade,R.anim.fadeout);
+                    transaction.replace(R.id.vendorlistdisplay,todos);
+                    transaction.commit();
                     return true;
                 case R.id.navigation_notifications:
                     return true;
@@ -402,5 +400,16 @@ public class userhome extends AppCompatActivity
         }
 
     };
+    public void result(View vi)
+    {
+        transaction = fragmentManager.beginTransaction();
+        results result = new results();
+        transaction.setCustomAnimations(R.anim.fade,R.anim.fadeout);
+        transaction.replace(R.id.vendorlistdisplay,result);
+        transaction.commit();
+    }
+
+
+
 
 }

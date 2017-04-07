@@ -18,22 +18,24 @@ android:layout_height="match_parent"
 android:orientation="vertical">
 <Button
     android:id="@+id/btnRestaurant"
-    android:background="#00000000"
+    android:background="@drawable/rounded_buttonsd"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textAllCaps="false"
     android:textStyle="bold"
     android:textColor="#fff"
     android:layout_marginLeft="10dp"
+    android:layout_marginTop="4dp"
     android:text="Restaurants" />
 
 <Button
     android:id="@+id/btnHospital"
-    android:background="#00000000"
+    android:background="@drawable/rounded_buttonsd"
     android:layout_width="wrap_content"
     android:textAllCaps="false"
     android:textColor="#fff"
     android:textStyle="bold"
+    android:layout_marginTop="4dp"
     android:layout_toRightOf="@id/btnRestaurant"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
@@ -48,8 +50,9 @@ android:orientation="vertical">
     android:textAllCaps="false"
     android:textColor="#fff"
     android:textStyle="bold"
+    android:layout_marginTop="4dp"
     android:layout_marginLeft="10dp"
-    android:background="#00000000"
+    android:background="@drawable/rounded_buttonsd"
     android:text="Schools" />
 
     </RelativeLayout>

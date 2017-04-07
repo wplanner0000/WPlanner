@@ -100,6 +100,7 @@ public class SplashScreen extends AppCompatActivity {
                                 Intent in = new Intent(getApplicationContext(),userhome.class);
                                 startActivity(in);
                                 overridePendingTransition(R.anim.left_in,R.anim.fadeout);
+                                finish();
                             }
                             else {
 
@@ -142,6 +143,7 @@ public class SplashScreen extends AppCompatActivity {
         transaction.setCustomAnimations(R.anim.fade,R.anim.fadeout);
         transaction.replace(R.id.frag_holder2,signups);
         transaction.commit();
+
     }
     public void calllogin(View vi)
     {
