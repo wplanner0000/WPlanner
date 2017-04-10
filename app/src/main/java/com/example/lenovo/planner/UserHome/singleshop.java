@@ -8,8 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,6 +21,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.lenovo.planner.Adapters.ShoplistAdapter;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
+import com.example.lenovo.planner.profile.profile;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,14 +32,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class results extends Fragment {
+import de.hdodenhof.circleimageview.CircleImageView;
 
-    ArrayList<String> shopname;
-    ArrayList<String> shopaddress;
-    ArrayList<String> imageurl;
-    ListView shop;
+import static com.example.lenovo.planner.R.drawable.shop;
+
+public class singleshop extends Fragment {
+    CircleImageView profileimage;
+    TextView oname,contact,category,experience,price,city,state,district,pincode,status;
     UserDetails userDetails;
-    public results() {
+    ImageButton editvendor;
+    public singleshop() {
         // Required empty public constructor
     }
 
@@ -46,28 +50,24 @@ public class results extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_results, container, false);
-        shop=(ListView) view.findViewById(R.id.shopview);
+        View view = inflater.inflate(R.layout.fragment_singleshop, container, false);
         userDetails = new UserDetails(getActivity());
-        final userhome userho = (userhome) getActivity();
-/*        shopname =new ArrayList<>();
-        shopaddress = new ArrayList<>();
-        imageurl =new ArrayList<>();
-        shopname.add("Ankit Photographers");
-        shopname.add("Mridul Photographers");
-        shopname.add("Vivek Photographers");
-        shopaddress.add("Kanpur,Uttar Pradesh");
-        shopaddress.add("Patna, Bihar");
-        shopaddress.add("Begusarai,Bihar");
-        imageurl.add("http://www.lanlinglaurel.com/data/out/52/4356932-love-you-pic.png");
-        imageurl.add("http://www.lanlinglaurel.com/data/out/52/4356932-love-you-pic.png");
-        imageurl.add("http://www.lanlinglaurel.com/data/out/52/4356932-love-you-pic.png");
+        final int id = (int)userDetails.getitem1();
+        profileimage =(CircleImageView) view.findViewById(R.id.imgProfilePicture);
+        oname = (TextView) view.findViewById(R.id.oname);
+        category = (TextView) view.findViewById(R.id.spn_category);
+        contact = (TextView) view.findViewById(R.id.contact);
+        experience = (TextView) view.findViewById(R.id.experience);
+        price = (TextView) view.findViewById(R.id.price);
+        city = (TextView) view.findViewById(R.id.city);
+        state = (TextView) view.findViewById(R.id.state);
+        district = (TextView) view.findViewById(R.id.district);
+        pincode = (TextView) view.findViewById(R.id.pincode);
+        status = (TextView) view.findViewById(R.id.status);
+        editvendor = (ImageButton) view.findViewById(R.id.brn_editvendor);
 
-        ShoplistAdapter shoplistAdapter = new ShoplistAdapter(getActivity(),shopname,shopaddress,imageurl);
-        shop.setAdapter(shoplistAdapter);*/
 
         final String category_id = userDetails.getitem();
-
         final ArrayList<String> shopnames = new ArrayList<>();
         final ArrayList<String> shopaddresss = new ArrayList<>();
         final ArrayList<String> imageurls = new ArrayList<>();
@@ -82,15 +82,18 @@ public class results extends Fragment {
                             loading.dismiss();
                             try {
                                 JSONArray jsonArray = new JSONArray(response);
-                                for(int i=0;i<jsonArray.length();i++) {
-                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                    shopnames.add(jsonObject.getString("name"));
-                                    shopaddresss.add(jsonObject.getString("state"));
-                                    imageurls.add(jsonObject.getString("imageurl"));
+                                    JSONObject jsonObject = jsonArray.getJSONObject(id);
                                     //Toast.makeText(getActivity(), ""+jsonObject.getString("name")+"      "+jsonObject.getString("state")+"       "+jsonObject.getString("imageurl"), Toast.LENGTH_SHORT).show();
-                                }
-                                ShoplistAdapter shoplistAdapter = new ShoplistAdapter(getActivity(),shopnames,shopaddresss,imageurls);
-                                shop.setAdapter(shoplistAdapter);
+                                Picasso.with(getActivity()).load(jsonObject.getString("imageurl")).into(profileimage);
+                                oname.setText(jsonObject.getString("name"));
+                                contact.setText(jsonObject.getString("contactno"));
+                                 experience.setText(jsonObject.getString("experience"));
+                               // price.setText(jsonObject.getInt("price"));
+                                city.setText(jsonObject.getString("city"));
+                                district.setText(jsonObject.getString("district"));
+                                state.setText(jsonObject.getString("state"));
+//                                pincode.setText(jsonObject.getInt("pincode"));
+                                status.setText(jsonObject.getString("status"));
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -126,22 +129,8 @@ public class results extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
 
-        shop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                long item = id;
-                userDetails.setitem1(item);
-                userho.resultsingle(view);
-
-            }
-        });
-
-
-
-
 
         return view;
     }
-
 
 }

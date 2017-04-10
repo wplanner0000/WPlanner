@@ -167,22 +167,19 @@ public class todo extends Fragment {
 
 
             }
-
-            /*@Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                MenuInflater menuInflater = getMenuInflater();
-                menuInflater.inflate(R.menu.my_menu, menu);
-                actionMode=mode;
-
-                return true;
-            }
-*/
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater menuInflate = new MenuInflater(getActivity());
+                menuInflate.inflate(R.menu.my_menu, menu);
+                actionMode=mode;
+                return true;
+            }
+            /*@Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 return true;
 
             }
-
+*/
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                 return false;

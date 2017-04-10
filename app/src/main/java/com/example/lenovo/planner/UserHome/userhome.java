@@ -1,5 +1,6 @@
 package com.example.lenovo.planner.UserHome;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -185,11 +186,90 @@ public class userhome extends AppCompatActivity
             overridePendingTransition(R.anim.fade,R.anim.fadeout);
 
         } else if (id == R.id.nav_budgetcalc) {
-
+            Intent int60 = new Intent(this , BudgetCalculator.class);
+            startActivity(int60);
+            overridePendingTransition(R.anim.left_in,R.anim.fadeout);
         } else if (id == R.id.nav_todolist) {
 
         } else if (id == R.id.nav_changepassword) {
-            changepassword();
+            final EditText oldpass,newpass,confirmnewpass;
+            Button cancel,savechanges;
+            final AlertDialog.Builder updatepassword = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            final View dialogView = inflater.inflate(R.layout.updatepassword,null);
+            updatepassword.setView(dialogView);
+            cancel =(Button) dialogView.findViewById(R.id.cancel);
+            savechanges =(Button) dialogView.findViewById(R.id.updatepass);
+            oldpass = (EditText) dialogView.findViewById(R.id.oldpassword);
+            newpass = (EditText) dialogView.findViewById(R.id.newpassword);
+            confirmnewpass = (EditText) dialogView.findViewById(R.id.confirmnewpassword);
+            final AlertDialog b = updatepassword.create();
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    b.dismiss();
+                }
+            });
+            savechanges.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final String OldPassword = oldpass.getText().toString();
+                    final String NewPassword = newpass.getText().toString();
+                    final String ReTypePassord = confirmnewpass.getText().toString();
+
+                    if (OldPassword.isEmpty()) {
+                        oldpass.setError("Enter Old Password");
+                    }else if (NewPassword.isEmpty()) {
+                        newpass.setError("Enter New Password");
+                    }else if (ReTypePassord.isEmpty()) {
+                        confirmnewpass.setError("Enter Confirm Password");
+                    }else if (!NewPassword.equals(ReTypePassord)) {
+                        confirmnewpass.setError("Password Didn't Match");
+                    } else {
+                        final ProgressDialog progress = ProgressDialog.show(userhome.this, "Please Wait...", "Updating Password...", false, false);
+                        StringRequest stringRequest;
+                        stringRequest = new StringRequest(Request.Method.POST, "https://wplanner0000.000webhostapp.com/wplanner/passwordchange.php", new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                if (response.equals("success")) {
+                                    progress.dismiss();
+                                    Toast.makeText(userhome.this, "Password Changed Succesfully", Toast.LENGTH_SHORT).show();
+                                    user.logout();
+                                    Intent logouts = new Intent(userhome.this, SplashScreen.class);
+                                    startActivity(logouts);
+                                    overridePendingTransition(R.anim.fade, R.anim.fadeout);
+                                    finish();
+
+                                } else {
+                                    progress.dismiss();
+                                    Toast.makeText(userhome.this, "" + response, Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        }) {
+                            @Override
+                            protected Map<String, String> getParams() throws AuthFailureError {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("uid", user.getUID());
+                                params.put("OldPassword", OldPassword);
+                                params.put("NewPassword", NewPassword);
+                                return params;
+                            }
+                        };
+                        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                        queue.add(stringRequest);
+
+
+                    }
+                }
+            });
+            b.setCanceledOnTouchOutside(false);
+            b.show();
 
         } else if (id == R.id.nav_becomeavendor) {
             Intent int56 = new Intent(this , VendorProfile.class);
@@ -213,7 +293,7 @@ public class userhome extends AppCompatActivity
                 });
 
 
-            Intent logouts= new Intent(this, SplashScreen.class);
+            Intent logouts= new Intent(userhome.this, SplashScreen.class);
             startActivity(logouts);
             overridePendingTransition(R.anim.fade,R.anim.fadeout);
             finish();
@@ -292,81 +372,7 @@ public class userhome extends AppCompatActivity
     }
     private void changepassword()
     {
-        final EditText oldpass,newpass,confirmnewpass;
-        Button cancel,savechanges;
-        final AlertDialog.Builder updatepassword = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.updatepassword,null);
-        updatepassword.setView(dialogView);
-        cancel =(Button) dialogView.findViewById(R.id.cancel);
-        savechanges =(Button) dialogView.findViewById(R.id.updatepass);
-        oldpass = (EditText) dialogView.findViewById(R.id.oldpassword);
-        newpass = (EditText) dialogView.findViewById(R.id.newpassword);
-        confirmnewpass = (EditText) dialogView.findViewById(R.id.confirmnewpassword);
-        final AlertDialog b = updatepassword.create();
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                b.dismiss();
-            }
-        });
-        savechanges.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String OldPassword = oldpass.getText().toString();
-                final String NewPassword = newpass.getText().toString();
-                final String ReTypePassord = confirmnewpass.getText().toString();
 
-                if (!NewPassword.equals(ReTypePassord))
-                {
-                    confirmnewpass.setError("Password Didn't Match");
-                    return;
-                }
-                StringRequest stringRequest;
-             //   final ProgressDialog progress = ProgressDialog.show(getApplicationContext(),"Please Wait...","Updating Password...",false,false);
-                stringRequest = new StringRequest(Request.Method.POST, "https://wplanner0000.000webhostapp.com/wplanner/passwordchange.php", new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                            if(response.equals("success"))
-                            {
-                    //            progress.dismiss();
-                                Toast.makeText(userhome.this, "Password Changed Succesfully", Toast.LENGTH_SHORT).show();
-                                user.logout();
-                                Intent logouts= new Intent(getApplicationContext(), SplashScreen.class);
-                                startActivity(logouts);
-                                overridePendingTransition(R.anim.fade,R.anim.fadeout);
-                                finish();
-
-                            }
-                            else{
-                  //              progress.dismiss();
-                                Toast.makeText(userhome.this, ""+response, Toast.LENGTH_SHORT).show();
-                            }
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("uid",user.getUID());
-                        params.put("OldPassword",OldPassword);
-                        params.put("NewPassword",NewPassword);
-                        return params;
-                    }
-                };
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                queue.add(stringRequest);
-
-
-            }
-        });
-        b.setCanceledOnTouchOutside(false);
-        b.show();
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -408,7 +414,14 @@ public class userhome extends AppCompatActivity
         transaction.replace(R.id.vendorlistdisplay,result);
         transaction.commit();
     }
-
+    public void resultsingle(View vi)
+    {
+        transaction = fragmentManager.beginTransaction();
+        singleshop single = new singleshop();
+        transaction.setCustomAnimations(R.anim.fade,R.anim.fadeout);
+        transaction.replace(R.id.vendorlistdisplay,single);
+        transaction.commit();
+    }
 
 
 

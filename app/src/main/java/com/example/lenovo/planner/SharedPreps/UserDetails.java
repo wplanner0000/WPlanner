@@ -78,7 +78,26 @@ public class UserDetails {
     {
         return sharedPreferences.getString("UID","Null");
     }
+    public void setitem(String item)
+    {
+        editor.putString("item",item);
+        editor.apply();
+    }
 
+    public String getitem()
+    {
+        return sharedPreferences.getString("item","Null");
+    }
+    public void setitem1(long item1)
+    {
+        editor.putLong("item1",item1);
+        editor.apply();
+    }
+
+    public long getitem1()
+    {
+        return sharedPreferences.getLong("item1",0);
+    }
     public void setemail(String email)
     {
         editor.putString("email",email);

@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.lenovo.planner.R;
+import com.example.lenovo.planner.SharedPreps.UserDetails;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class fragment_signup extends Fragment implements View.OnClickListener {
     String signupurl = "https://wplanner0000.000webhostapp.com/wplanner/signtry.php";
     Button backtologin,registersignup;
     SplashScreen activity;
+    UserDetails userDetails;
     public fragment_signup() {
         //
         // Required empty public constructor
@@ -48,6 +50,7 @@ public class fragment_signup extends Fragment implements View.OnClickListener {
         et_fname = (EditText) view.findViewById(R.id.et_fname);
         et_lname = (EditText) view.findViewById(R.id.et_lname);
         et_email = (EditText) view.findViewById(R.id.et_email);
+        userDetails =new UserDetails(getActivity());
         et_mobilenumber = (EditText) view.findViewById(R.id.et_mobilenumber);
         et_password = (EditText) view.findViewById(R.id.et_password);
         et_cpassword = (EditText) view.findViewById(R.id.et_cpassword);
@@ -91,7 +94,11 @@ public class fragment_signup extends Fragment implements View.OnClickListener {
                                 Log.d("DataBase Response", response);
                                 if (response.equals("success")) {
                                     loading.dismiss();
-
+                                    userDetails.setfirstname(firstname);
+                                    userDetails.setlastname(lastname);
+                                    userDetails.setemail(email);
+                                    userDetails.setphoneno(phoneno);
+                                    userDetails.setIsActive(true);
                                     activity.callsignup(view);
 
                                 } else {

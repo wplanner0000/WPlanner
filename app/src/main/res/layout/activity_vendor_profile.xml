@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:background="#f7f9f9"
+        android:background="@drawable/profileback"
         android:focusableInTouchMode="true"
         >
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -162,6 +162,7 @@
                 android:text=" Set Address "
                 android:background="@drawable/rooundimage"
                 android:textAllCaps="false"
+                android:visibility="gone"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"

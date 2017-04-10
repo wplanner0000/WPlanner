@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"
-    android:background="#fff"
+    android:background="@drawable/allback"
     android:id="@+id/fragment_signup_fragment"
     tools:context="com.example.lenovo.planner.applicationstart.fragment_signup">
     <RelativeLayout
@@ -86,7 +86,7 @@
                 />
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_below="@id/et_cpassword"
@@ -95,7 +95,7 @@
                 android:id="@+id/btn_backtologin"/>
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:background="@drawable/rounded_buttonsd"
             android:text="Register"
             android:maxLength="15"
@@ -104,7 +104,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:id="@+id/btn_register"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="8dp"
             />
     </RelativeLayout>
 </ScrollView>

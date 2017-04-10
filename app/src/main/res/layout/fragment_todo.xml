@@ -54,16 +54,19 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
 
 
 
     <ListView
-        android:background="#f0f8ff"
+        android:background="@drawable/back1"
         android:id="@+id/listview"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:focusable="true"
         >
 
