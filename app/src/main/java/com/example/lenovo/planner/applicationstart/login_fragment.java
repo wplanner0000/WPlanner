@@ -9,12 +9,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.test.mock.MockPackageManager;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -70,9 +72,10 @@ public class login_fragment extends Fragment implements View.OnClickListener
     GPSTracker gps;
 
     EditText et_email,et_password;
-    Button frgtPassword,login,register;
+    Button frgtPassword,login;
+    ImageButton eye;
     String loginurl =  "https://wplanner0000.000webhostapp.com/wplanner/logtry.php";
-    SplashScreen activity;
+    signuplogintab signuplogin;
     UserDetails userDetails;
     String latitude;
     String longitude;
@@ -110,23 +113,34 @@ public class login_fragment extends Fragment implements View.OnClickListener
         } catch (Exception e) {
             e.printStackTrace();
         }
+        eye = (ImageButton) view.findViewById(R.id.btn_eye);
         userDetails = new UserDetails(getActivity());
         gps = new GPSTracker(getActivity());
         et_email = (EditText) view.findViewById(R.id.et_email);
         et_password = (EditText) view.findViewById(R.id.et_password);
-
         frgtPassword=(Button) view.findViewById(R.id.btn_forgotpassword);
         frgtPassword.setOnClickListener(this);
+        eye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(et_password.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                    et_password.setInputType( InputType.TYPE_CLASS_TEXT |
+                            InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    eye.setBackgroundResource(R.drawable.eye1);
+                }else {
+                    et_password.setInputType( InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD );
+                    eye.setBackgroundResource(R.drawable.eyeoff1);
+                }
+            }
 
-        register=(Button) view.findViewById(R.id.btn_registerhere);
-        register.setOnClickListener(this);
+        });
+
         Ggps();
 
         login=(Button) view.findViewById(R.id.btn_login);
         login.setOnClickListener(this);
 
-
-        activity = (SplashScreen) getActivity();
+        signuplogin = (signuplogintab) getActivity();
         fbButton = (LoginButton) view.findViewById(R.id.fbButton);
         fbButton.setFragment(this);
         gpButton = (SignInButton) view.findViewById(R.id.gpButton);
@@ -161,8 +175,7 @@ public class login_fragment extends Fragment implements View.OnClickListener
                                     userDetails.setemail(email);
                                     userDetails.setimage_url(imageUrl);
                                     //SharedPrefUserInfo.getmInstance(getActivity()).saveUserInfo(fname,lname,email,imageUrl);
-                                    activity.logincall(view);
-
+                                    signuplogin.logincall(view);
 
 
 
@@ -294,7 +307,7 @@ public class login_fragment extends Fragment implements View.OnClickListener
             Toast.makeText(getActivity(), "successfully login", Toast.LENGTH_SHORT).show();
             //redirect user to next page
             SharedPrefUserInfo.getmInstance(getActivity()).saveUserInfo(first_name,last_name,email,profileImage);
-            activity.logincall(getView());
+            signuplogin.logincall(getView());
             //startActivity(new Intent(getApplicationContext(), userhome.class));
 
 
@@ -362,8 +375,7 @@ public class login_fragment extends Fragment implements View.OnClickListener
         {
             case R.id.btn_forgotpassword :
             {
-
-               activity.forgottransition(view);
+                signuplogin.forgottransition(view);
 
             }
             break;
@@ -402,7 +414,7 @@ public class login_fragment extends Fragment implements View.OnClickListener
                                         userDetails.setlastname(jsonObject.getString("last_name"));
                                         userDetails.setphoneno(jsonObject.getString("phoneno"));
                                         Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
-                                        activity.logincall(view);
+                                        signuplogin.logincall(view);
                                     } catch (JSONException e) {
                                         e.printStackTrace();
 
@@ -441,11 +453,6 @@ public class login_fragment extends Fragment implements View.OnClickListener
                 RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
                 requestQueue.add(stringRequest);
 
-            }break;
-            case R.id.btn_registerhere :
-            {
-
-                activity.callregister(view);
             }break;
         }
     }

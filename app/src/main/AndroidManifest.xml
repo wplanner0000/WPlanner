@@ -58,7 +58,8 @@
             android:name=".Nearby.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".editprofile.profilechoose" />
-        <activity android:name=".UserHome.BudgetCalculator"></activity>
+        <activity android:name=".UserHome.BudgetCalculator" />
+        <activity android:name=".applicationstart.signuplogintab" android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

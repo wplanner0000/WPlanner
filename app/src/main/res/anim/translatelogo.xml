@@ -6,9 +6,9 @@
 
     <translate
         android:fromYDelta="-30%p"
-        android:toYDelta="-80%p"
+        android:toYDelta="-50%p"
         android:fromXDelta="0%p"
-        android:toXDelta="15%p"
+        android:toXDelta="20%p"
         android:duration="2000"
         />
     <scale

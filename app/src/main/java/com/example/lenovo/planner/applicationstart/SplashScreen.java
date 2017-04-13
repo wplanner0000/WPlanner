@@ -45,8 +45,6 @@ public class SplashScreen extends AppCompatActivity {
     Animation left_in,right_in;
     CardView layout;
     RelativeLayout relativeLayout;
-    FragmentManager fragmentManager;
-    FragmentTransaction transaction;
     UserDetails userDetails;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -64,17 +62,9 @@ public class SplashScreen extends AppCompatActivity {
 
         fade= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade);
         fadeout= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadeout);
-        layout=(CardView) findViewById(R.id.frag_holder);
         left_in = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.left_in);
         right_in = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.right_in);
-        relativeLayout =(RelativeLayout) findViewById(R.id.frag_holder2);
 
-        login_fragment fragment= new login_fragment();
-
-        fragmentManager = getSupportFragmentManager();
-        transaction=fragmentManager.beginTransaction();
-        transaction.add(R.id.frag_holder2,fragment);
-        transaction.commit();
 
         textView = (TextView) findViewById(R.id.appName);
 
@@ -103,14 +93,18 @@ public class SplashScreen extends AppCompatActivity {
                                 finish();
                             }
                             else {
+                                Intent in = new Intent(getApplicationContext(),signuplogintab.class);
+                                startActivity(in);
+                                overridePendingTransition(R.anim.fade,R.anim.fadeout);
+                                finish();
 
-                                textView.startAnimation(fadeout);
+                               /* textView.startAnimation(fadeout);
                                 textView.setVisibility(View.GONE);
 
                                 view.startAnimation(translateLogo);
                                 layout.startAnimation(translateLogin);
                                 layout.setVisibility(View.VISIBLE);
-                                layout.bringToFront();
+                                layout.bringToFront();*/
                             }
 
                         }
@@ -136,45 +130,6 @@ public class SplashScreen extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    public void callregister(View vi)
-    {
-        transaction = fragmentManager.beginTransaction();
-        fragment_signup signups = new fragment_signup();
-        transaction.setCustomAnimations(R.anim.fade,R.anim.fadeout);
-        transaction.replace(R.id.frag_holder2,signups);
-        transaction.commit();
-
-    }
-    public void calllogin(View vi)
-    {
-        transaction = fragmentManager.beginTransaction();
-        login_fragment logins = new login_fragment();
-        transaction.setCustomAnimations(R.anim.fade,R.anim.fadeout);
-        transaction.replace(R.id.frag_holder2,logins);
-        transaction.commit();
-    }
-    public void forgottransition(View vi)
-    {
-        Intent forgot = new Intent(this, forgotpassword.class);
-        startActivity(forgot);
-        overridePendingTransition(R.anim.left_in,R.anim.right_in);
-
-
-    }
-    public void callsignup(View vi)
-    {
-        Intent in = new Intent(this, userhome.class);
-        startActivity(in);
-        overridePendingTransition(R.anim.left_in,R.anim.right_in);
-        finish();
-    }
-    public void logincall(View vi)
-    {
-        Intent intent2 = new Intent(this, userhome.class);
-        startActivity(intent2);
-        overridePendingTransition(R.anim.left_in,R.anim.right_in);
-        finish();
-    }
 
 
 

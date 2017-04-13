@@ -31,8 +31,8 @@ import java.util.Map;
 public class fragment_signup extends Fragment implements View.OnClickListener {
     EditText et_fname, et_lname, et_email, et_mobilenumber, et_password, et_cpassword;
     String signupurl = "https://wplanner0000.000webhostapp.com/wplanner/signtry.php";
-    Button backtologin,registersignup;
-    SplashScreen activity;
+    Button registersignup;
+   signuplogintab activity;
     UserDetails userDetails;
     public fragment_signup() {
         //
@@ -54,11 +54,9 @@ public class fragment_signup extends Fragment implements View.OnClickListener {
         et_mobilenumber = (EditText) view.findViewById(R.id.et_mobilenumber);
         et_password = (EditText) view.findViewById(R.id.et_password);
         et_cpassword = (EditText) view.findViewById(R.id.et_cpassword);
-        backtologin = (Button) view.findViewById(R.id.btn_backtologin);
-        backtologin.setOnClickListener(this);
         registersignup = (Button) view.findViewById(R.id.btn_register);
         registersignup.setOnClickListener(this);
-        activity = (SplashScreen) getActivity();
+        activity = (signuplogintab) getActivity();
 
 
         return view;
@@ -68,10 +66,6 @@ public class fragment_signup extends Fragment implements View.OnClickListener {
     public void onClick(final View view) {
         switch (view.getId())
         {
-            case R.id.btn_backtologin: {
-                activity.calllogin(view);
-
-            }break;
             case  R.id.btn_register: {
                 if (inValid())
                 {

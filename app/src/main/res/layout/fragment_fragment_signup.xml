@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@drawable/allback"
     android:id="@+id/fragment_signup_fragment"
     tools:context="com.example.lenovo.planner.applicationstart.fragment_signup">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="#00000000"
+
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_alignParentBottom="true"
+        android:background="#00000000">
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/names"
+                android:drawableLeft="@drawable/accountnamme"
                 android:layout_marginRight="5dp"
                 android:hint="First Name         "
                 android:id="@+id/et_fname"
+                android:textColor="#000"
+                android:textColorHint="#000"
                 android:inputType="textPersonName"
                 android:maxLines="1"
                 android:maxLength="15"
@@ -32,6 +40,9 @@
                 android:layout_alignBottom="@id/et_fname"
                 android:layout_toRightOf="@id/et_fname"
                 android:layout_marginLeft="5dp"
+                android:textColor="#000"
+                android:textColorHint="#000"
+                android:layout_alignParentEnd="true"
                 android:hint=" Last Name       "
                 android:inputType="textPersonName"
                 android:maxLines="1"
@@ -40,20 +51,24 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/mail"
+                android:drawableLeft="@drawable/emailfront"
                 android:hint="Enter Email"
                 android:drawablePadding="10dp"
                 android:id="@+id/et_email"
                 android:maxLines="1"
+                android:textColor="#000"
+                android:textColorHint="#000"
                 android:maxLength="30"
                 android:inputType="textWebEmailAddress"
                 android:layout_below="@id/et_fname"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/phone"
+                android:drawableLeft="@drawable/phoneno"
                 android:inputType="phone"
                 android:maxLength="10"
+                android:textColor="#000"
+                android:textColorHint="#000"
                 android:drawablePadding="10dp"
                 android:hint="Enter Mobile Number"
                 android:layout_below="@id/et_email"
@@ -64,8 +79,10 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/passwordkey"
+                android:drawableLeft="@drawable/accountkeyfront"
                 android:maxLines="1"
+                android:textColor="#000"
+                android:textColorHint="#000"
                 android:drawablePadding="10dp"
                 android:inputType="textPassword"
                 android:hint="Enter Password"
@@ -77,34 +94,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
-                android:drawableLeft="@drawable/passwordconfirm"
+                android:drawableLeft="@drawable/accountkeyfront"
                 android:inputType="textPassword"
                 android:hint="Enter Confirm Password"
                 android:layout_below="@id/et_password"
                 android:id="@+id/et_cpassword"
                 android:maxLines="1"
+                android:textColor="#000"
+                android:textColorHint="#000"
                 />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_below="@id/et_cpassword"
-                android:text="  Login  "
-                android:background="@drawable/rounded_buttonsd"
-                android:id="@+id/btn_backtologin"/>
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@drawable/rounded_buttonsd"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="#ff5555"
+            android:textColor="#fff"
+            android:textStyle="bold"
             android:text="Register"
+            android:textAllCaps="true"
             android:maxLength="15"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_below="@id/et_cpassword"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
             android:id="@+id/btn_register"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="5dp"
             />
     </RelativeLayout>
-</ScrollView>
+</RelativeLayout>

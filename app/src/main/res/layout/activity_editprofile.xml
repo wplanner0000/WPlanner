@@ -1,247 +1,208 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     tools:context="com.example.lenovo.planner.editprofile.Editprofile">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/profileback"
-        >
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/imgProfilePicture"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/account_logo"
-            app:border_color="#fff"
-            app:border_width="3dp" />
-        <RelativeLayout
-            android:layout_width="wrap_content"
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:id="@+id/imagelayout">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imgProfilePicture"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/account_logo"
+        app:border_color="#fff"
+        app:border_width="3dp" />
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/imgProfilePicture"
+           
+           >
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/layout_vendor"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/imgProfilePicture"
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Category Info"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:textSize="20dp"
-                android:paddingLeft="3dp"
-                android:background="#fff"
-                android:id="@+id/categoryinfo"
-                android:layout_marginBottom="5dp"/>
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spn_category"
-                android:layout_marginTop="5dp"
-                android:layout_below="@id/categoryinfo">
-            </Spinner>
+            android:text="Category Info"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingStart="3dp"
+            android:background="#fff"
+            android:id="@+id/categoryinfo"
+            android:layout_marginTop="0dp"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spn_category"
+            android:layout_marginTop="5dp"
+            android:padding="4dp"
+            android:layout_below="@id/categoryinfo">
+        </Spinner>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Shop Info"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:paddingStart="3dp"
+            android:background="#fff"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:layout_below="@id/spn_category"
+            android:id="@+id/shopdetails"
+            android:layout_marginTop="15dp"
+            />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Shop Info"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:layout_marginTop="8dp"
-                android:paddingLeft="3dp"
-                android:background="#fff"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:layout_below="@id/spn_category"
-                android:id="@+id/shopdetails"
-                android:layout_marginBottom="5dp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:hint="Organisation Name"
-                android:id="@+id/oname"
-                android:maxLines="1"
-                android:maxLength="20"
-                android:inputType="text"
-                android:layout_below="@id/shopdetails"
-                android:drawablePadding="20dp"
-                android:drawableLeft="@drawable/names"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="Enter Organisation Name"
+            android:id="@+id/oname"
+            android:maxLines="1"
+            android:maxLength="20"
+            android:inputType="text"
+            android:layout_below="@id/shopdetails"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/oname"
+            android:inputType="phone"
+            android:hint="Contact Number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:id="@+id/contact"
+            android:layout_marginTop="5dp"
+            />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/oname"
-                android:inputType="phone"
-                android:hint="Contact Number"
-                android:maxLength="10"
-                android:maxLines="1"
-                android:id="@+id/contact"
-                android:drawablePadding="20dp"
-                android:layout_marginTop="5dp"
-                android:drawableLeft="@drawable/phone"
-                />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/contact"
-                android:inputType="number"
-                android:maxLength="10"
-                android:maxLines="1"
-                android:layout_marginTop="5dp"
-                android:hint="Working Experience"
-                android:drawablePadding="20dp"
-
-                android:id="@+id/experience"
-                android:drawableLeft="@drawable/working"
-                />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/experience"
-                android:inputType="number"
-                android:layout_marginTop="5dp"
-                android:maxLength="10"
-                android:maxLines="1"
-                android:hint="Expected Price"
-                android:drawablePadding="20dp"
-                android:drawableLeft="@drawable/price"
-                android:id="@+id/price"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Address Details"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:textSize="20dp"
-                android:layout_marginTop="8dp"
-                android:paddingLeft="3dp"
-                android:layout_below="@id/price"
-                android:background="#fff"
-                android:id="@+id/Address"
-                android:layout_marginBottom="5dp"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="   Change Address   "
-                android:background="@drawable/rooundimage"
-                android:textAllCaps="false"
-                android:id="@+id/setaddress"
-                android:visibility="gone"
-                android:layout_alignTop="@id/Address"
-                android:layout_alignBottom="@id/Address"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/price"
-                />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/Address"
-                android:inputType="text"
-                android:maxLength="20"
-                android:maxLines="1"
-                android:drawableLeft="@drawable/city"
-
-                android:id="@+id/city"
-                android:drawablePadding="20dp"
-                android:layout_marginTop="5dp"
-                android:hint="City"
-                />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/city"
-                android:inputType="text"
-                android:id="@+id/district"
-                android:maxLines="1"
-                android:maxLength="20"
-                android:drawableLeft="@drawable/city"
-                android:layout_marginTop="5dp"
-                android:drawablePadding="20dp"
-                android:hint="District"
-                />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/district"
-                android:maxLines="1"
-                android:maxLength="20"
-                android:inputType="text"
-
-                android:id="@+id/state"
-                android:drawableLeft="@drawable/area"
-                android:layout_marginTop="5dp"
-                android:drawablePadding="20dp"
-                android:hint="State"
-                />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/state"
-
-                android:inputType="number"
-                android:maxLines="1"
-                android:maxLength="6"
-                android:id="@+id/pincode"
-                android:drawableLeft="@drawable/pin"
-                android:layout_marginTop="5dp"
-                android:hint="Pincode"
-                android:drawablePadding="20dp"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Shop Profile"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:paddingBottom="4dp"
-                android:paddingTop="4dp"
-                android:paddingLeft="3dp"
-                android:layout_marginTop="8dp"
-                android:background="#fff"
-                android:layout_below="@id/pincode"
-                android:id="@+id/Shopprofile"
-                android:layout_marginBottom="5dp"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/Shopprofile"
-                android:inputType="text"
-                android:id="@+id/status"
-                android:maxLines="5"
-                android:maxLength="144"
-                android:drawableLeft="@drawable/status"
-                android:layout_marginTop="5dp"
-                android:drawablePadding="20dp"
-                android:hint="Status"
-                />
-        </RelativeLayout>
-
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contact"
+            android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:layout_marginTop="5dp"
+            android:hint="Working Experience"
+            android:drawablePadding="20dp"
+            android:id="@+id/experience"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/experience"
+            android:inputType="number"
+            android:layout_marginTop="5dp"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:hint="Expected Price"
+            android:id="@+id/price"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Address Details"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:textSize="20dp"
+            android:layout_marginTop="8dp"
+            android:paddingStart="3dp"
+            android:layout_below="@id/price"
+            android:background="#fff"
+            android:id="@+id/Address"
+            android:layout_marginBottom="5dp"/>
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginTop="15dp"
-            android:layout_below="@id/layout_vendor"
-            android:layout_alignParentRight="true"
-            android:textSize="13dp"
-            android:background="@drawable/rounded_border"
-            android:layout_marginRight="35dp"
+            android:layout_height="wrap_content"
+            android:text="   Change Address   "
+            android:background="@drawable/rounded_buttonsd"
+            android:textAllCaps="false"
+            android:id="@+id/setaddress"
+            android:visibility="visible"
+            android:layout_alignTop="@id/Address"
+            android:layout_alignBottom="@id/Address"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/price"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Address"
+            android:inputType="text"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:id="@+id/et_address"
+            android:layout_marginTop="5dp"
+            android:hint="Address"
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_address"
+            android:inputType="text"
+            android:id="@+id/longitude"
+            android:maxLines="1"
+            android:maxLength="20"
+            android:layout_marginTop="5dp"
+            android:hint="Longitude     "
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:maxLines="1"
+            android:maxLength="20"
+            android:inputType="text"
+            android:layout_below="@id/et_address"
+            android:id="@+id/state"
+            android:layout_marginTop="5dp"
+            android:hint="Latitude     "
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Shop Profile"
+            android:textColor="#000"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:paddingStart="3dp"
+            android:layout_marginTop="8dp"
+            android:background="#fff"
+            android:layout_below="@id/longitude"
+            android:id="@+id/Shopprofile"
+            android:layout_marginBottom="5dp"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Shopprofile"
+            android:id="@+id/status"
+            android:layout_marginTop="5dp"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
             android:text="    Save Changes    "
+            android:textSize="13dp"
+            android:layout_below="@id/status"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/rounded_buttonsd"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="30dp"
-            android:id="@+id/submit"
-            android:onClick="submit"/>
+            android:id="@+id/submit"/>
     </RelativeLayout>
-
+   </RelativeLayout>
 </ScrollView>

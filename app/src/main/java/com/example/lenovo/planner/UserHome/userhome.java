@@ -3,6 +3,7 @@ package com.example.lenovo.planner.UserHome;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -40,6 +41,7 @@ import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.applicationstart.SplashScreen;
+import com.example.lenovo.planner.applicationstart.signuplogintab;
 import com.example.lenovo.planner.editprofile.Editprofile;
 import com.example.lenovo.planner.editprofile.VendorProfile;
 import com.example.lenovo.planner.editprofile.profilechoose;
@@ -97,6 +99,8 @@ public class userhome extends AppCompatActivity
         View navHeader;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setBackgroundColor(Color.WHITE);
+        navigationView.setAlpha(1);
 
 
         if (user.getisVendor()==1)
@@ -157,7 +161,8 @@ public class userhome extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
-        android.os.Process.killProcess(android.os.Process.myPid());
+        finish();
+        //android.os.Process.killProcess(android.os.Process.myPid());
         super.onDestroy();
     }
 
@@ -293,11 +298,11 @@ public class userhome extends AppCompatActivity
                 });
 
 
-            Intent logouts= new Intent(userhome.this, SplashScreen.class);
+            Intent logouts= new Intent(getApplicationContext(), signuplogintab.class);
             startActivity(logouts);
             overridePendingTransition(R.anim.fade,R.anim.fadeout);
             finish();
-                            // userInfo.logoutfbgb();
+
 
 
         }

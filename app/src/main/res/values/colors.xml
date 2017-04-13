@@ -3,7 +3,7 @@
     <color name="colorPrimary">#ff5555</color>
     <color name="colorPrimaryBlack">#000000</color>
     <color name="colorPrimaryDark">#65d4bb</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff5555</color>
     <color name="fa1_color">#4CAF50</color>
     <color name="fa2_color">#2196F3</color>
     <drawable name="blue_color">#1703F4</drawable>

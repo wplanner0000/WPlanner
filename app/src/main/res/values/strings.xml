@@ -18,6 +18,7 @@
     <string name="title_getnearby">GetNearBy</string>
     <string name="title_favourites">Favourites</string>
     <string name="title_activity_maps_nearest">Mmaapp</string>
+    <string name="status">Select Status</string>
     <string-array name="wedding_items">
         <item>Decorations</item>
         <item>Caterer</item>
