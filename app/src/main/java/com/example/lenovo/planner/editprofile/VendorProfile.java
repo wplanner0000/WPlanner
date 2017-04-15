@@ -3,6 +3,10 @@ package com.example.lenovo.planner.editprofile;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,16 +32,24 @@ import com.android.volley.toolbox.Volley;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.UserHome.userhome;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class VendorProfile extends AppCompatActivity {
-    EditText oname,contact,experiences,prices,citys,districts,states,pincodes,statuss;
+    private final static int MY_PERMISSION_FINE_LOCATION = 101;
+    private final static int PLACE_PICKER_REQUEST=1;
+
+    EditText oname,contact,experiences,prices,citys,districts,states,pincodes,statuss,address,longitude,latitude;
     Spinner spn_category;
     UserDetails user;
     String uid;
+    Button setaddress;
     int categoryin;
     ArrayAdapter<String> categoryadapter;
     String category_id;
@@ -49,19 +61,40 @@ public class VendorProfile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestPermission();
         setContentView(R.layout.activity_vendor_profile);
+        setaddress =(Button) findViewById(R.id.btn_address);
+        setaddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                //builder.setLatLngBounds(bounds);
+                try {
+                    Intent intent=builder.build(VendorProfile.this);
+                    startActivityForResult(intent,PLACE_PICKER_REQUEST);
+                }
+                catch (GooglePlayServicesRepairableException e){
+                    e.printStackTrace();
+                }catch (GooglePlayServicesNotAvailableException e){
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        });
+
         oname = (EditText) findViewById(R.id.oname);
         contact = (EditText) findViewById(R.id.contact);
         experiences = (EditText) findViewById(R.id.experience);
         prices = (EditText) findViewById(R.id.price);
-        citys = (EditText) findViewById(R.id.city);
-        districts = (EditText) findViewById(R.id.district);
-        states = (EditText) findViewById(R.id.state);
-        pincodes = (EditText) findViewById(R.id.pincode);
-        statuss = (EditText) findViewById(R.id.status);
+        address = (EditText) findViewById(R.id.et_address);
+        longitude = (EditText) findViewById(R.id.longitude);
+        latitude =(EditText) findViewById(R.id.latitude);
         spn_category =(Spinner) findViewById(R.id.spn_category);
         user = new UserDetails(getApplicationContext());
-        uid = user.getUID()+"";
+        uid = user.getUID();
         categories = new ArrayList<>();
         categories.add(0,"Select Category");
         categories.add(1,"Photographer");
@@ -113,12 +146,10 @@ public class VendorProfile extends AppCompatActivity {
         final String name = oname.getText().toString();
         final String contactno = contact.getText().toString();
         final String price = prices.getText().toString();
-        final String status = statuss.getText().toString();
         final String experience = experiences.getText().toString();
-        final String city = citys.getText().toString();
-        final String district = districts.getText().toString();
-        final String state = states.getText().toString();
-        final String pincode = pincodes.getText().toString();
+        final String addresss = address.getText().toString();
+        final String longitudes = longitude.getText().toString();
+        final String latitudes = latitude.getText().toString();
 
 
         StringRequest stringRequest;
@@ -134,15 +165,13 @@ public class VendorProfile extends AppCompatActivity {
                             user.setscontactno(contactno);
                             user.setexperience(experience);
                             user.setprice(price);
-                            user.setcity(city);
-                            user.setdistrict(district);
-                            user.setstate(state);
+                            user.setaddress(addresss);
+                            user.setlongitude(longitudes);
+                            user.setlatitude(latitudes);
                             user.setcategoryname(category_id);
-                            user.setpincode(pincode);
-                            user.setstatus(status);
                             user.setcategory(category_id);
                             user.setisVendor(1);
-                            Intent intent2 = new Intent(getApplicationContext(), userhome.class);
+                            Intent intent2 = new Intent(VendorProfile.this, userhome.class);
                             overridePendingTransition(R.anim.fade,R.anim.fadeout);
                             startActivity(intent2);
                         } else {
@@ -166,12 +195,10 @@ public class VendorProfile extends AppCompatActivity {
                 params.put("contactno", contactno);
                 params.put("name", name);
                 params.put("price", price);
-                params.put("status", status);
                 params.put("experience", experience);
-                params.put("city", city);
-                params.put("district", district);
-                params.put("state", state);
-                params.put("pincode", pincode);
+                params.put("address", addresss);
+                params.put("longitude", longitudes);
+                params.put("latitude", latitudes);
                 return params;
             }
 
@@ -185,12 +212,10 @@ public class VendorProfile extends AppCompatActivity {
         String fullname = oname.getText().toString();
         String fullcontactno = contact.getText().toString();
         String fullprice = prices.getText().toString();
-        String fullstatus = statuss.getText().toString();
         String fullexperience = experiences.getText().toString();
-        String fullcity = citys.getText().toString();
-        String fulldistrict = districts.getText().toString();
-        String fullstate = states.getText().toString();
-        String fullpincode = pincodes.getText().toString();
+        String fulladdress = address.getText().toString();
+        String fulllongitude = longitude.getText().toString();
+        String fulllatitude = latitude.getText().toString();
 
         if (fullname.isEmpty()) {
             oname.setError("Enter Organisation Name");
@@ -208,24 +233,16 @@ public class VendorProfile extends AppCompatActivity {
             experiences.setError("Enter Working Experience");
             return true;
         }
-        if (fullstatus.isEmpty()) {
-            statuss.setError("Enter Status");
+        if (fulladdress.isEmpty()) {
+            address.setError("Enter Address");
             return true;
         }
-        if (fullcity.isEmpty()) {
-            citys.setError("Enter City");
+        if (fulllongitude.isEmpty()) {
+            longitude.setError("Enter Longitude");
             return true;
         }
-        if (fulldistrict.isEmpty()) {
-            districts.setError("Enter District");
-            return true;
-        }
-        if (fullstate.isEmpty()) {
-            states.setError("Enter State");
-            return true;
-        }
-        if (fullpincode.isEmpty()) {
-            pincodes.setError("Enter Pincode");
+        if (fulllatitude.isEmpty()) {
+            latitude.setError("Enter Latitude");
             return true;
         }
         if (category_id.equals(""))
@@ -235,6 +252,70 @@ public class VendorProfile extends AppCompatActivity {
         }
 
         return false;
+    }
+
+    private void requestPermission() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_FINE_LOCATION);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case MY_PERMISSION_FINE_LOCATION:
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(this,"This app requires location permissin to be granted",Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                break;
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==PLACE_PICKER_REQUEST){
+            if (resultCode==RESULT_OK){
+                Place place=PlacePicker.getPlace(data, VendorProfile.this);
+                address.setText(place.getAddress());
+                longitude.setText(place.getLatLng().latitude+"");
+                latitude.setText(place.getLatLng().longitude+"");
+
+            }
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        Button cancel,savechanges;
+        final AlertDialog.Builder updatepassword = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.exit,null);
+        updatepassword.setView(dialogView);
+        cancel =(Button) dialogView.findViewById(R.id.cancel);
+        savechanges =(Button) dialogView.findViewById(R.id.updatepass);
+        final AlertDialog b = updatepassword.create();
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                b.dismiss();
+            }
+        });
+        savechanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(VendorProfile.this, userhome.class);
+                startActivity(intent2);
+                overridePendingTransition(R.anim.fade,R.anim.fadeout);
+                finish();
+            }
+        });
+        b.setCanceledOnTouchOutside(false);
+        b.show();
     }
 
 

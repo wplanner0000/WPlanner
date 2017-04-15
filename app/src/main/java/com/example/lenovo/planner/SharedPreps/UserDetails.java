@@ -220,6 +220,39 @@ public class UserDetails {
     {
         return sharedPreferences.getString("city","null");
     }
+    public void setaddress(String address)
+    {
+        editor.putString("address",address);
+        editor.apply();
+    }
+
+    public String getaddress()
+    {
+        return sharedPreferences.getString("address","null");
+    }
+
+    public void setlongitude(String longitude)
+    {
+        editor.putString("longitude",longitude);
+        editor.apply();
+    }
+
+    public String getlongitude()
+    {
+        return sharedPreferences.getString("longitude","null");
+    }
+    public void setlatitude(String latitude)
+    {
+        editor.putString("latitude",latitude);
+        editor.apply();
+    }
+
+    public String getlatitude()
+    {
+        return sharedPreferences.getString("latitude","null");
+    }
+
+
 
     public void setdistrict(String district)
     {

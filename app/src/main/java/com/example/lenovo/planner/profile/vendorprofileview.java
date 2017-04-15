@@ -19,7 +19,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class vendorprofileview extends Fragment {
     CircleImageView profileimage;
-    TextView oname,contact,category,experience,price,city,state,district,pincode,status;
+    TextView oname,contact,category,experience,price,city,state,district,pincode,status,address,longitude,latitude;
     UserDetails userDetails;
     ImageButton editvendor;
     profile profiledd;
@@ -30,17 +30,16 @@ public class vendorprofileview extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         userDetails = new UserDetails(getActivity());
-        final View view = inflater.inflate(R.layout.fragment_vendorprofileview, container, false);
+        View view = inflater.inflate(R.layout.fragment_vendorprofileview, container, false);
         profileimage =(CircleImageView) view.findViewById(R.id.imgProfilePicture);
         oname = (TextView) view.findViewById(R.id.oname);
         category = (TextView) view.findViewById(R.id.spn_category);
         contact = (TextView) view.findViewById(R.id.contact);
         experience = (TextView) view.findViewById(R.id.experience);
         price = (TextView) view.findViewById(R.id.price);
-        city = (TextView) view.findViewById(R.id.city);
-        state = (TextView) view.findViewById(R.id.state);
-        district = (TextView) view.findViewById(R.id.district);
-        pincode = (TextView) view.findViewById(R.id.pincode);
+        address = (TextView) view.findViewById(R.id.et_address);
+        longitude = (TextView) view.findViewById(R.id.longitude);
+        latitude = (TextView) view.findViewById(R.id.latitude);
         status = (TextView) view.findViewById(R.id.status);
         editvendor = (ImageButton) view.findViewById(R.id.brn_editvendor);
         profiledd = (profile) getActivity();
@@ -50,10 +49,9 @@ public class vendorprofileview extends Fragment {
         contact.setText(userDetails.getscontactno());
         experience.setText(userDetails.getexperience());
         price.setText(userDetails.getprice());
-        city.setText(userDetails.getcity());
-        district.setText(userDetails.getdistrict());
-        state.setText(userDetails.getstate());
-        pincode.setText(userDetails.getpincode());
+        address.setText(userDetails.getaddress());
+        longitude.setText(userDetails.getlongitude());
+        latitude.setText(userDetails.getlatitude());
         status.setText(userDetails.getstatus());
         editvendor.setOnClickListener(new View.OnClickListener() {
             @Override

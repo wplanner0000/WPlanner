@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:background="@drawable/profileback"
         android:focusableInTouchMode="true"
         >
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -30,6 +29,7 @@
             android:background="@drawable/addimage"
             android:id="@+id/addprofileimage"
             android:layout_margin="10dp"
+            android:visibility="gone"
             android:layout_alignBottom="@id/imgProfilePicture"
             android:layout_toLeftOf="@id/imgProfilePicture"
             />
@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:text="Upload"
             android:textStyle="bold"
+            android:visibility="gone"
             android:layout_alignBottom="@id/addprofileimage"
             android:background="@drawable/rounded_border"
             android:layout_toRightOf="@id/imgProfilePicture"
@@ -91,7 +92,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:hint="Organisation Name"
         android:id="@+id/oname"
         android:maxLines="1"
@@ -111,7 +112,7 @@
         android:maxLines="1"
         android:id="@+id/contact"
         android:drawablePadding="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:drawableLeft="@drawable/phone"
         />
     <EditText
@@ -121,10 +122,9 @@
         android:inputType="number"
         android:maxLength="10"
         android:maxLines="1"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:hint="Working Experience"
         android:drawablePadding="20dp"
-         
         android:id="@+id/experience"
         android:drawableLeft="@drawable/working"
         />
@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/experience"
         android:inputType="number"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:maxLength="10"
         android:maxLines="1"
         android:hint="Expected Price"
@@ -147,11 +147,11 @@
                 android:text="Address Details"
                 android:textColor="#000"
                 android:textStyle="bold"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
                 android:textSize="20dp"
                 android:layout_marginTop="8dp"
-                android:paddingLeft="3dp"
+                android:paddingStart="3dp"
                 android:layout_below="@id/price"
                 android:background="#fff"
                 android:id="@+id/Address"
@@ -159,70 +159,57 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Set Address "
-                android:background="@drawable/rooundimage"
+                android:text="   Set Address   "
+                android:background="@drawable/rounded_buttonsd"
                 android:textAllCaps="false"
-                android:visibility="gone"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true"
+                android:id="@+id/btn_address"
+                android:visibility="visible"
+                android:layout_alignTop="@id/Address"
+                android:layout_alignBottom="@id/Address"
+                android:layout_alignParentEnd="true"
                 android:layout_below="@id/price"
                 />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Address"
-        android:inputType="text"
-        android:maxLength="20"
-        android:maxLines="1"
-        android:drawableLeft="@drawable/city"
-         
-        android:id="@+id/city"
-        android:drawablePadding="20dp"
-        android:layout_marginTop="5dp"
-        android:hint="City"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/city"
-        android:inputType="text"
-        android:id="@+id/district"
-        android:maxLines="1"
-        android:maxLength="20"
-        android:drawableLeft="@drawable/city"
-        android:layout_marginTop="5dp"
-        android:drawablePadding="20dp"
-        android:hint="District"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/district"
-        android:maxLines="1"
-        android:maxLength="20"
-        android:inputType="text"
-         
-        android:id="@+id/state"
-        android:drawableLeft="@drawable/area"
-        android:layout_marginTop="5dp"
-        android:drawablePadding="20dp"
-        android:hint="State"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/state"
-         
-        android:inputType="number"
-        android:maxLines="1"
-        android:maxLength="6"
-        android:id="@+id/pincode"
-        android:drawableLeft="@drawable/pin"
-        android:layout_marginTop="5dp"
-        android:hint="Pincode"
-        android:drawablePadding="20dp"
-        />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Address"
+                android:inputType="textMultiLine"
+                android:maxLength="90"
+                android:maxLines="5"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/city"
+                android:id="@+id/et_address"
+                android:layout_marginTop="5dp"
+                android:hint="Enter Address"
+
+                />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_address"
+                android:inputType="text"
+                android:id="@+id/longitude"
+                android:maxLines="1"
+                android:maxLength="20"
+                android:drawablePadding="20dp"
+                android:drawableLeft="@drawable/pin"
+                android:layout_marginTop="5dp"
+                android:hint="Longitude     "
+                />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:maxLines="1"
+                android:maxLength="20"
+                android:layout_alignTop="@id/longitude"
+                android:layout_alignBottom="@id/longitude"
+                android:inputType="text"
+                android:layout_below="@id/et_address"
+                android:id="@+id/latitude"
+                android:layout_marginTop="5dp"
+                android:hint="Latitude     "
+                />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -230,43 +217,35 @@
                 android:textColor="#000"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:paddingBottom="10dp"
-                android:paddingTop="10dp"
-                android:paddingLeft="3dp"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:paddingStart="3dp"
                 android:layout_marginTop="8dp"
                 android:background="#fff"
-                android:layout_below="@id/pincode"
+                android:layout_below="@id/longitude"
                 android:id="@+id/Shopprofile"
                 android:layout_marginBottom="5dp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Shopprofile"
-        android:inputType="text"
-        android:id="@+id/status"
-        android:maxLines="5"
-        android:maxLength="144"
-        android:drawableLeft="@drawable/status"
-        android:layout_marginTop="5dp"
-        android:drawablePadding="20dp"
-        android:hint="Status"
-        />
-        </RelativeLayout>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Shopprofile"
+                android:id="@+id/status"
+                android:layout_marginTop="5dp"
+                />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawablePadding="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_below="@id/layout_vendor"
-        android:layout_alignParentRight="true"
-        android:textSize="13dp"
-        android:background="@drawable/rounded_border"
-        android:layout_marginRight="35dp"
-        android:text="Submit"
-        android:layout_marginBottom="30dp"
-        android:id="@+id/submit"
-        android:onClick="submit"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="    Save    "
+                android:textSize="13dp"
+                android:layout_below="@id/status"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/rounded_buttonsd"
+                android:layout_marginRight="15dp"
+                android:onClick="submit"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="30dp"
+                android:id="@+id/submit"/>
     </RelativeLayout>
-
+    </RelativeLayout>
 </ScrollView>

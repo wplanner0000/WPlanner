@@ -139,9 +139,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/Address"
-            android:inputType="text"
-            android:maxLength="20"
-            android:maxLines="1"
+            android:inputType="textMultiLine"
+            android:maxLength="90"
+            android:maxLines="5"
             android:id="@+id/et_address"
             android:layout_marginTop="5dp"
             android:hint="Address"
@@ -165,7 +165,7 @@
             android:maxLength="20"
             android:inputType="text"
             android:layout_below="@id/et_address"
-            android:id="@+id/state"
+            android:id="@+id/latitude"
             android:layout_marginTop="5dp"
             android:hint="Latitude     "
             />
@@ -202,6 +202,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="30dp"
+            android:onClick="submit"
             android:id="@+id/submit"/>
     </RelativeLayout>
    </RelativeLayout>

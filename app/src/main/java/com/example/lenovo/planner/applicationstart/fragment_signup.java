@@ -21,6 +21,10 @@ import com.android.volley.toolbox.Volley;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,17 +90,27 @@ public class fragment_signup extends Fragment implements View.OnClickListener {
 
 
                                 Log.d("DataBase Response", response);
-                                if (response.equals("success")) {
+                                if (!response.equals("fail")) {
                                     loading.dismiss();
-                                    userDetails.setfirstname(firstname);
-                                    userDetails.setlastname(lastname);
-                                    userDetails.setemail(email);
-                                    userDetails.setphoneno(phoneno);
-                                    userDetails.setIsActive(true);
-                                    activity.callsignup(view);
+                                    try {
+                                        JSONArray jsonArray = new JSONArray(response);
+                                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                        userDetails.setUID(jsonObject.getString("uid"));
+                                        userDetails.setfirstname(firstname);
+                                        userDetails.setlastname(lastname);
+                                        userDetails.setemail(email);
+                                        userDetails.setphoneno(phoneno);
+                                        userDetails.setIsActive(true);
+                                        activity.callsignup(view);
+                                    }
+                                    catch (JSONException e)
+                                    {
+
+                                    }
 
                                 } else {
                                     loading.dismiss();
+
                                     Toast.makeText(getActivity(), "User Registration Failed...", Toast.LENGTH_SHORT).show();
 
                                 }

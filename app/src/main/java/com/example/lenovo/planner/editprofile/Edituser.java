@@ -165,7 +165,7 @@ public class Edituser extends AppCompatActivity {
 
     }
 
-    private void uploadImage(){
+    public void uploadImage(){
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new Response.Listener<String>() {

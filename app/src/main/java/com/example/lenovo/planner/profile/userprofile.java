@@ -29,7 +29,7 @@ public class userprofile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_userprofile, container, false);
+        View view = inflater.inflate(R.layout.fragment_userprofile, container, false);
         name =(TextView) view.findViewById(R.id.name);
         userprofile = (CircleImageView) view.findViewById(R.id.imgProfilePicture);
         email = (TextView) view.findViewById(R.id.email);

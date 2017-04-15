@@ -38,7 +38,7 @@ import static com.example.lenovo.planner.R.drawable.shop;
 
 public class singleshop extends Fragment {
     CircleImageView profileimage;
-    TextView oname,contact,category,experience,price,city,state,district,pincode,status;
+    TextView oname,contact,category,experience,price,address,longitude,latitude;
     UserDetails userDetails;
     ImageButton editvendor;
     public singleshop() {
@@ -59,13 +59,10 @@ public class singleshop extends Fragment {
         contact = (TextView) view.findViewById(R.id.contact);
         experience = (TextView) view.findViewById(R.id.experience);
         price = (TextView) view.findViewById(R.id.price);
-        city = (TextView) view.findViewById(R.id.city);
-        state = (TextView) view.findViewById(R.id.state);
-        district = (TextView) view.findViewById(R.id.district);
-        pincode = (TextView) view.findViewById(R.id.pincode);
-        status = (TextView) view.findViewById(R.id.status);
+        address = (TextView) view.findViewById(R.id.et_address);
+        longitude = (TextView) view.findViewById(R.id.longitude);
+        latitude = (TextView) view.findViewById(R.id.latitude);
         editvendor = (ImageButton) view.findViewById(R.id.brn_editvendor);
-
 
         final String category_id = userDetails.getitem();
         final ArrayList<String> shopnames = new ArrayList<>();
@@ -77,30 +74,29 @@ public class singleshop extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                      //  Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
                         Log.d("DataBase Response", response);
-                        if (response.equals("fail") == false) {
+                        if (!response.equals("0")) {
                             loading.dismiss();
+
                             try {
                                 JSONArray jsonArray = new JSONArray(response);
-                                    JSONObject jsonObject = jsonArray.getJSONObject(id);
-                                    //Toast.makeText(getActivity(), ""+jsonObject.getString("name")+"      "+jsonObject.getString("state")+"       "+jsonObject.getString("imageurl"), Toast.LENGTH_SHORT).show();
+                                JSONObject jsonObject = jsonArray.getJSONObject(id);
                                 Picasso.with(getActivity()).load(jsonObject.getString("imageurl")).into(profileimage);
                                 oname.setText(jsonObject.getString("name"));
                                 contact.setText(jsonObject.getString("contactno"));
-                                 experience.setText(jsonObject.getString("experience"));
-                               // price.setText(jsonObject.getInt("price"));
-                                city.setText(jsonObject.getString("city"));
-                                district.setText(jsonObject.getString("district"));
-                                state.setText(jsonObject.getString("state"));
-//                                pincode.setText(jsonObject.getInt("pincode"));
-                                status.setText(jsonObject.getString("status"));
+                                experience.setText(jsonObject.getString("experience"));
+                                price.setText(jsonObject.getString("price"));
+                                address.setText(jsonObject.getString("address"));
+                                longitude.setText(jsonObject.getString("longitude"));
+                                latitude.setText(jsonObject.getString("latitude"));
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                Toast.makeText(getActivity(),e.getMessage()+"", Toast.LENGTH_SHORT).show();
 
                             }
-
-
 
 
                         }

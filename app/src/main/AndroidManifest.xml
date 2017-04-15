@@ -13,6 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.gms.version"
@@ -32,34 +33,42 @@
 
         <activity
             android:name=".applicationstart.SplashScreen"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".forgotpassword.forgotpassword" />
-        <activity android:name=".Location.Locationpicker" />
-        <activity android:name=".forgotpassword.newpassword" />
+        <activity android:name=".forgotpassword.forgotpassword" android:screenOrientation="portrait"/>
+        <activity android:name=".Location.Locationpicker" android:screenOrientation="portrait"/>
+        <activity android:name=".forgotpassword.newpassword" android:screenOrientation="portrait"/>
         <activity
             android:name=".UserHome.userhome"
             android:label="Home"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".forgotpassword.newpasswordotp" />
-        <activity android:name=".editprofile.VendorProfile" />
-        <activity android:name=".forgotpassword.checknumber" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".forgotpassword.newpasswordotp" android:screenOrientation="portrait"/>
+        <activity android:name=".editprofile.VendorProfile" android:screenOrientation="portrait"/>
+        <activity android:name=".forgotpassword.checknumber" android:screenOrientation="portrait"/>
         <activity
             android:name=".profile.profile"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".editprofile.Editprofile" />
-        <activity android:name=".editprofile.Edituser" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".editprofile.Editprofile" android:screenOrientation="portrait"/>
+        <activity android:name=".editprofile.Edituser" android:screenOrientation="portrait"/>
         <activity
             android:name=".Nearby.MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity android:name=".editprofile.profilechoose" />
-        <activity android:name=".UserHome.BudgetCalculator" />
-        <activity android:name=".applicationstart.signuplogintab" android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".editprofile.profilechoose" android:screenOrientation="portrait"/>
+        <activity android:name=".UserHome.BudgetCalculator" android:screenOrientation="portrait"/>
+        <activity android:name=".applicationstart.signuplogintab" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

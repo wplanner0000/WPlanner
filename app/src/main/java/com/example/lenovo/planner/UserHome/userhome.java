@@ -7,8 +7,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +37,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.Adapters.categoryAdapter;
+import com.example.lenovo.planner.Adapters.profileadapter;
 import com.example.lenovo.planner.Location.Locationpicker;
 import com.example.lenovo.planner.Nearby.MapsActivity;
 import com.example.lenovo.planner.R;
@@ -70,6 +74,7 @@ public class userhome extends AppCompatActivity
     FragmentTransaction transaction;
     SharedPrefUserInfo userInfo;
     private GoogleApiClient mGoogleApiClient;
+    Toolbar toolbar;
 
 
     @Override
@@ -78,7 +83,7 @@ public class userhome extends AppCompatActivity
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_userhome);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         userInfo = SharedPrefUserInfo.getmInstance(this);
         user = new UserDetails(getApplicationContext());
@@ -86,6 +91,12 @@ public class userhome extends AppCompatActivity
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        toolbar.setTitle("Photographer");
+        Home home =new Home();
+        fragmentManager = getSupportFragmentManager();
+        transaction=fragmentManager.beginTransaction();
+        transaction.add(R.id.vendorlistdisplay,home);
+        transaction.commit();
         View view = navigation.findViewById(R.id.navigation_home);
         view.performClick();
 
@@ -119,11 +130,13 @@ public class userhome extends AppCompatActivity
         if (user.getisVendor()==1)
         {
             navigationView.getMenu().findItem(R.id.nav_becomeavendor).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_editprofile).setVisible(true);
 
         }
-        else
+        if(user.getisVendor()==0)
         {
             navigationView.getMenu().findItem(R.id.nav_editprofile).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_becomeavendor).setVisible(true);
         }
 
             Picasso.with(this).load(user.getImageUrl()).into(imageView);
@@ -333,11 +346,9 @@ public class userhome extends AppCompatActivity
                                 userDetails.setcategory(jsonObject.getInt("category_id")+"");
                                 userDetails.setcategoryint(jsonObject.getInt("category_id"));
                                 userDetails.setcategoryname(jsonObject.getInt("category_id")+"");
-                                userDetails.setcity(jsonObject.getString("city"));
-                                userDetails.setdistrict(jsonObject.getString("district"));
-                                userDetails.setstate(jsonObject.getString("state"));
-                                userDetails.setpincode(jsonObject.getInt("pincode")+"");
-                                userDetails.setstatus(jsonObject.getString("status"));
+                                userDetails.setaddress(jsonObject.getString("address"));
+                                userDetails.setlongitude(jsonObject.getString("longitude"));
+                                userDetails.setlatitude(jsonObject.getString("latitude"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
 
@@ -389,7 +400,7 @@ public class userhome extends AppCompatActivity
                     Home home =new Home();
                     fragmentManager = getSupportFragmentManager();
                     transaction=fragmentManager.beginTransaction();
-                    transaction.add(R.id.vendorlistdisplay,home);
+                    transaction.replace(R.id.vendorlistdisplay,home);
                     transaction.commit();
                     return true;
                 case R.id.navigation_dashboard:
@@ -428,6 +439,8 @@ public class userhome extends AppCompatActivity
         transaction.commit();
     }
 
-
-
+    public void setTit(String title)
+    {
+        toolbar.setTitle(title);
+    }
 }
