@@ -41,10 +41,7 @@ import java.util.Map;
  */
 public class Home extends Fragment {
 
-    String txt[]=new String[]{"Photographer", "Music", "Catering", "Decoration", "Venue", "Bakery", "Clothing", "GiftShop", "Saloon"};
     ListView lv;
-
-    Integer[] imageId={R.drawable.photographys,R.drawable.musics,R.drawable.caterings,R.drawable.decorationss,R.drawable.venues,R.drawable.bakerys,R.drawable.clothings,R.drawable.giftshops,R.drawable.saloons};
     userhome userho;
     UserDetails userDetails;
 
@@ -141,19 +138,6 @@ public class Home extends Fragment {
 
         });
 
-      /*  CustomListAdapter adapter=new CustomListAdapter(getActivity(), txt, imageId);
-        lv.setAdapter(adapter);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int item = position+1;
-                userDetails.setitem(item+"");
-                //Toast.makeText(getActivity(), ""+item, Toast.LENGTH_SHORT).show();
-                userho.result(view);
-
-
-            }
-        });*/
         return view;
     }
 

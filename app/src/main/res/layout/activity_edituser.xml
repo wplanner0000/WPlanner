@@ -12,7 +12,7 @@
         android:clickable="true"
         android:orientation="vertical"
         >
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+       <!-- <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imgProfilePicture"
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -20,7 +20,15 @@
             android:layout_marginTop="10dp"
             android:src="@drawable/account_logo"
             app:border_color="#fff"
-            app:border_width="3dp" />
+            app:border_width="3dp" />-->
+        <ImageView
+            android:id="@+id/imgProfilePicture"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/account_logo"
+            />
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

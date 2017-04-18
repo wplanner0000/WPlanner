@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.APIlinks;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.UserHome.userhome;
@@ -42,12 +43,11 @@ public class Edituser extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     EditText fname,lname,contact;
     UserDetails user;
-    CircleImageView userprofile;
+    ImageView userprofile;
     String uid;
     ImageButton upload,camera;
     private Bitmap bitmap;
     private int PICK_IMAGE_REQUEST = 1;
-    private String UPLOAD_URL ="https://wplanner0000.000webhostapp.com/wplanner/upload(2).php";
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
     Button savechange;
@@ -59,7 +59,7 @@ public class Edituser extends AppCompatActivity {
         fname =(EditText) findViewById(R.id.name);
         lname =(EditText) findViewById(R.id.lname);
         contact =(EditText) findViewById(R.id.contact);
-        userprofile = (CircleImageView) findViewById(R.id.imgProfilePicture);
+        userprofile = (ImageView) findViewById(R.id.imgProfilePicture);
         upload = (ImageButton) findViewById(R.id.upload);
         camera =(ImageButton) findViewById(R.id.camera);
         savechange =(Button)findViewById(R.id.savechanges);
@@ -72,6 +72,7 @@ public class Edituser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showFileChooser();
+
             }
         });
         savechange.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +84,7 @@ public class Edituser extends AppCompatActivity {
                 final String contactno = contact.getText().toString();
                 StringRequest stringRequest;
                 final ProgressDialog loading = ProgressDialog.show(Edituser.this, "Please Wait.....", "Registering Vendor......", false, false);
-                stringRequest = new StringRequest(Request.Method.POST, "https://wplanner0000.000webhostapp.com/wplanner/edituser.php",
+                stringRequest = new StringRequest(Request.Method.POST, APIlinks.edituser,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -130,48 +131,49 @@ public class Edituser extends AppCompatActivity {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                    uploadImage();
+//                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(cameraIntent, CAMERA_REQUEST);
             }
         });
 
     }
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+//            Uri filePath = data.getData();
+//            try {
+//                //Getting the Bitmap from Gallery
+//                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+//                //Setting the Bitmap to ImageView
+//                userprofile.setImageBitmap(bitmap);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        if (requestCode == CAMERA_REQUEST) {
+//            Bitmap photo = (Bitmap) data.getExtras().get("data");
+//            userprofile.setImageBitmap(photo);
+//        }
+//    }
+public String getStringImage(Bitmap bmp){
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+    byte[] imageBytes = baos.toByteArray();
+    String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    return encodedImage;
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri filePath = data.getData();
-            try {
-                //Getting the Bitmap from Gallery
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                //Setting the Bitmap to ImageView
-                userprofile.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        if (requestCode == CAMERA_REQUEST) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            userprofile.setImageBitmap(photo);
-        }
-    }
-    public String getStringImage(Bitmap bmp){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
-
-    }
+}
 
     public void uploadImage(){
         final ProgressDialog loading = ProgressDialog.show(this,"Uploading...","Please wait...",false,false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, APIlinks.UPLOAD_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         loading.dismiss();
+                        Toast.makeText(Edituser.this, ""+s, Toast.LENGTH_SHORT).show();
                         Toast.makeText(Edituser.this, "success from android "+s , Toast.LENGTH_LONG).show();
                     }
                 },
@@ -180,24 +182,24 @@ public class Edituser extends AppCompatActivity {
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
 
-                      //  Toast.makeText(Edituser.this, volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(Edituser.this, volleyError+"", Toast.LENGTH_LONG).show();
                     }
                 }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Converting Bitmap to String
-                String image = getStringImage(bitmap);
+                final String image = getStringImage(bitmap);
                 user.setimage_url(image);
                 //Getting Image Name
-                String name = "profile_"+uid;
+               final String name = "profile_"+uid;
 
                 //Creating parameters
                 Map<String,String> params = new Hashtable<String, String>();
 
                 //Adding parameters
                 params.put("uid",uid);
-                params.put(KEY_IMAGE, image);
-                params.put(KEY_NAME, name);
+                params.put("image", image);
+                params.put("name", name);
 
                 //returning parameters
                 return params;
@@ -216,6 +218,23 @@ public class Edituser extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            try {
+                //Getting the Bitmap from Gallery
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                //Setting the Bitmap to ImageView
+                userprofile.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
     @Override
     public void onBackPressed() {

@@ -78,6 +78,16 @@ public class UserDetails {
     {
         return sharedPreferences.getString("UID","Null");
     }
+    public void setfavUID(String favUID)
+    {
+        editor.putString("favUID",favUID);
+        editor.apply();
+    }
+
+    public String getfavUID()
+    {
+        return sharedPreferences.getString("favUID","Null");
+    }
     public void setitem(String item)
     {
         editor.putString("item",item);

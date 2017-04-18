@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.APIlinks;
 import com.example.lenovo.planner.Adapters.ShoplistAdapter;
 import com.example.lenovo.planner.Adapters.bakeryAdapter;
 import com.example.lenovo.planner.R;
@@ -62,7 +63,7 @@ public class Bakery extends Fragment {
         final ArrayList<String> imageurls = new ArrayList<>();
         StringRequest stringRequest;
 //        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Please Wait.....", "Fetching Data......", false, false);
-        stringRequest = new StringRequest(Request.Method.POST, "https://wplanner0000.000webhostapp.com/wplanner/shopdetails.php",
+        stringRequest = new StringRequest(Request.Method.POST, APIlinks.shopdetails,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -100,7 +101,7 @@ public class Bakery extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 //                        loading.dismiss();
-                        Toast.makeText(getActivity(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(), "No Internet Connection", Toast.LENGTH_SHORT).show();
                     }
                 }) {
             @Override

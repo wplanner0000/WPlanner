@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.APIlinks;
 import com.example.lenovo.planner.Adapters.cateringAdapter;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
@@ -56,7 +57,7 @@ public class favorites extends Fragment {
         final ArrayList<String> imageurls = new ArrayList<>();
         StringRequest stringRequest;
 //        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Please Wait.....", "Fetching Data......", false, false);
-        stringRequest = new StringRequest(Request.Method.POST, "https://wplanner0000.000webhostapp.com/wplanner/shopdetails.php",
+        stringRequest = new StringRequest(Request.Method.POST, APIlinks.shopdetails,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

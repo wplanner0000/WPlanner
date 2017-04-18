@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.planner.APIlinks;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.UserHome.userhome;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -75,7 +76,6 @@ public class Editprofile extends AppCompatActivity {
     ArrayList<String> categories;
     ImageButton addprofileimage;
 
-    String url = "https://wplanner0000.000webhostapp.com/wplanner/vendorupdate.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +175,7 @@ public class Editprofile extends AppCompatActivity {
 
         StringRequest stringRequest;
         final ProgressDialog loading = ProgressDialog.show(this, "Please Wait.....", "Registering Vendor......", false, false);
-        stringRequest = new StringRequest(Request.Method.POST, url,
+        stringRequest = new StringRequest(Request.Method.POST, APIlinks.vendorupdate,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

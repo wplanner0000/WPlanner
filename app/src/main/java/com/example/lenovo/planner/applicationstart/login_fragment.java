@@ -19,12 +19,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.APIlinks;
 import com.example.lenovo.planner.Location.GPSTracker;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
@@ -74,7 +76,7 @@ public class login_fragment extends Fragment implements View.OnClickListener
     EditText et_email,et_password;
     Button frgtPassword,login;
     ImageButton eye;
-    String loginurl =  "https://wplanner0000.000webhostapp.com/wplanner/logtry.php";
+    //String loginurl =  "http://172.26.17.204/weddingplanner/api/logtry.php";
     signuplogintab signuplogin;
     UserDetails userDetails;
     String latitude;
@@ -394,8 +396,8 @@ public class login_fragment extends Fragment implements View.OnClickListener
                 final String email = et_email.getText().toString();
                 final String password = et_password.getText().toString();
                 StringRequest stringRequest;
-                final ProgressDialog loading = ProgressDialog.show(getActivity(), "Please Wait.....", "Verifying......", false, false);
-                stringRequest = new StringRequest(Request.Method.POST, loginurl,
+                final ProgressDialog loading = ProgressDialog.show(getActivity(), "Logging In.....", "", false, false);
+                stringRequest = new StringRequest(Request.Method.POST, APIlinks.loginurl,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -435,7 +437,7 @@ public class login_fragment extends Fragment implements View.OnClickListener
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 loading.dismiss();
-                                Toast.makeText(getActivity(), "error.toString", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
                             }
                         }) {
                     @Override
@@ -452,7 +454,6 @@ public class login_fragment extends Fragment implements View.OnClickListener
 
                 RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
                 requestQueue.add(stringRequest);
-
             }break;
         }
     }

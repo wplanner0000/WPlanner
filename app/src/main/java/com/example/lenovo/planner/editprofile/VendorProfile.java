@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.APIlinks;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.UserHome.userhome;
@@ -56,7 +57,6 @@ public class VendorProfile extends AppCompatActivity {
     ArrayList<String> categories;
     ImageButton addprofileimage;
 
-    String url = "https://wplanner0000.000webhostapp.com/wplanner/vendorprofile.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +154,7 @@ public class VendorProfile extends AppCompatActivity {
 
         StringRequest stringRequest;
         final ProgressDialog loading = ProgressDialog.show(this, "Please Wait.....", "Registering Vendor......", false, false);
-        stringRequest = new StringRequest(Request.Method.POST, url,
+        stringRequest = new StringRequest(Request.Method.POST, APIlinks.vendorprofile,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

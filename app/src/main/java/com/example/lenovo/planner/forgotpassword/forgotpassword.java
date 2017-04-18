@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.APIlinks;
 import com.example.lenovo.planner.R;
 
 
@@ -30,7 +31,6 @@ import java.util.Map;
 public class forgotpassword extends AppCompatActivity {
     EditText et_forgotphone,et_forgotemail;
     Button btn_proceed;
-    String forgote = "https://wplanner0000.000webhostapp.com/wplanner/emailauthentication.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +72,7 @@ public class forgotpassword extends AppCompatActivity {
 
         StringRequest stringRequest;
         final ProgressDialog loading = ProgressDialog.show(this, "Please Wait.....", "Matching  Phone Number......", false, false);
-        stringRequest = new StringRequest(Request.Method.POST, forgote,
+        stringRequest = new StringRequest(Request.Method.POST, APIlinks.emailauthentication,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.APIlinks;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 
@@ -34,7 +35,7 @@ import java.util.Map;
  */
 public class fragment_signup extends Fragment implements View.OnClickListener {
     EditText et_fname, et_lname, et_email, et_mobilenumber, et_password, et_cpassword;
-    String signupurl = "https://wplanner0000.000webhostapp.com/wplanner/signtry.php";
+
     Button registersignup;
    signuplogintab activity;
     UserDetails userDetails;
@@ -83,7 +84,7 @@ public class fragment_signup extends Fragment implements View.OnClickListener {
 
                 StringRequest stringRequest;
                 final ProgressDialog loading = ProgressDialog.show(getActivity(), "Please Wait.....", "Registering......", false, false);
-                stringRequest = new StringRequest(Request.Method.POST, signupurl,
+                stringRequest = new StringRequest(Request.Method.POST, APIlinks.signurl,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {

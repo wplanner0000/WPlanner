@@ -37,6 +37,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.APIlinks;
 import com.example.lenovo.planner.Adapters.categoryAdapter;
 import com.example.lenovo.planner.Adapters.profileadapter;
 import com.example.lenovo.planner.Location.Locationpicker;
@@ -246,7 +247,7 @@ public class userhome extends AppCompatActivity
                     } else {
                         final ProgressDialog progress = ProgressDialog.show(userhome.this, "Please Wait...", "Updating Password...", false, false);
                         StringRequest stringRequest;
-                        stringRequest = new StringRequest(Request.Method.POST, "https://wplanner0000.000webhostapp.com/wplanner/passwordchange.php", new Response.Listener<String>() {
+                        stringRequest = new StringRequest(Request.Method.POST, APIlinks.passwordchange, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 if (response.equals("success")) {
@@ -327,7 +328,7 @@ public class userhome extends AppCompatActivity
     }
     public void sync(final Context context, final String uid)
     {
-        String syncurl ="https://wplanner0000.000webhostapp.com/wplanner/vendorsync.php";
+        String syncurl = APIlinks.vendorsync;
         final UserDetails userDetails= new UserDetails(context);
         StringRequest stringRequest;
         stringRequest = new StringRequest(Request.Method.POST, syncurl,
