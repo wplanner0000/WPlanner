@@ -7,25 +7,22 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.TabLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,8 +35,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.lenovo.planner.APIlinks;
-import com.example.lenovo.planner.Adapters.categoryAdapter;
-import com.example.lenovo.planner.Adapters.profileadapter;
 import com.example.lenovo.planner.Location.Locationpicker;
 import com.example.lenovo.planner.Nearby.MapsActivity;
 import com.example.lenovo.planner.R;
@@ -47,7 +42,6 @@ import com.example.lenovo.planner.SharedPreps.SharedPrefUserInfo;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.applicationstart.SplashScreen;
 import com.example.lenovo.planner.applicationstart.signuplogintab;
-import com.example.lenovo.planner.editprofile.Editprofile;
 import com.example.lenovo.planner.editprofile.VendorProfile;
 import com.example.lenovo.planner.editprofile.profilechoose;
 import com.example.lenovo.planner.profile.profile;
@@ -67,6 +61,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class userhome extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     UserDetails user;
@@ -82,7 +78,6 @@ public class userhome extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-
         setContentView(R.layout.activity_userhome);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -122,7 +117,7 @@ public class userhome extends AppCompatActivity
 
 
         navHeader = navigationView.getHeaderView(0);
-        ImageView imageView = (ImageView)navHeader.findViewById(R.id.imageView);
+        CircleImageView imageView = (CircleImageView)navHeader.findViewById(R.id.imageView);
         TextView usernamedisplay = (TextView)navHeader.findViewById(R.id.usernamedisplay);
         TextView emaildisplay = (TextView)navHeader.findViewById(R.id.emaildisplay);
 

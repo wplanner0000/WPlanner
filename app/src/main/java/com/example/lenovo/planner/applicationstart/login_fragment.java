@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -58,8 +57,6 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
@@ -415,7 +412,9 @@ public class login_fragment extends Fragment implements View.OnClickListener
                                         userDetails.setfirstname(jsonObject.getString("first_name"));
                                         userDetails.setlastname(jsonObject.getString("last_name"));
                                         userDetails.setphoneno(jsonObject.getString("phoneno"));
-                                        Toast.makeText(getActivity(), "Login Successful", Toast.LENGTH_SHORT).show();
+                                        userDetails.setimage_url(APIlinks.URL+APIlinks.Folder+jsonObject.getString("imageurl"));
+                                        Toast.makeText(getActivity(), ""+jsonObject.getString("imageurl"), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "Login Successful  "+userDetails.getImageUrl(), Toast.LENGTH_SHORT).show();
                                         signuplogin.logincall(view);
                                     } catch (JSONException e) {
                                         e.printStackTrace();

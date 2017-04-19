@@ -4,6 +4,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.lenovo.planner.UserHome.Photographer">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <ViewFlipper
         android:id="@+id/viewflipper"
         android:layout_width="match_parent"
@@ -42,4 +46,5 @@
         >
 
     </ListView>
+    </RelativeLayout>
 </RelativeLayout>

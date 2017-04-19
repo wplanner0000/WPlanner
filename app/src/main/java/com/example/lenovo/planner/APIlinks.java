@@ -5,8 +5,8 @@ package com.example.lenovo.planner;
  */
 
 public class APIlinks {
-    public static final String URL ="https://26613342.ngrok.io/weddingplanner/api/";
-
+    public static final String URL ="http://5792943f.ngrok.io/";
+    public static final String Folder ="upload/";
     public static final String loginurl =URL+"/logtry.php";
     public static final String signurl =URL+"/signtry.php";
     public static final String vendorupdate =URL+"/vendorupdate.php";

@@ -19,27 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.lenovo.planner.APIlinks;
-import com.example.lenovo.planner.R;
-import com.example.lenovo.planner.UserHome.userhome;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlacePicker;
-
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -47,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.lenovo.planner.APIlinks;
 import com.example.lenovo.planner.R;
 import com.example.lenovo.planner.SharedPreps.UserDetails;
 import com.example.lenovo.planner.UserHome.userhome;
@@ -59,6 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class Editprofile extends AppCompatActivity {
 
@@ -69,6 +51,7 @@ public class Editprofile extends AppCompatActivity {
     Spinner spn_category,statuss;
     UserDetails user;
     String uid;
+    CircleImageView userprofile;
     Button setaddress;
     Integer categoryin;
     ArrayAdapter<String> categoryadapter;
@@ -104,7 +87,7 @@ public class Editprofile extends AppCompatActivity {
             }
         });
 
-
+        userprofile = (CircleImageView) findViewById(R.id.imgProfilePicture);
         oname = (EditText) findViewById(R.id.oname);
         contact = (EditText) findViewById(R.id.contact);
         experiences = (EditText) findViewById(R.id.experience);
@@ -114,6 +97,7 @@ public class Editprofile extends AppCompatActivity {
         latitude = (EditText) findViewById(R.id.latitude);
         statuss = (Spinner) findViewById(R.id.status);
         spn_category =(Spinner) findViewById(R.id.spn_category);
+       // Picasso.with(Editprofile.this).load(user.getImageUrl()).into(userprofile);
         statuss.setPrompt("Select Status");
         spn_category.setPrompt("Select Vendor Category");
         user = new UserDetails(this);
